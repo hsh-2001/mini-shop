@@ -12,6 +12,9 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+    layout: 'guest',
+});
 
 const {
     loginModel,

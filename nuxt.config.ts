@@ -4,6 +4,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   css: ['@/assets/css/main.css'],
   devtools: { enabled: true },
+  plugins: ['~/plugins/pinia.ts'],
 
   vite: {
     plugins: [
@@ -16,7 +17,7 @@ export default defineNuxtConfig({
     authSecret: process.env.AUTH_SECRET,
   },
 
-  modules: ['@nuxtjs/i18n'],
+  modules: ['@element-plus/nuxt', '@nuxtjs/i18n', '@pinia/nuxt'],
   i18n: {
     locales: [
       { code: 'en', name: 'English', file: 'en.json' },

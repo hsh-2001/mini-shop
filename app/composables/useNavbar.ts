@@ -1,13 +1,14 @@
 export default function useNavbar() {
     const { locale, setLocale } = useI18n();
 
-    const selectedLanguage = ref(locale.value);
-    const onChangeLanguage = (val: 'en' | 'km') => {
-        setLocale(val);
-    }
+    const selectedLanguage = computed({
+        get: () => locale.value as 'en' | 'km',
+        set: (val: 'en' | 'km') => {
+            setLocale(val);
+        },
+    });
 
     return {
-        onChangeLanguage,
         selectedLanguage,
     }
 }
