@@ -1,0 +1,13 @@
+{
+    "Admin": "អ្នកគ្រប់គ្រង",
+    "Dashboard": "ផ្ទាំងគ្រប់គ្រង",
+    "Products": "ផលិតផល",
+    "Orders": "ការបញ្ជាទិញ",
+    "Customers": "អតិថិជន",
+    "Settings": "ការកំណត់",
+    "Welcome to the Admin Dashboard": "សូមស្វាគមន៍មកកាន់ផ្ទាំងគ្រប់គ្រងរបស់អ្នក",
+    "Manage your products, orders, and customers all in one place.": "គ្រប់គ្រងផលិតផល ការបញ្ជាទិញ និងអតិថិជនរបស់អ្នកទាំងអស់នៅកន្លែងតែមួយ។",
+    "View Products": "មើលផលិតផល",
+    "View Orders": "មើលការបញ្ជាទិញ",
+    "View Customers": "មើលអតិថិជន"
+}
