@@ -10,7 +10,10 @@
 
       <div>
         <ul v-for="(menu, index) in menuItems" :key="menu.name">
-          <li class="px-2 flex justify-between items-center" @click="toggleMenu(index)">
+          <li
+            class="px-2 flex justify-between items-center"
+            @click="toggleMenu(index)"
+          >
             <NuxtLink
               :to="menu.path"
               class="flex items-center gap-2 w-full py-2"
@@ -29,25 +32,29 @@
               :class="{ 'rotate-90': currentExpanded === index }"
             />
           </li>
-
-          <ul
-            v-for="(sub, idx) in menu.children"
-            :key="sub.name"
-            v-show="currentExpanded === index"
-          >
-            <li class="px-2 text-slate-500">
-              <NuxtLink
-                :to="sub.path"
-                class="flex items-center gap-2 py-2 pl-4"
-                :class="{
-                  'text-blue-500 rounded-lg bg-blue-300/10':
-                    currentPath === sub.path,
-                }"
+          <Transition name="submenu">
+            <ul
+              v-if="menu.children && currentExpanded === index"
+              class="border-l border-slate-100 px-2 overflow-hidden"
+            >
+              <li
+                v-for="(sub, idx) in menu.children"
+                :key="sub.name"
+                class="transition-all duration-200"
               >
-                {{ $t(sub.name) }}
-              </NuxtLink>
-            </li>
-          </ul>
+                <NuxtLink
+                  :to="sub.path"
+                  class="flex items-center gap-2 px-4 py-2.5 text-sm rounded-md hover:text-blue-600 transition-all"
+                  :class="{
+                    'bg-blue-100 text-blue-700 font-medium':
+                      currentPath === sub.path,
+                  }"
+                >
+                  {{ $t(sub.name) }}
+                </NuxtLink>
+              </li>
+            </ul>
+          </Transition>
         </ul>
       </div>
 
@@ -109,5 +116,39 @@ const toggleMenu = (index: number) => {
 
 .sidebar-leave-active {
   transition: all 0.3s ease;
+}
+
+.submenu-enter-from {
+  opacity: 0;
+  max-height: 0;
+  transform: translateY(-10px);
+}
+
+.submenu-enter-to {
+  opacity: 1;
+  max-height: 400px;
+  transform: translateY(0);
+}
+
+.submenu-enter-active {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.submenu-leave-from {
+  opacity: 1;
+  max-height: 400px;
+  transform: translateY(0);
+}
+
+.submenu-leave-to {
+  opacity: 0;
+  max-height: 0;
+  transform: translateY(-10px);
+}
+
+.submenu-leave-active {
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
 }
 </style>

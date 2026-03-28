@@ -5,7 +5,7 @@ import {
   createInitialAdminUser,
   findAuthenticatedUserById,
   findUserByIdentifier,
-} from "../repositories/user.repository";
+} from "../repositories/user.repo";
 import {
   clearSessionCookie,
   getSessionUserId,
