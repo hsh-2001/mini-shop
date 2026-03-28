@@ -22,3 +22,6 @@ export const getPrisma = () => {
 
   return prisma;
 };
+
+export const prisma = (() => getPrisma())();
+  

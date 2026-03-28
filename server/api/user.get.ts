@@ -1,7 +1,6 @@
-import { getPrisma } from "../utils/db";
+import { requireAuthenticatedUser } from "../services/auth.service";
 
-export default defineCachedEventHandler(async (event) => {
-  const prisma = getPrisma();
-  const user = await prisma.user.findMany();
-  return user;
+export default defineEventHandler(async (event) => {
+  const user = await requireAuthenticatedUser(event);
+  return { user };
 });

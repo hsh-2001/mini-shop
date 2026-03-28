@@ -25,8 +25,25 @@ model Shop {
   orders     Order[]
   suppliers  Supplier[]
   modifiers  Modifier[]
+  shopDetail ShopDetail?
 
   @@map("shops")
+}
+
+model ShopDetail {
+  id     Int  @id @default(autoincrement())
+  shopId Int  @map("shop_id") @unique
+  shop   Shop @relation(fields: [shopId], references: [id], onDelete: Cascade)
+
+  // Additional details specific to coffee shops
+  hasDriveThru Boolean @default(false) @map("has_drive_thru")
+  hasSeating   Boolean @default(true) @map("has_seating")
+  hasWifi      Boolean @default(true) @map("has_wifi")
+
+  createdOn DateTime @default(now()) @map("created_on")
+  updatedOn DateTime @updatedAt @map("updated_on")
+
+  @@map("shop_details")
 }
 
 model User {
@@ -208,6 +225,7 @@ model OrderItem {
 
   createdOn DateTime @default(now()) @map("created_on")
   updatedOn DateTime @updatedAt @map("updated_on")
+
   @@map("order_items")
 }
 

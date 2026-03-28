@@ -1,7 +1,7 @@
 <template>
-    <div>
-        New App
-    </div>
+  <div>
+    Home Page
+  </div>
 </template>
 
 <script setup lang="ts">

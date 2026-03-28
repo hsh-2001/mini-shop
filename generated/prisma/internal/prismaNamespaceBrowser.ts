@@ -51,7 +51,18 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  User: 'User'
+  Shop: 'Shop',
+  ShopDetail: 'ShopDetail',
+  User: 'User',
+  Category: 'Category',
+  Product: 'Product',
+  Modifier: 'Modifier',
+  ProductModifier: 'ProductModifier',
+  Customer: 'Customer',
+  Order: 'Order',
+  OrderItem: 'OrderItem',
+  Supplier: 'Supplier',
+  SupplierProduct: 'SupplierProduct'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -70,16 +81,177 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+export const ShopScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  address: 'address',
+  phone: 'phone',
+  openingHours: 'openingHours',
+  createdOn: 'createdOn',
+  updatedOn: 'updatedOn'
+} as const
+
+export type ShopScalarFieldEnum = (typeof ShopScalarFieldEnum)[keyof typeof ShopScalarFieldEnum]
+
+
+export const ShopDetailScalarFieldEnum = {
+  id: 'id',
+  shopId: 'shopId',
+  hasDriveThru: 'hasDriveThru',
+  hasSeating: 'hasSeating',
+  hasWifi: 'hasWifi',
+  createdOn: 'createdOn',
+  updatedOn: 'updatedOn'
+} as const
+
+export type ShopDetailScalarFieldEnum = (typeof ShopDetailScalarFieldEnum)[keyof typeof ShopDetailScalarFieldEnum]
+
+
 export const UserScalarFieldEnum = {
   id: 'id',
+  shopId: 'shopId',
   phone: 'phone',
   username: 'username',
-  password_hash: 'password_hash',
-  created_on: 'created_on',
-  updated_on: 'updated_on'
+  passwordHash: 'passwordHash',
+  role: 'role',
+  createdOn: 'createdOn',
+  updatedOn: 'updatedOn'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const CategoryScalarFieldEnum = {
+  id: 'id',
+  shopId: 'shopId',
+  name: 'name',
+  type: 'type',
+  description: 'description',
+  createdOn: 'createdOn',
+  updatedOn: 'updatedOn'
+} as const
+
+export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
+
+
+export const ProductScalarFieldEnum = {
+  id: 'id',
+  shopId: 'shopId',
+  categoryId: 'categoryId',
+  name: 'name',
+  description: 'description',
+  basePrice: 'basePrice',
+  size: 'size',
+  isCustomizable: 'isCustomizable',
+  sku: 'sku',
+  barcode: 'barcode',
+  stock: 'stock',
+  unit: 'unit',
+  lowStockThreshold: 'lowStockThreshold',
+  isActive: 'isActive',
+  createdOn: 'createdOn',
+  updatedOn: 'updatedOn'
+} as const
+
+export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
+
+
+export const ModifierScalarFieldEnum = {
+  id: 'id',
+  shopId: 'shopId',
+  name: 'name',
+  price: 'price',
+  group: 'group',
+  createdOn: 'createdOn',
+  updatedOn: 'updatedOn'
+} as const
+
+export type ModifierScalarFieldEnum = (typeof ModifierScalarFieldEnum)[keyof typeof ModifierScalarFieldEnum]
+
+
+export const ProductModifierScalarFieldEnum = {
+  id: 'id',
+  productId: 'productId',
+  modifierId: 'modifierId',
+  isDefault: 'isDefault'
+} as const
+
+export type ProductModifierScalarFieldEnum = (typeof ProductModifierScalarFieldEnum)[keyof typeof ProductModifierScalarFieldEnum]
+
+
+export const CustomerScalarFieldEnum = {
+  id: 'id',
+  shopId: 'shopId',
+  name: 'name',
+  phone: 'phone',
+  email: 'email',
+  loyaltyPoints: 'loyaltyPoints',
+  createdOn: 'createdOn',
+  updatedOn: 'updatedOn'
+} as const
+
+export type CustomerScalarFieldEnum = (typeof CustomerScalarFieldEnum)[keyof typeof CustomerScalarFieldEnum]
+
+
+export const OrderScalarFieldEnum = {
+  id: 'id',
+  shopId: 'shopId',
+  customerId: 'customerId',
+  userId: 'userId',
+  orderNumber: 'orderNumber',
+  status: 'status',
+  type: 'type',
+  subtotal: 'subtotal',
+  discount: 'discount',
+  tax: 'tax',
+  finalAmount: 'finalAmount',
+  paymentMethod: 'paymentMethod',
+  paymentStatus: 'paymentStatus',
+  notes: 'notes',
+  createdOn: 'createdOn',
+  updatedOn: 'updatedOn'
+} as const
+
+export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof OrderScalarFieldEnum]
+
+
+export const OrderItemScalarFieldEnum = {
+  id: 'id',
+  orderId: 'orderId',
+  productId: 'productId',
+  quantity: 'quantity',
+  unitPrice: 'unitPrice',
+  subtotal: 'subtotal',
+  selectedModifiers: 'selectedModifiers',
+  createdOn: 'createdOn',
+  updatedOn: 'updatedOn'
+} as const
+
+export type OrderItemScalarFieldEnum = (typeof OrderItemScalarFieldEnum)[keyof typeof OrderItemScalarFieldEnum]
+
+
+export const SupplierScalarFieldEnum = {
+  id: 'id',
+  shopId: 'shopId',
+  name: 'name',
+  contactPerson: 'contactPerson',
+  phone: 'phone',
+  email: 'email',
+  createdOn: 'createdOn',
+  updatedOn: 'updatedOn'
+} as const
+
+export type SupplierScalarFieldEnum = (typeof SupplierScalarFieldEnum)[keyof typeof SupplierScalarFieldEnum]
+
+
+export const SupplierProductScalarFieldEnum = {
+  supplierId: 'supplierId',
+  productId: 'productId',
+  supplyPrice: 'supplyPrice'
+} as const
+
+export type SupplierProductScalarFieldEnum = (typeof SupplierProductScalarFieldEnum)[keyof typeof SupplierProductScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -90,10 +262,35 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
 } as const
 
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
+
+
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 

@@ -1,0 +1,145 @@
+import bcrypt from "bcryptjs";
+import type { H3Event } from "h3";
+import {
+  countUsers,
+  createInitialAdminUser,
+  findAuthenticatedUserById,
+  findUserByIdentifier,
+} from "../repositories/user.repository";
+import {
+  clearSessionCookie,
+  getSessionUserId,
+  setSessionCookie,
+} from "./session.service";
+import { validateLogin } from "../utils/vaiditionChance";
+import { User } from "~~/generated/prisma/client";
+
+export type AuthenticatedUser = NonNullable<Awaited<ReturnType<typeof findAuthenticatedUserById>>>;
+
+const SALT_ROUNDS = 12;
+
+const getSafeErrorMessage = (error: unknown) => {
+  if (error && typeof error === "object" && "message" in error && typeof error.message === "string") {
+    return error.message;
+  }
+
+  return "";
+};
+
+
+export const getSessionState = async (event: H3Event) => {
+  const [user, userCount] = await Promise.all([
+    getAuthenticatedUser(event),
+    countUsers(),
+  ]);
+
+  return {
+    user,
+    setupRequired: userCount === 0,
+  };
+};
+
+export const getAuthenticatedUser = async (event: H3Event): Promise<AuthenticatedUser | null> => {
+  const userId = getSessionUserId(event);
+
+  if (!userId) {
+    clearSessionCookie(event);
+    return null;
+  }
+
+  const user = await findAuthenticatedUserById(userId);
+
+  if (!user) {
+    clearSessionCookie(event);
+    return null;
+  }
+
+  return user;
+};
+
+export const requireAuthenticatedUser = async (event: H3Event) => {
+  const user = await getAuthenticatedUser(event);
+
+  if (!user) {
+    throw new Error("Authentication required. Please log in to access this resource.");
+  }
+
+  return user;
+};
+
+export const login = async (
+  event: H3Event,
+  input: {
+    identifier: string;
+    password: string;
+  },
+) => {
+  const errorMessage = await validateLogin(input);
+  if (errorMessage) {
+    throw new Error(errorMessage);
+  }
+
+  const user = await findUserByIdentifier(input.identifier);
+
+  if (!user || !(await bcrypt.compare(input.password, user.passwordHash))) {
+    throw new Error("Invalid username/phone or password.");
+  }
+
+  setSessionCookie(event, user);
+  const { passwordHash, ...userWithoutPassword } = user;
+  return userWithoutPassword;
+};
+
+export const logout = async (event: H3Event) => {
+  clearSessionCookie(event);
+
+  return {
+    ok: true,
+  };
+};
+
+export const registerInitialOwner = async (
+  event: H3Event,
+  input: {
+    shopName: string;
+    username: string;
+    phone: string;
+    password: string;
+  },
+) => {
+  const existingUsers = await countUsers();
+  if (existingUsers > 0) {
+    throw new Error("User already exists. Initial owner registration is not allowed.");
+  }
+  const validationMessage = await validateLogin(input);
+  if (validationMessage) {
+    throw new Error(validationMessage);
+  }
+
+  if (input.password && input.password.length < 8) {
+    throw new Error("Password must be at least 8 characters.");
+  }
+
+  try {
+    const passwordHash = await bcrypt.hash(input.password, SALT_ROUNDS);
+    const user = await createInitialAdminUser({
+      shopName: input.shopName,
+      username: input.username,
+      phone: input.phone,
+      passwordHash,
+    }) as User;
+    setSessionCookie(event, user);
+
+    return {
+      ok: true,
+    };
+  } catch (error) {
+    const message = getSafeErrorMessage(error);
+
+    if (message.includes("Unique constraint")) {
+      throw new Error("Username, phone, or shop name already exists.");
+    }
+
+    throw error;
+  }
+};
