@@ -1,7 +1,6 @@
-import { Category } from "~~/generated/prisma/client";
-import categoryRepo from "../repositories/category.repo";
+import categoryRepo, { type CategoryUpsertInput } from "../repositories/category.repo";
 
-const upsert = async (request: Category) => {
+const upsert = async (request: CategoryUpsertInput) => {
     return await categoryRepo.upsert(request);
 }
 

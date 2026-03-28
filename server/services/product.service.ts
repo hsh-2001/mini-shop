@@ -1,7 +1,6 @@
-import { Product } from "~~/prisma/generated/client";
-import productRepo from "../repositories/product.repo";
+import productRepo, { type ProductUpsertInput } from "../repositories/product.repo";
 
-const upsert = async (request: Product) => {
+const upsert = async (request: ProductUpsertInput) => {
     return await productRepo.upsert(request);
 }
 

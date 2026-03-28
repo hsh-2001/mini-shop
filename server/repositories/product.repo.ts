@@ -1,27 +1,37 @@
-import { Product } from "~~/prisma/generated/client";
+export interface ProductUpsertInput {
+    id?: number;
+    shopId: number;
+    categoryId?: number | null;
+    name: string;
+    description?: string | null;
+    basePrice: number;
+    sku?: string | null;
+    barcode?: string | null;
+    stock?: number;
+}
 
-const upsert = async (request: Product) => {
+const upsert = async (request: ProductUpsertInput) => {
     const response = await prisma.product.upsert({
-        where: { id: request.id },
+        where: { id: request.id ?? 0 },
         update: {
             name: request.name,
-            description: request.description,
-            categoryId: request.categoryId,
+            description: request.description ?? null,
+            categoryId: request.categoryId ?? null,
             shopId: request.shopId,
             basePrice: request.basePrice,
-            sku: request.sku,
-            barcode: request.barcode,
-            stock: request.stock,
+            sku: request.sku ?? null,
+            barcode: request.barcode ?? null,
+            stock: request.stock ?? -1,
         },
         create: {
             name: request.name,
-            description: request.description,
-            categoryId: request.categoryId,
+            description: request.description ?? null,
+            categoryId: request.categoryId ?? null,
             shopId: request.shopId,
             basePrice: request.basePrice,
-            sku: request.sku,
-            barcode: request.barcode,
-            stock: request.stock,
+            sku: request.sku ?? null,
+            barcode: request.barcode ?? null,
+            stock: request.stock ?? -1,
         },
     });
 
@@ -43,6 +53,9 @@ const fuzzySearch = async (shopId: number, keyword: string) => {
             name: {
                 contains: keyword,
             },
+        },
+        include: {
+            category: true,
         },
     });
 
