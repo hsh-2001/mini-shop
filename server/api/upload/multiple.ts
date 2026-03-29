@@ -4,6 +4,7 @@ import { readMultipartFormData } from "h3"
 export default defineEventHandler(async (event) => {
     const form = await readMultipartFormData(event)
     const files = form?.filter(f => f.name === "files") || []
+    const path = form?.find(f => f.name === "path")?.data.toString() || ""
     if (files.length === 0) {
         throw createError({ statusCode: 400, statusMessage: "No files uploaded" })
     }
@@ -21,7 +22,7 @@ export default defineEventHandler(async (event) => {
 
     const results = await Promise.all(
         files.map(async (f) => {
-            const name = `${Date.now()}-${f.filename}`
+            const name = path ? `${path}/${Date.now()}-${f.filename}` : `${Date.now()}-${f.filename}`
 
             await s3.send(new PutObjectCommand({
                 Bucket: config.cfBucketName,

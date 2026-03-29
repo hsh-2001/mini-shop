@@ -38,6 +38,7 @@ export interface ProductItem {
     shopId: number;
     categoryId: number | null;
     name: string;
+    imageUrl?: string | null;
     description: string | null;
     basePrice: string | number;
     sku: string | null;
@@ -51,6 +52,7 @@ export interface ProductPayload {
     id?: number;
     categoryId?: number | null;
     name: string;
+    imageUrl?: string | null;
     description?: string;
     basePrice: number;
     sku?: string;

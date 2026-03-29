@@ -16,7 +16,6 @@ import type {
 import api from "~/utils/api";
 import { BaseApiResponse, getClientResponse } from "~~/types/baseApi";
 import type { ICreateUser, MemberResponse } from "~~/types/member";
-import type { PaymentStatus } from "~~/prisma/generated/client";
 
 export const callLogin = async (request: ILoginRequest): Promise<BaseApiResponse<any>> => {
     const result = await api.post("/auth/login", request);
@@ -98,5 +97,24 @@ export const callCreateMember = async (request: ICreateUser): Promise<BaseApiRes
 }
 export const callUpdateMember = async (id: number, request: Partial<ICreateUser>): Promise<BaseApiResponse<MemberResponse>> => {
     const result = await api.patch("/member", { id, ...request });
+    return getClientResponse(result.data);
+}
+
+export const callUpload = async (file: File, path = ""): Promise<BaseApiResponse<{ url: string, filename: string }>> => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("path", path);
+    const result = await api.post("/upload", formData, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    });
+    return getClientResponse(result.data);
+}
+
+export const getImageFile = async (filePath: string): Promise<BaseApiResponse<{ url: string }>> => {
+    const result = await api.get("/upload", {
+        params: { filename: filePath },
+    });
     return getClientResponse(result.data);
 }

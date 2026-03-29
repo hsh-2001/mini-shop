@@ -22,6 +22,7 @@
         :can-create="canCreate"
         :categories="categories"
         :form="form"
+        v-model:product-file="productFile"
         @update:open="isDialogOpen = $event"
         @closed="resetForm"
         @update:form="setForm"
@@ -54,6 +55,7 @@ const {
   editProduct,
   submitProduct,
   removeProduct,
+  productFile,
 } = useProductsPage();
 </script>
 

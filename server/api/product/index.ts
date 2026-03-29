@@ -11,6 +11,7 @@ export default defineEventHandler(async (event) => {
             const product = await productService.upsert({
                 id: body.id ? Number(body.id) : undefined,
                 name: String(body.name ?? "").trim(),
+                imageUrl: body.imageUrl ? String(body.imageUrl).trim() : null,
                 description: body.description ? String(body.description).trim() : null,
                 categoryId: body.categoryId ? Number(body.categoryId) : null,
                 shopId: user.shopId,

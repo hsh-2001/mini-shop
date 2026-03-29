@@ -1,11 +1,14 @@
 import { S3Client, PutObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3"
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
 import { readMultipartFormData } from "h3"
+import { success } from "~~/types/baseApi"
 
 export default defineEventHandler(async (event) => {
     try {
         if (isMethod(event, "POST")) {
             const form = await readMultipartFormData(event)
             const file = form?.find(f => f.name === "file")
+            const path = form?.find(f => f.name === "path")?.data.toString() || ""
             if (!file) {
                 throw createError({ statusCode: 400, statusMessage: "No file uploaded" })
             }
@@ -20,7 +23,7 @@ export default defineEventHandler(async (event) => {
                     secretAccessKey: String(config.cfSecretKey),
                 },
             })
-            const fileName = `${Date.now()}-${file.filename}`
+            const fileName = path ? `${path}/${Date.now()}-${file.filename}` : `${Date.now()}-${file.filename}`
 
             await s3.send(new PutObjectCommand({
                 Bucket: config.cfBucketName,
@@ -29,9 +32,12 @@ export default defineEventHandler(async (event) => {
                 ContentType: file.type,
             }))
 
-            return {
-                url: `https://${config.cfPublicUrl}/${fileName}`
+            const data = {
+                filename: fileName,
+                url: `https://${config.cfAccountId}.r2.cloudflarestorage.com/${config.cfBucketName}/${fileName}`,
             }
+
+            return success(data);
         }
 
         if (isMethod(event, "GET")) {
@@ -54,15 +60,15 @@ export default defineEventHandler(async (event) => {
                 },
             })
 
-            const result = await s3.send(new GetObjectCommand({
-                Bucket: config.cfBucketName,
-                Key: String(filename),
-            }))
+            const url = await getSignedUrl(
+                s3,
+                new GetObjectCommand({
+                    Bucket: config.cfBucketName,
+                    Key: String(filename),
+                }),
+            )
 
-            setHeader(event, "Content-Type", result.ContentType || "application/octet-stream")
-            setHeader(event, "Content-Disposition", `inline; filename="${filename}"`)
-
-            return result.Body
+            return success({ url });
         }
     } catch (error) {
         console.error("Error uploading files:", error)

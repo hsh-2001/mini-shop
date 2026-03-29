@@ -3,6 +3,7 @@ export interface ProductUpsertInput {
     shopId: number;
     categoryId?: number | null;
     name: string;
+    imageUrl?: string | null;
     description?: string | null;
     basePrice: number;
     sku?: string | null;
@@ -15,6 +16,7 @@ const upsert = async (request: ProductUpsertInput) => {
         where: { id: request.id ?? 0 },
         update: {
             name: request.name,
+            imageUrl: request.imageUrl ?? null,
             description: request.description ?? null,
             categoryId: request.categoryId ?? null,
             shopId: request.shopId,
@@ -25,6 +27,7 @@ const upsert = async (request: ProductUpsertInput) => {
         },
         create: {
             name: request.name,
+            imageUrl: request.imageUrl ?? null,
             description: request.description ?? null,
             categoryId: request.categoryId ?? null,
             shopId: request.shopId,

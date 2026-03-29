@@ -22,6 +22,7 @@ const showWarning = (message: string) => {
 
 const createDefaultForm = (): ProductPayload => ({
     name: "",
+    imageUrl: null,
     categoryId: null,
     description: "",
     basePrice: 0,
@@ -32,8 +33,10 @@ const createDefaultForm = (): ProductPayload => ({
 
 export const useProductsPage = () => {
     const { t } = useI18n();
+    const store = useAppStore();
     const categories = ref<CategoryItem[]>([]);
     const products = ref<ProductItem[]>([]);
+    const productFile = ref<File | null>(null);
     const isLoading = ref(true);
     const isSaving = ref(false);
     const isDeleting = ref(false);
@@ -75,6 +78,7 @@ export const useProductsPage = () => {
             sku: product.sku ?? "",
             barcode: product.barcode ?? "",
             stock: product.stock,
+            imageUrl: product.imageUrl ?? null,
         };
         isDialogOpen.value = true;
     };
@@ -82,6 +86,7 @@ export const useProductsPage = () => {
     const loadProducts = async () => {
         const response = await callGetAllProducts(keyword.value || undefined);
         products.value = response.data ?? [];
+        store.setProducts(products.value);
         currentPage.value = 1;
     };
 
@@ -111,6 +116,10 @@ export const useProductsPage = () => {
 
         isSaving.value = true;
         try {
+            const upload = await handleUploadImage(productFile.value, "products");
+            if (upload) {
+                form.value.imageUrl = upload.imageUrl;
+            }
             const response = await saveProduct(form.value);
             if (!response.isSuccess) {
                 throw new Error(response.message);
@@ -190,5 +199,6 @@ export const useProductsPage = () => {
         editProduct,
         submitProduct,
         removeProduct,
+        productFile,
     };
 };
