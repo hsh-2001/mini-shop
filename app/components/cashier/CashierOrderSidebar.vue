@@ -8,10 +8,10 @@
           <p
             class="text-xs font-semibold uppercase tracking-[0.18em] text-emerald-700"
           >
-            Current Order
+            {{ $t("Current Order") }}
           </p>
           <h2 class="mt-1 text-md font-semibold text-slate-900">
-            Cashier Cart
+            {{ $t("Cashier Cart") }}
           </h2>
           <p class="mt-1 text-[10px] text-slate-500">
             {{
@@ -20,7 +20,7 @@
           </p>
         </div>
         <div class="flex flex-col items-end gap-2">
-          <el-tag type="info">{{ cartCount }} items</el-tag>
+          <el-tag type="info">{{ cartCount }} {{ $t("items") }}</el-tag>
           <el-button
             v-if="cart.length"
             size="small"
@@ -70,7 +70,7 @@
           v-if="!cart.length"
           :image-size="50"
           class="my-0! p-0!"
-          description="Add products to start this order."
+          :description="$t('Add products to start this order.')"
         />
       </div>
 
@@ -90,7 +90,7 @@
           <el-input
             :model-value="form.customerName"
             size="small"
-            placeholder="Walk-in customer"
+            :placeholder="$t('Walk-in customer')"
             @update:model-value="
               $emit('update:form', {
                 ...form,
@@ -100,7 +100,7 @@
           />
           <el-input
             :model-value="form.customerPhone"
-            placeholder="Phone"
+            :placeholder="$t('Phone')"
             size="small"
             class="w-full"
             @update:model-value="
@@ -140,7 +140,7 @@
               :key="option.value"
               :value="option.value"
             >
-              {{ option.label }}
+              {{ $t(option.label) }}
             </el-radio-button>
           </el-radio-group>
         </div>
@@ -165,7 +165,7 @@
             :key="option.value"
             :value="option.value"
           >
-            {{ option.label }}
+            {{ $t(option.label) }}
           </el-radio-button>
         </el-radio-group>
 
@@ -174,7 +174,7 @@
           type="textarea"
           :rows="2"
           resize="none"
-          placeholder="Notes for staff"
+          :placeholder="$t('Notes for staff')"
           @update:model-value="
             $emit('update:form', { ...form, notes: String($event ?? '') })
           "
@@ -184,13 +184,13 @@
     <div class="absolute bottom-0 inset-x-2 pb-2 bg-white">
       <div class="total-panel">
         <div class="flex items-center justify-between text-sm text-slate-500">
-          <span>Subtotal</span>
+          <span>{{ $t("Subtotal") }}</span>
           <span>${{ subtotal.toFixed(2) }}</span>
         </div>
         <div
           class="mt-2 flex items-center justify-between text-base font-semibold text-slate-900"
         >
-          <span>Total</span>
+          <span>{{ $t("Total") }}</span>
           <span>${{ subtotal.toFixed(2) }}</span>
         </div>
       </div>

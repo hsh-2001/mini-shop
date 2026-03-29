@@ -2,7 +2,7 @@
   <Transition name="sidebar">
     <div
       v-if="store.isSidebarOpen"
-      class="sidebar w-52 h-[calc(100dvh-40px)] text-slate-700 bg-gray-50 border-r border-slate-300 relative"
+      class="sidebar w-52 h-[calc(100dvh-40px)] text-slate-700 bg-gray-50 border-r text-sm border-slate-300 relative"
     >
       <div class="w-full py-4 flex items-center justify-center">
         <h1 class="text-lg font-medium">Admin Sidebar</h1>
@@ -44,7 +44,7 @@
               >
                 <NuxtLink
                   :to="sub.path"
-                  class="flex items-center gap-2 px-4 py-2.5 text-sm rounded-md hover:text-blue-600 transition-all"
+                  class="flex items-center gap-2 px-4 py-2.5 text-[12px] rounded-md hover:text-blue-600 transition-all"
                   :class="{
                     'bg-blue-100 text-blue-700 font-medium':
                       currentPath === sub.path,
