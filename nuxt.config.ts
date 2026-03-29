@@ -25,6 +25,11 @@ export default defineNuxtConfig({
   runtimeConfig: {
     databaseUrl: process.env.DATABASE_URL,
     authSecret: process.env.AUTH_SECRET,
+    cfAccountId: process.env.CF_ACCOUNT_ID,
+    cfAccessKey: process.env.CF_ACCESS_KEY,
+    cfSecretKey: process.env.CF_SECRET_KEY,
+    cfPublicUrl: process.env.CF_PUBLIC_URL,
+    cfBucketName: process.env.CF_BUCKET_NAME,
   },
 
   modules: [
