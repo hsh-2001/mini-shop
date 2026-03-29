@@ -86,8 +86,15 @@ export const login = async (
   }
 
   setSessionCookie(event, user);
-  const { passwordHash, ...userWithoutPassword } = user;
-  return userWithoutPassword;
+  return {
+    id: user.id,
+    shopId: user.shopId,
+    phone: user.phone,
+    username: user.username,
+    role: user.role,
+    createdOn: user.createdOn,
+    updatedOn: user.updatedOn,
+  };
 };
 
 export const logout = async (event: H3Event) => {

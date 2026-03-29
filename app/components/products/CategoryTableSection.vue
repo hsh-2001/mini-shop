@@ -27,9 +27,9 @@
         <el-table-column prop="name" :label="$t('Name')" min-width="180" sortable />
         <el-table-column :label="$t('Type')" min-width="140">
           <template #default="{ row }">
-            <el-tag type="info" effect="plain">{{
-              formatCategoryType(row.type)
-            }}</el-tag>
+            <el-tag type="info" effect="plain">
+              {{ formatCategoryType(row.type) }}
+            </el-tag>
           </template>
         </el-table-column>
         <el-table-column :label="$t('Description')" min-width="220">

@@ -73,10 +73,27 @@ const findAll = async (shopId: number) => {
     return response;
 }
 
+const findActiveByShopId = async (shopId: number) => {
+    return prisma.product.findMany({
+        where: {
+            shopId,
+            isActive: true,
+        },
+        include: {
+            category: true,
+        },
+        orderBy: [
+            { categoryId: "asc" },
+            { name: "asc" },
+        ],
+    });
+}
+
 
 export default {
     upsert,
     fuzzySearch,
     findAll,
+    findActiveByShopId,
     remove,
 }

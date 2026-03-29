@@ -1,4 +1,4 @@
-import { ChartColumnBigIcon, PackageIcon, User2 } from "@lucide/vue";
+import { ChartColumnBigIcon, PackageIcon, ReceiptTextIcon, ShoppingCartIcon, User2 } from "@lucide/vue";
 import type { Component } from "vue";
 
 export interface IMenuItem {
@@ -41,5 +41,15 @@ export const menuItems: IMenuItem[] = [
             // }
         ]
 
-    }
+    },
+    {
+        name: "Cashier",
+        icon: ShoppingCartIcon,
+        path: "/cashier",
+    },
+    {
+        name: "Orders",
+        icon: ReceiptTextIcon,
+        path: "/orders",
+    },
 ];

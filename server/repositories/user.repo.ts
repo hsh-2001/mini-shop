@@ -36,6 +36,19 @@ export const findAuthenticatedUserById = async (id: number) => {
   });
 };
 
+export const findDefaultOrderUserByShopId = async (shopId: number) => {
+  return prisma.user.findFirst({
+    where: { shopId },
+    orderBy: [
+      { role: "asc" },
+      { id: "asc" },
+    ],
+    select: {
+      id: true,
+    },
+  });
+};
+
 export const createInitialAdminUser = async (input: {
   shopName: string;
   username: string;

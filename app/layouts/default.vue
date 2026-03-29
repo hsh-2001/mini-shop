@@ -1,11 +1,11 @@
 <template>
   <div class="w-full bg-slate-100 text-slate-900">
-    <AdminHeader />
-    <div class="flex items-start p-0 w-full">
-      <div class="w-auto">
-        <AdminSidebar />
-      </div>
-      <div class="w-full px-4 py-4 overflow-hidden">
+    <div>
+      <AdminHeader />
+    </div>
+    <div class="flex items-start w-full">
+      <AdminSidebar />
+      <div class="w-full h-full p-2 overflow-auto">
         <slot />
       </div>
     </div>

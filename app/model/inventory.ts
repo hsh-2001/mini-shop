@@ -43,6 +43,7 @@ export interface ProductItem {
     sku: string | null;
     barcode: string | null;
     stock: number;
+    isActive?: boolean;
     category?: ProductCategorySummary | null;
 }
 

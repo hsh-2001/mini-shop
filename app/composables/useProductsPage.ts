@@ -1,5 +1,5 @@
-import { ElMessage, ElMessageBox } from "element-plus";
 import type { CategoryItem, ProductItem, ProductPayload } from "~/model/inventory";
+import { confirmWarning, showFeedback } from "~/utils/feedback";
 import {
     deleteProduct,
     fetchCategories,
@@ -9,23 +9,15 @@ import {
 } from "~/utils/apiCalling";
 
 const showError = (message: string) => {
-    if (import.meta.client) {
-        ElMessage.error(message);
-        return;
-    }
-    console.error(message);
+    return showFeedback("error", message);
 };
 
 const showSuccess = (message: string) => {
-    if (import.meta.client) {
-        ElMessage.success(message);
-    }
+    return showFeedback("success", message);
 };
 
 const showWarning = (message: string) => {
-    if (import.meta.client) {
-        ElMessage.warning(message);
-    }
+    return showFeedback("warning", message);
 };
 
 const createDefaultForm = (): ProductPayload => ({
@@ -105,7 +97,7 @@ export const useProductsPage = () => {
             categories.value = categoryResponse.data ?? [];
             await loadProducts();
         } catch (error) {
-            showError(error instanceof Error ? error.message : t("Unable to load products."));
+            await showError(error instanceof Error ? error.message : t("Unable to load products."));
         } finally {
             isLoading.value = false;
         }
@@ -113,7 +105,7 @@ export const useProductsPage = () => {
 
     const submitProduct = async () => {
         if (!canCreate.value) {
-            showWarning(t("Create at least one category before adding products."));
+            await showWarning(t("Create at least one category before adding products."));
             return;
         }
 
@@ -127,9 +119,9 @@ export const useProductsPage = () => {
             await loadProducts();
             isDialogOpen.value = false;
             resetForm();
-            showSuccess(t("Product saved."));
+            await showSuccess(t("Product saved."));
         } catch (error) {
-            showError(error instanceof Error ? error.message : t("Unable to save product."));
+            await showError(error instanceof Error ? error.message : t("Unable to save product."));
         } finally {
             isSaving.value = false;
         }
@@ -142,9 +134,10 @@ export const useProductsPage = () => {
 
         isDeleting.value = true;
         try {
-            await ElMessageBox.confirm(t("Delete this product?"), t("Confirm"), {
-                type: "warning",
-            });
+            const confirmed = await confirmWarning(t("Delete this product?"), t("Confirm"));
+            if (!confirmed) {
+                return;
+            }
 
             const response = await deleteProduct(id);
             if (!response.isSuccess) {
@@ -155,12 +148,9 @@ export const useProductsPage = () => {
                 resetForm();
             }
             await loadProducts();
-            showSuccess(t("Product deleted."));
+            await showSuccess(t("Product deleted."));
         } catch (error) {
-            if (error === "cancel") {
-                return;
-            }
-            showError(error instanceof Error ? error.message : t("Unable to delete product."));
+            await showError(error instanceof Error ? error.message : t("Unable to delete product."));
         } finally {
             isDeleting.value = false;
         }
@@ -170,7 +160,7 @@ export const useProductsPage = () => {
         try {
             await loadProducts();
         } catch (error) {
-            showError(error instanceof Error ? error.message : t("Unable to search products."));
+            await showError(error instanceof Error ? error.message : t("Unable to search products."));
         }
     });
 

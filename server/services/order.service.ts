@@ -1,30 +1,20 @@
-import { Order, OrderItem, PaymentStatus } from "~~/prisma/generated/client";
+import type { CreateGuestOrderInput, OrderListQuery, UpdateOrderInput } from "../repositories/order.repo";
 import orderRepo from "../repositories/order.repo";
 
-const upsert = async (request: Order & { orderItems: OrderItem[] }) => {
-    return await orderRepo.upsert(request);
+const createGuestOrder = async (request: CreateGuestOrderInput) => {
+    return orderRepo.createGuestOrder(request);
 };
 
-const findAll = async (shopId: number) => {
-    return await orderRepo.findAll(shopId);
+const findAll = async (shopId: number, query?: OrderListQuery) => {
+    return orderRepo.findAll(shopId, query);
 };
 
-const findById = async (id: number) => {
-    return await orderRepo.findById(id);
-};
-
-const findByStatus = async (shopId: number, status: PaymentStatus) => {
-    return await orderRepo.findByStatus(shopId, status);
-};
-
-const searchOrders = async (shopId: number, query: { startDate: Date, endDate: Date, paymentStatus?: PaymentStatus }) => {
-    return await orderRepo.searchOrders(shopId, query);
+const updateOrder = async (request: UpdateOrderInput) => {
+    return orderRepo.updateOrder(request);
 };
 
 export default {
-    upsert,
+    createGuestOrder,
     findAll,
-    findById,
-    findByStatus,
-    searchOrders,
+    updateOrder,
 }

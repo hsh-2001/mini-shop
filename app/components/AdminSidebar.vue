@@ -38,7 +38,7 @@
               class="border-l border-slate-100 px-2 overflow-hidden"
             >
               <li
-                v-for="(sub, idx) in menu.children"
+                v-for="sub in menu.children"
                 :key="sub.name"
                 class="transition-all duration-200"
               >
@@ -59,8 +59,8 @@
       </div>
 
       <button
-        @click="toggleSidebar"
         class="rounded-full p-1 bg-white absolute border border-gray-200 top-2 -right-3"
+        @click="toggleSidebar"
       >
         <ChevronLeft class="h-4 w-4" />
       </button>

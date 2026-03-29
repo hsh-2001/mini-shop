@@ -12,15 +12,17 @@
       @create="openCreateDialog"
       @edit="editCategory"
     />
-    <CategoryDialog
-      :open="isDialogOpen"
-      :saving="isSaving"
-      :form="form"
-      @update:open="isDialogOpen = $event"
-      @closed="resetForm"
-      @update:form="setForm"
-      @submit="submitCategory"
-    />
+    <ClientOnly>
+      <CategoryDialog
+        :open="isDialogOpen"
+        :saving="isSaving"
+        :form="form"
+        @update:open="isDialogOpen = $event"
+        @closed="resetForm"
+        @update:form="setForm"
+        @submit="submitCategory"
+      />
+    </ClientOnly>
   </section>
 </template>
 

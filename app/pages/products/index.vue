@@ -16,17 +16,19 @@
       @edit="editProduct"
       @delete="removeProduct"
     />
-    <ProductDialog
-      :open="isDialogOpen"
-      :saving="isSaving"
-      :can-create="canCreate"
-      :categories="categories"
-      :form="form"
-      @update:open="isDialogOpen = $event"
-      @closed="resetForm"
-      @update:form="setForm"
-      @submit="submitProduct"
-    />
+    <ClientOnly>
+      <ProductDialog
+        :open="isDialogOpen"
+        :saving="isSaving"
+        :can-create="canCreate"
+        :categories="categories"
+        :form="form"
+        @update:open="isDialogOpen = $event"
+        @closed="resetForm"
+        @update:form="setForm"
+        @submit="submitProduct"
+      />
+    </ClientOnly>
   </section>
 </template>
 

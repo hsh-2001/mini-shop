@@ -10,6 +10,16 @@ export default defineNuxtConfig({
     plugins: [
       tailwindcss()
     ],
+    optimizeDeps: {
+      include: [
+        "dayjs",
+        "dayjs/plugin/*.js",
+        "lodash-unified",
+        "@vue/devtools-core",
+        "@vue/devtools-kit",
+        "axios",
+      ],
+    },
   },
 
   runtimeConfig: {

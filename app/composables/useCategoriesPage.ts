@@ -1,19 +1,13 @@
-import { ElMessage } from "element-plus";
 import type { CategoryItem, CategoryPayload } from "~/model/inventory";
+import { showFeedback } from "~/utils/feedback";
 import { fetchCategories, fetchCurrentUser, saveCategory } from "~/utils/apiCalling";
 
 const showError = (message: string) => {
-    if (import.meta.client) {
-        ElMessage.error(message);
-        return;
-    }
-    console.error(message);
+    return showFeedback("error", message);
 };
 
 const showSuccess = (message: string) => {
-    if (import.meta.client) {
-        ElMessage.success(message);
-    }
+    return showFeedback("success", message);
 };
 
 const createDefaultForm = (): CategoryPayload => ({
@@ -74,7 +68,7 @@ export const useCategoriesPage = () => {
             categories.value = categoryResponse.data ?? [];
             currentPage.value = 1;
         } catch (error) {
-            showError(error instanceof Error ? error.message : t("Unable to load categories."));
+            await showError(error instanceof Error ? error.message : t("Unable to load categories."));
         } finally {
             isLoading.value = false;
         }
@@ -91,9 +85,9 @@ export const useCategoriesPage = () => {
             await loadContext();
             isDialogOpen.value = false;
             resetForm();
-            showSuccess(t("Category saved."));
+            await showSuccess(t("Category saved."));
         } catch (error) {
-            showError(error instanceof Error ? error.message : t("Unable to save category."));
+            await showError(error instanceof Error ? error.message : t("Unable to save category."));
         } finally {
             isSaving.value = false;
         }
