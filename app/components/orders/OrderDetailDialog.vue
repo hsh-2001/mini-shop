@@ -1,11 +1,14 @@
 <template>
   <el-dialog
     :model-value="open"
-    width="760px"
-    class="!rounded-2xl"
-    @update:model-value="$emit('update:open', $event)"
+    top="20px"
+    :width="isMobile ? '95%' : '600px'"
+    @close="
+      () => {
+        $emit('update:open', false);
+      }
+    "
   >
-    <!-- HEADER -->
     <template #header>
       <div class="flex items-center justify-between">
         <div>
@@ -21,11 +24,12 @@
       </div>
     </template>
 
-    <!-- BODY -->
-    <div v-if="order" class="space-y-5 max-h-[70vh] overflow-y-auto pr-1">
-      <!-- INFO -->
+    <div
+      v-if="order"
+      class="w-full space-y-5 max-h-[70vh]! overflow-y-auto pr-1"
+    >
       <section class="grid gap-3 md:grid-cols-2">
-        <div class="bg-slate-50 p-3 rounded-xl">
+        <div class="bg-slate-50 p-2 rounded-md">
           <p class="text-xs text-slate-500">{{ $t("Customer") }}</p>
           <p class="font-medium">
             {{ order.customer?.name || $t("Walk-in guest") }}
@@ -35,7 +39,7 @@
           </p>
         </div>
 
-        <div class="bg-slate-50 p-3 rounded-xl">
+        <div class="bg-slate-50 p-2 rounded-md">
           <p class="text-xs text-slate-500">{{ $t("Created") }}</p>
           <p class="font-medium">
             {{ new Date(order.createdOn).toLocaleString() }}
@@ -43,7 +47,6 @@
         </div>
       </section>
 
-      <!-- ITEMS -->
       <section>
         <h4 class="text-sm font-semibold mb-2">{{ $t("Items") }}</h4>
 
@@ -51,7 +54,7 @@
           <div
             v-for="item in order.orderItems"
             :key="item.id"
-            class="flex justify-between items-center border rounded-xl px-3 py-2"
+            class="flex justify-between items-center border border-primary/40 rounded-md p-2"
           >
             <div>
               <p class="font-medium text-sm">
@@ -69,47 +72,38 @@
         </div>
       </section>
 
-      <!-- CONTROLS -->
-      <section class="grid md:grid-cols-2 gap-3">
-        <el-form label-position="top" class="w-full">
-          <el-form-item :label="$t('Order Status')">
-            <el-select
-              :model-value="form.status"
-              @update:model-value="(val) => updateForm('status', val)"
-            >
-              <el-option :label="$t('Pending')" value="PENDING" />
-              <el-option :label="$t('Preparing')" value="PREPARING" />
-              <el-option :label="$t('Ready')" value="READY" />
-              <el-option :label="$t('Completed')" value="COMPLETED" />
-              <el-option :label="$t('Cancelled')" value="CANCELLED" />
-            </el-select>
-          </el-form-item>
+      <el-form
+        label-position="top"
+        class="w-full grid grid-cols-1 md:grid-cols-2 gap-4"
+      >
+        <el-form-item :label="$t('Order Status')" class="w-full">
+          <el-select v-model="formModel.status" class="w-full">
+            <el-option :label="$t('Pending')" value="PENDING" />
+            <el-option :label="$t('Preparing')" value="PREPARING" />
+            <el-option :label="$t('Ready')" value="READY" />
+            <el-option :label="$t('Completed')" value="COMPLETED" />
+            <el-option :label="$t('Cancelled')" value="CANCELLED" />
+          </el-select>
+        </el-form-item>
 
-          <el-form-item :label="$t('Payment Status')">
-            <el-select
-              :model-value="form.paymentStatus"
-              @update:model-value="(val) => updateForm('paymentStatus', val)"
-            >
-              <el-option :label="$t('Unpaid')" value="UNPAID" />
-              <el-option :label="$t('Paid')" value="PAID" />
-              <el-option :label="$t('Partially paid')" value="PARTIALLY_PAID" />
-              <el-option :label="$t('Refunded')" value="REFUNDED" />
-            </el-select>
-          </el-form-item>
-        </el-form>
-      </section>
+        <el-form-item :label="$t('Payment Status')" class="w-full">
+          <el-select v-model="formModel.paymentStatus" class="w-full">
+            <el-option :label="$t('Unpaid')" value="UNPAID" />
+            <el-option :label="$t('Paid')" value="PAID" />
+            <el-option :label="$t('Partially paid')" value="PARTIALLY_PAID" />
+            <el-option :label="$t('Refunded')" value="REFUNDED" />
+          </el-select>
+        </el-form-item>
+      </el-form>
 
-      <!-- NOTES -->
       <el-input
         type="textarea"
         :rows="3"
         :placeholder="$t('Internal notes...')"
-        :model-value="form.notes"
-        @update:model-value="(val) => updateForm('notes', val)"
+        v-model="formModel.notes"
       />
 
-      <!-- SUMMARY -->
-      <div class="bg-slate-900 text-white p-4 rounded-xl">
+      <div class="bg-slate-900/5 text-slate-900 p-4 rounded-md">
         <div class="flex justify-between text-sm opacity-80">
           <span>{{ $t("Payment method") }}</span>
           <span>{{ formatLabel(order.paymentMethod) }}</span>
@@ -122,12 +116,13 @@
       </div>
     </div>
 
-    <!-- FOOTER -->
     <template #footer>
-      <div class="flex justify-between w-full">
-        <el-button @click="$emit('update:open', false)">{{ $t("Close") }}</el-button>
+      <div class="flex justify-end w-full">
+        <el-button @click="$emit('update:open', false)">{{
+          $t("Close")
+        }}</el-button>
 
-        <el-button type="primary" :loading="saving" @click="confirmSave">
+        <el-button type="primary" :loading="saving" @click="$emit('save')">
           {{ $t("Save Changes") }}
         </el-button>
       </div>
@@ -136,15 +131,17 @@
 </template>
 
 <script setup lang="ts">
-import { ElMessageBox, ElMessage } from "element-plus";
 import type { OrderStatus, PaymentStatus } from "~~/prisma/generated/enums";
-import type { OrderSummary } from "~/model/order";
+import type { IOrderSummary } from "~/model/order";
 const { t } = useI18n();
+
+
+const isMobile = useDevice().isMobile;
 
 const props = defineProps<{
   open: boolean;
   saving: boolean;
-  order: OrderSummary | null;
+  order: IOrderSummary | null;
   form: {
     status: OrderStatus;
     paymentStatus: PaymentStatus;
@@ -165,33 +162,10 @@ const emit = defineEmits<{
   (event: "save"): void;
 }>();
 
-// ✅ update form helper
-const updateForm = (key: string, value: any) => {
-  emit("update:form", {
-    ...props.form,
-    [key]: key === "notes" ? String(value ?? "") : value,
-  });
-};
-
-// ✅ confirm before save
-const confirmSave = async () => {
-  try {
-    await ElMessageBox.confirm(
-      t("Are you sure you want to update this order?"),
-      t("Confirm Update"),
-      {
-        type: "warning",
-        confirmButtonText: t("Yes, save"),
-        cancelButtonText: t("Cancel"),
-      },
-    );
-
-    emit("save");
-    ElMessage.success(t("Order updated successfully"));
-  } catch {
-    // user cancelled
-  }
-};
+const formModel = computed({
+  get: () => props.form,
+  set: (val) => emit("update:form", val),
+});
 
 const formatLabel = (value: string) =>
   t(

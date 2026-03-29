@@ -102,7 +102,7 @@
   "Delivery": "ដឹកជញ្ជូន",
   "In store": "ក្នុងហាង",
   "Cash": "សាច់ប្រាក់",
-  "QR code": "កូដ QR",
+  "QR code": "QR កូដ",
   "Other": "ផ្សេងៗ",
   "Create Member": "បង្កើតសមាជិក",
   "Update Member": "កែប្រែសមាជិក",
@@ -248,5 +248,9 @@
   "ADMIN": "អ្នកគ្រប់គ្រង",
   "MANAGER": "អ្នកគ្រប់គ្រងផ្នែក",
   "STAFF": "បុគ្គលិក",
-  "CASHIER": "អ្នកលក់"
+  "CASHIER": "អ្នកលក់",
+  "Payment Statuses": "ស្ថានភាពការទូទាត់",
+  "Payment status": "ស្ថានភាពការទូទាត់",
+  "Order Statuses": "ស្ថានភាពការបញ្ជាទិញ",
+  "Order Types": "ប្រភេទការបញ្ជាទិញ"
 }

@@ -1,6 +1,5 @@
 <template>
   <section class="space-y-6">
-    <ProductPageHeader />
     <ProductTableSection
       :items="pagedProducts"
       :total="products.length"

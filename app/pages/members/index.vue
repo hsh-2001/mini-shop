@@ -1,15 +1,17 @@
 <template>
   <div class="w-full h-full">
-    <div class="bg-gray-50 p-2 space-y-2 rounded-md">
-      <div class="flex justify-between">
-        <div></div>
-        <div>
-          <el-button type="primary" @click="dialogVisible = true">
-            <el-icon class="mr-1"><Plus /></el-icon>
-            {{ $t("Create Member") }}
-          </el-button>
+    <el-card shadow="never" class="w-full">
+      <template #header>
+        <div class="flex justify-between">
+          <div>{{ $t("Members") }}</div>
+          <div>
+            <el-button type="primary" @click="dialogVisible = true">
+              <el-icon class="mr-1"><Plus /></el-icon>
+              {{ $t("Create Member") }}
+            </el-button>
+          </div>
         </div>
-      </div>
+      </template>
       <el-table
         :data="members"
         stripe
@@ -53,7 +55,7 @@
           </template>
         </el-table-column>
       </el-table>
-    </div>
+    </el-card>
   </div>
   <el-dialog
     v-model="dialogVisible"
@@ -67,13 +69,22 @@
       class="space-y-4"
     >
       <el-form-item :label="$t('Username')" prop="username">
-        <el-input v-model="formModel.username" :placeholder="$t('Enter username')" />
+        <el-input
+          v-model="formModel.username"
+          :placeholder="$t('Enter username')"
+        />
       </el-form-item>
       <el-form-item :label="$t('Phone')" prop="phone">
-        <el-input v-model="formModel.phone" :placeholder="$t('Enter phone number')" />
+        <el-input
+          v-model="formModel.phone"
+          :placeholder="$t('Enter phone number')"
+        />
       </el-form-item>
       <el-form-item v-if="!isEditting" :label="$t('Password')" prop="password">
-        <el-input v-model="formModel.password" :placeholder="$t('Enter password')" />
+        <el-input
+          v-model="formModel.password"
+          :placeholder="$t('Enter password')"
+        />
       </el-form-item>
       <el-form-item :label="$t('Role')" prop="role">
         <el-select v-model="formModel.role" :placeholder="$t('Select role')">

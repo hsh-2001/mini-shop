@@ -16,6 +16,7 @@ export default defineEventHandler(async (event) => {
                 notes: body.notes ? String(body.notes).trim() : null,
                 type: body.type,
                 paymentMethod: body.paymentMethod,
+                paymentStatus: body.paymentStatus,
                 items: Array.isArray(body.items)
                     ? body.items.map((item: { productId: any; quantity: any; }) => ({
                         productId: Number(item.productId),

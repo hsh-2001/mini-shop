@@ -31,6 +31,7 @@ const upsert = async (request: CategoryUpsertInput) => {
 const findAll = async (shopId: number) => {
     const response = await prisma.category.findMany({
         where: { shopId },
+        orderBy: { createdOn: "desc" },
     });
 
     return response;

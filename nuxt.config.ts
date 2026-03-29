@@ -27,7 +27,12 @@ export default defineNuxtConfig({
     authSecret: process.env.AUTH_SECRET,
   },
 
-  modules: ['@element-plus/nuxt', '@nuxtjs/i18n', '@pinia/nuxt'],
+  modules: [
+    '@element-plus/nuxt',
+    '@nuxtjs/i18n',
+    '@pinia/nuxt',
+    '@nuxtjs/device'
+  ],
   i18n: {
     locales: [
       { code: 'en', name: 'English', file: 'en.json' },

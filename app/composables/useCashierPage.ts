@@ -1,4 +1,4 @@
-import { OrderType, PaymentMethod } from "~~/prisma/generated/enums";
+import { OrderType, PaymentMethod, PaymentStatus } from "~~/prisma/generated/enums";
 import type { ProductItem } from "~/model/inventory";
 import type { CashierOrderForm } from "~/model/order";
 import { showFeedback } from "~/utils/feedback";
@@ -16,8 +16,9 @@ const createDefaultForm = (): CashierOrderForm => ({
     customerPhone: "",
     customerEmail: "",
     notes: "",
-    type: OrderType.TAKEAWAY,
+    type: OrderType.IN_STORE,
     paymentMethod: PaymentMethod.CASH,
+    paymentStatus: PaymentStatus.UNPAID,
 });
 
 const showError = (message: string) => {
@@ -134,6 +135,7 @@ export const useCashierPage = () => {
                 notes: form.value.notes.trim() || undefined,
                 type: form.value.type,
                 paymentMethod: form.value.paymentMethod,
+                paymentStatus: form.value.paymentStatus,
                 items: cart.value.map((item) => ({
                     productId: item.product.id,
                     quantity: item.quantity,

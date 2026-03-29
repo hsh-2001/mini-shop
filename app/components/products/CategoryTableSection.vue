@@ -4,13 +4,15 @@
       <div class="flex items-center justify-between gap-3">
         <div>
           <h2 class="text-lg font-semibold text-slate-900">
-            {{ $t("Existing Categories") }}
+            {{ $t("Categories") }}
           </h2>
-          <p class="text-sm text-slate-500">{{ total }} {{ $t("categories") }}</p>
+          <p class="text-sm text-slate-500">
+            {{ total }} {{ $t("categories") }}
+          </p>
         </div>
         <el-button type="primary" @click="emit('create')">
           <el-icon class="mr-1"><Plus /></el-icon>
-          {{ $t("Add Category") }}
+          {{ $t("Add Category") }}  
         </el-button>
       </div>
     </template>
@@ -24,7 +26,12 @@
         :empty-text="$t('No categories found.')"
       >
         <el-table-column type="index" :label="$t('#')" width="60" />
-        <el-table-column prop="name" :label="$t('Name')" min-width="180" sortable />
+        <el-table-column
+          prop="name"
+          :label="$t('Name')"
+          min-width="180"
+          sortable
+        />
         <el-table-column :label="$t('Type')" min-width="140">
           <template #default="{ row }">
             <el-tag type="info" effect="plain">

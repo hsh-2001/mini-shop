@@ -1,29 +1,22 @@
 <template>
-  <section class="space-y-6">
+  <section>
     <OrderTableSection
       :items="pagedOrders"
       :total="filteredOrders.length"
       :loading="isLoading"
-      :current-page="currentPage"
-      :page-size="pageSize"
-      :search-keyword="searchKeyword"
-      :status-filter="statusFilter"
-      :payment-status-filter="paymentStatusFilter"
-      @update:current-page="currentPage = $event"
-      @update:page-size="pageSize = $event"
-      @update:search-keyword="searchKeyword = $event"
-      @update:status-filter="statusFilter = $event"
-      @update:payment-status-filter="paymentStatusFilter = $event"
+      v-model:search-keyword="searchKeyword"
+      v-model:status-filter="statusFilter"
+      v-model:payment-status-filter="paymentStatusFilter"
+      v-model:current-page="currentPage"
+      v-model:page-size="pageSize"
       @reset-filters="resetFilters"
       @view="openOrder"
     />
     <OrderDetailDialog
-      :open="isDialogOpen"
       :saving="isSaving"
       :order="selectedOrder"
-      :form="editForm"
-      @update:open="isDialogOpen = $event"
-      @update:form="editForm = $event"
+      v-model:form="editForm"
+      v-model:open="isDialogOpen"
       @save="saveOrder"
     />
   </section>
@@ -43,11 +36,9 @@ const {
   paymentStatusFilter,
   selectedOrder,
   isDialogOpen,
-  shopLabel,
   editForm,
   filteredOrders,
   pagedOrders,
-  overviewStats,
   openOrder,
   resetFilters,
   saveOrder,

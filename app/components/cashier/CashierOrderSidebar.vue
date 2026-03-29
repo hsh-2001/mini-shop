@@ -88,27 +88,15 @@
 
         <div class="grid gap-3">
           <el-input
-            :model-value="form.customerName"
+            v-model="formModel.customerName"
             size="small"
             :placeholder="$t('Walk-in customer')"
-            @update:model-value="
-              $emit('update:form', {
-                ...form,
-                customerName: String($event ?? ''),
-              })
-            "
           />
           <el-input
-            :model-value="form.customerPhone"
+            v-model="formModel.customerPhone"
             :placeholder="$t('Phone')"
             size="small"
             class="w-full"
-            @update:model-value="
-              $emit('update:form', {
-                ...form,
-                customerPhone: String($event ?? ''),
-              })
-            "
           />
         </div>
       </div>
@@ -128,13 +116,7 @@
             class="text-xs font-medium uppercase tracking-[0.12em] text-slate-500"
             >{{ $t("Order type") }}</span
           >
-          <el-radio-group
-            :model-value="form.type"
-            size="small"
-            @update:model-value="
-              $emit('update:form', { ...form, type: $event as OrderType })
-            "
-          >
+          <el-radio-group v-model="formModel.type" size="small">
             <el-radio-button
               v-for="option in orderTypeOptions"
               :key="option.value"
@@ -150,16 +132,7 @@
         >
           {{ $t("Payment") }}
         </div>
-        <el-radio-group
-          :model-value="form.paymentMethod"
-          size="small"
-          @update:model-value="
-            $emit('update:form', {
-              ...form,
-              paymentMethod: $event as PaymentMethod,
-            })
-          "
-        >
+        <el-radio-group v-model="formModel.paymentMethod" size="small">
           <el-radio-button
             v-for="option in paymentMethodOptions"
             :key="option.value"
@@ -169,15 +142,27 @@
           </el-radio-button>
         </el-radio-group>
 
+        <div
+          class="text-xs font-medium uppercase tracking-[0.12em] text-slate-500"
+        >
+          {{ $t("Payment status") }}
+        </div>
+        <el-radio-group v-model="formModel.paymentStatus" size="small">
+          <el-radio-button
+            v-for="option in paymentStatusOptions"
+            :key="option.value"
+            :value="option.value"
+          >
+            {{ $t(option.label) }}
+          </el-radio-button>
+        </el-radio-group>
+
         <el-input
-          :model-value="form.notes"
+          v-model="formModel.notes"
           type="textarea"
           :rows="2"
           resize="none"
           :placeholder="$t('Notes for staff')"
-          @update:model-value="
-            $emit('update:form', { ...form, notes: String($event ?? '') })
-          "
         />
       </div>
     </div>
@@ -211,7 +196,11 @@
 </template>
 
 <script setup lang="ts">
-import { OrderType, PaymentMethod } from "~~/prisma/generated/enums";
+import {
+  OrderType,
+  PaymentMethod,
+  PaymentStatus,
+} from "~~/prisma/generated/enums";
 import type { ProductItem } from "~/model/inventory";
 import type { CashierOrderForm } from "~/model/order";
 import { X } from "@lucide/vue";
@@ -235,7 +224,12 @@ const paymentMethodOptions = [
   { label: "Other", value: PaymentMethod.OTHER },
 ];
 
-defineProps<{
+const paymentStatusOptions = [
+  { label: "Paid", value: PaymentStatus.PAID },
+  { label: "Unpaid", value: PaymentStatus.UNPAID },
+];
+
+const props = defineProps<{
   cart: CartLine[];
   cartCount: number;
   subtotal: number;
@@ -243,11 +237,20 @@ defineProps<{
   form: CashierOrderForm;
 }>();
 
-defineEmits<{
+const emits = defineEmits<{
   (event: "remove", productId: number): void;
   (event: "quantity-change", productId: number, quantity: number): void;
   (event: "update:form", value: CashierOrderForm): void;
   (event: "clear-cart"): void;
   (event: "submit"): void;
 }>();
+
+const formModel = computed({
+  get() {
+    return props.form;
+  },
+  set(value: CashierOrderForm) {
+    emits("update:form", value);
+  },
+});
 </script>

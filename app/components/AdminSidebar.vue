@@ -10,7 +10,7 @@
         </span>
       </div>
 
-      <div>
+      <div class="space-y-1">
         <ul v-for="(menu, index) in filterMenuItems" :key="menu.name">
           <li
             class="px-2 flex justify-between items-center"

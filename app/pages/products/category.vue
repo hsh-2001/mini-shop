@@ -1,6 +1,5 @@
 <template>
   <section class="space-y-6">
-    <CategoryPageHeader :shop-label="shopLabel" />
     <CategoryTableSection
       :items="pagedCategories"
       :total="categories.length"

@@ -44,6 +44,7 @@ export interface GuestOrderPayload {
     notes?: string;
     type: OrderType;
     paymentMethod: PaymentMethod;
+    paymentStatus?: PaymentStatus;
     items: GuestOrderItemPayload[];
 }
 
@@ -54,6 +55,7 @@ export interface CashierOrderForm {
     notes: string;
     type: OrderType;
     paymentMethod: PaymentMethod;
+    paymentStatus: PaymentStatus;
 }
 
 export interface OrderItemSummary {
@@ -70,7 +72,7 @@ export interface OrderItemSummary {
     } | null;
 }
 
-export interface OrderSummary {
+export interface IOrderSummary {
     id: number;
     shopId: number;
     customerId: number | null;
@@ -111,4 +113,53 @@ export interface OrderUpdatePayload {
     status?: OrderStatus;
     paymentStatus?: PaymentStatus;
     notes?: string;
+}
+
+
+export class GetOrderSummaryListResponse implements IOrderSummary {
+    id: number;
+    shopId: number;
+    customerId: number | null;
+    userId: number;
+    orderNumber: string;
+    status: OrderStatus;
+    type: OrderType;
+    subtotal: string | number;
+    discount: string | number | null;
+    tax: string | number | null;
+    finalAmount: string | number;
+    paymentMethod: PaymentMethod;
+    paymentStatus: PaymentStatus;
+    notes: string | null;
+    createdOn: string;
+    updatedOn: string;
+    customer?: { id: number; name: string; phone: string | null; email: string | null; } | null | undefined;
+    user?: { id: number; username: string; role: string; } | null | undefined;
+    orderItems: OrderItemSummary[];
+
+    constructor(data: IOrderSummary) {
+        this.id = data.id;
+        this.shopId = data.shopId;
+        this.customerId = data.customerId;
+        this.userId = data.userId;
+        this.orderNumber = data.orderNumber;
+        this.status = data.status;
+        this.type = data.type;
+        this.subtotal = data.subtotal;
+        this.discount = data.discount;
+        this.tax = data.tax;
+        this.finalAmount = data.finalAmount;
+        this.paymentMethod = data.paymentMethod;
+        this.paymentStatus = data.paymentStatus;
+        this.notes = data.notes;
+        this.createdOn = data.createdOn;
+        this.updatedOn = data.updatedOn;
+        this.customer = data.customer;
+        this.user = data.user;
+        this.orderItems = data.orderItems;
+    }
+
+    get formattedCreatedOn() {
+        return this.createdOn ? getDateFormat(this.createdOn) : "--";
+    }
 }

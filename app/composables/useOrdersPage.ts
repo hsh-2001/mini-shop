@@ -1,5 +1,5 @@
 import { OrderStatus, PaymentStatus } from "~~/prisma/generated/enums";
-import type { OrderSummary } from "~/model/order";
+import { GetOrderSummaryListResponse, type IOrderSummary } from "~/model/order";
 import { fetchCurrentUser, fetchOrders, updateOrder } from "~/utils/apiCalling";
 import { showFeedback } from "~/utils/feedback";
 
@@ -12,7 +12,7 @@ const showSuccess = (message: string) => {
 };
 
 export const useOrdersPage = () => {
-    const orders = ref<OrderSummary[]>([]);
+    const orders = ref<GetOrderSummaryListResponse[]>([]);
     const isLoading = ref(true);
     const isSaving = ref(false);
     const currentPage = ref(1);
@@ -20,10 +20,14 @@ export const useOrdersPage = () => {
     const searchKeyword = ref("");
     const statusFilter = ref<OrderStatus | "ALL">("ALL");
     const paymentStatusFilter = ref<PaymentStatus | "ALL">("ALL");
-    const selectedOrder = ref<OrderSummary | null>(null);
+    const selectedOrder = ref<GetOrderSummaryListResponse | null>(null);
     const isDialogOpen = ref(false);
     const shopLabel = ref("Loading shop...");
-    const editForm = ref({
+    const editForm = ref<{
+        status: OrderStatus;
+        paymentStatus: PaymentStatus;
+        notes: string;
+    }>({
         status: OrderStatus.PENDING,
         paymentStatus: PaymentStatus.UNPAID,
         notes: "",
@@ -79,7 +83,7 @@ export const useOrdersPage = () => {
         };
     });
 
-    const openOrder = (order: OrderSummary) => {
+    const openOrder = (order: GetOrderSummaryListResponse) => {
         selectedOrder.value = order;
         editForm.value = {
             status: order.status,
@@ -112,7 +116,7 @@ export const useOrdersPage = () => {
             }
 
             shopLabel.value = user?.shop?.name ?? user?.username ?? "Current Shop";
-            orders.value = response.data ?? [];
+            orders.value = (response.data ?? []).map((order) => new GetOrderSummaryListResponse(order));
             currentPage.value = 1;
         } catch (error) {
             await showError(error instanceof Error ? error.message : "Unable to load orders.");
@@ -141,8 +145,8 @@ export const useOrdersPage = () => {
 
             const index = orders.value.findIndex((item) => item.id === response.data.id);
             if (index >= 0) {
-                orders.value.splice(index, 1, response.data);
-                selectedOrder.value = response.data;
+                orders.value.splice(index, 1, new GetOrderSummaryListResponse(response.data));
+                selectedOrder.value = new GetOrderSummaryListResponse(response.data);
             }
 
             isDialogOpen.value = false;

@@ -3,7 +3,7 @@ import type {
     CatalogResponse,
     GuestOrderPayload,
     OrderListQuery,
-    OrderSummary,
+    IOrderSummary,
     OrderUpdatePayload,
 } from "~/model/order";
 import type {
@@ -16,6 +16,7 @@ import type {
 import api from "~/utils/api";
 import { BaseApiResponse, getClientResponse } from "~~/types/baseApi";
 import type { ICreateUser, MemberResponse } from "~~/types/member";
+import type { PaymentStatus } from "~~/prisma/generated/client";
 
 export const callLogin = async (request: ILoginRequest): Promise<BaseApiResponse<any>> => {
     const result = await api.post("/auth/login", request);
@@ -61,26 +62,26 @@ export const fetchPublicCatalog = async (): Promise<BaseApiResponse<CatalogRespo
     return getClientResponse(result.data);
 }
 
-export const createGuestOrder = async (request: GuestOrderPayload): Promise<BaseApiResponse<OrderSummary>> => {
+export const createGuestOrder = async (request: GuestOrderPayload): Promise<BaseApiResponse<IOrderSummary>> => {
     const result = await api.post("/order", request);
     return getClientResponse(result.data);
 }
 
 export const createCashierOrder = async (
     request: Omit<GuestOrderPayload, "shopId"> & Partial<Pick<GuestOrderPayload, "shopId">>,
-): Promise<BaseApiResponse<OrderSummary>> => {
+): Promise<BaseApiResponse<IOrderSummary>> => {
     const result = await api.post("/order", request);
     return getClientResponse(result.data);
 }
 
-export const fetchOrders = async (query?: OrderListQuery): Promise<BaseApiResponse<OrderSummary[]>> => {
+export const fetchOrders = async (query?: OrderListQuery): Promise<BaseApiResponse<IOrderSummary[]>> => {
     const result = await api.get("/order", {
         params: query,
     });
     return getClientResponse(result.data);
 }
 
-export const updateOrder = async (request: OrderUpdatePayload): Promise<BaseApiResponse<OrderSummary>> => {
+export const updateOrder = async (request: OrderUpdatePayload): Promise<BaseApiResponse<IOrderSummary>> => {
     const result = await api.patch("/order", request);
     return getClientResponse(result.data);
 }

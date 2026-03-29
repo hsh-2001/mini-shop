@@ -10,6 +10,8 @@ export interface CreateGuestOrderInput {
     notes?: string | null;
     type: OrderType;
     paymentMethod: PaymentMethod;
+    paymentStatus?: PaymentStatus;
+    status?: OrderStatus;
     items: Array<{
         productId: number;
         quantity: number;
@@ -204,14 +206,14 @@ const createGuestOrder = async (request: CreateGuestOrderInput) => {
                 customerId,
                 userId: fallbackUser.id,
                 orderNumber,
-                status: "PENDING",
+                status: request.status || "PENDING",
                 type: request.type,
                 subtotal,
                 discount,
                 tax,
                 finalAmount,
                 paymentMethod: request.paymentMethod,
-                paymentStatus: "UNPAID",
+                paymentStatus: request.paymentStatus || "UNPAID",
                 notes: request.notes?.trim() || null,
                 orderItems: {
                     create: normalizedItems.map((item) => ({

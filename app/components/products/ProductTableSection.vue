@@ -1,5 +1,5 @@
 <template>
-    <el-card shadow="never" class="rounded-3xl border border-slate-200">
+    <el-card class="rounded-3xl border border-slate-200">
         <template #header>
             <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                 <div>
@@ -66,7 +66,7 @@
                         {{ row.sku || "-" }}
                     </template>
                 </el-table-column>
-                <el-table-column :label="$t('Actions')" width="170" align="right">
+                <el-table-column :label="$t('Actions')" width="170" align="right" fixed="right">
                     <template #default="{ row }">
                         <el-button type="primary" link @click="emit('edit', row)">
                             <el-icon class="mr-1"><Edit /></el-icon>

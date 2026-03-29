@@ -20,10 +20,9 @@
             :cart-count="cartCount"
             :subtotal="subtotal"
             :submitting="isSubmitting"
-            :form="form"
+            v-model:form="form"
             @remove="removeFromCart"
             @quantity-change="updateCartQuantity"
-            @update:form="form = $event"
             @clear-cart="clearCart"
             @submit="submitOrder"
           />
