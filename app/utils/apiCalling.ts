@@ -36,7 +36,7 @@ export const saveCategory = async (request: CategoryPayload): Promise<BaseApiRes
     return getClientResponse(result.data);
 }
 
-export const fetchProducts = async (keyword?: string): Promise<BaseApiResponse<ProductItem[]>> => {
+export const callGetAllProducts = async (keyword?: string): Promise<BaseApiResponse<ProductItem[]>> => {
     const result = await api.get("/product", {
         params: keyword ? { keyword } : undefined,
     });

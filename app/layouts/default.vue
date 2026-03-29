@@ -1,11 +1,10 @@
 <template>
-  <div class="w-full bg-slate-100 text-slate-900">
-    <div>
-      <AdminHeader />
-    </div>
-    <div class="flex items-start w-full">
+  <div class="h-screen flex flex-col bg-slate-100 text-slate-900">
+    <AdminHeader />
+
+    <div class="flex flex-1 overflow-hidden">
       <AdminSidebar />
-      <div class="w-full h-full p-2 overflow-auto">
+      <div class="flex-1 p-2 overflow-y-auto">
         <slot />
       </div>
     </div>
@@ -16,5 +15,3 @@
 import AdminHeader from "~/components/AdminHeader.vue";
 import AdminSidebar from "~/components/AdminSidebar.vue";
 </script>
-
-<style scoped></style>

@@ -1,6 +1,6 @@
 <template>
   <section class="space-y-6">
-    <ProductPageHeader :shop-label="shopLabel" />
+    <ProductPageHeader />
     <ProductTableSection
       :items="pagedProducts"
       :total="products.length"
@@ -46,7 +46,6 @@ const {
   keyword,
   currentPage,
   pageSize,
-  shopLabel,
   form,
   pagedProducts,
   canCreate,

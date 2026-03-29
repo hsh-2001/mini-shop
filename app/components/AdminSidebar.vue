@@ -2,7 +2,7 @@
   <Transition name="sidebar">
     <div
       v-if="store.isSidebarOpen"
-      class="sidebar w-60 h-[calc(100dvh-40px)] text-slate-700 bg-gray-50 border-r border-slate-300 relative"
+      class="sidebar w-52 h-[calc(100dvh-40px)] text-slate-700 bg-gray-50 border-r border-slate-300 relative"
     >
       <div class="w-full py-4 flex items-center justify-center">
         <h1 class="text-lg font-medium">Admin Sidebar</h1>

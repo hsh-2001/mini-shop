@@ -5,3 +5,17 @@
    </NuxtLayout>
   </div>
 </template>
+
+<script lang="ts" setup>
+const {
+  getAllProducts,
+  getAllCategories
+}  = useInitClientSide();
+
+onMounted(async () => {
+  await Promise.all([
+    getAllProducts(),
+    getAllCategories()
+  ]);
+});
+</script>

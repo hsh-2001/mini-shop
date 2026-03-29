@@ -76,5 +76,8 @@
     "Unable to search products.": "មិនអាចស្វែងរកផលិតផលបានទេ។",
     "Unable to load categories.": "មិនអាចផ្ទុកប្រភេទបានទេ។",
     "Category saved.": "បានរក្សាទុកប្រភេទ។",
-    "Unable to save category.": "មិនអាចរក្សាទុកប្រភេទបានទេ។"
+    "Unable to save category.": "មិនអាចរក្សាទុកប្រភេទបានទេ។",
+    "Cashier": "អ្នកលក់",
+    "Add": "បន្ថែម",
+    "Create Order": "បង្កើតការបញ្ជាទិញ"
 }

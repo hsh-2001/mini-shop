@@ -70,5 +70,7 @@
     "Unable to search products.": "Unable to search products.",
     "Unable to load categories.": "Unable to load categories.",
     "Category saved.": "Category saved.",
-    "Unable to save category.": "Unable to save category."
+    "Unable to save category.": "Unable to save category.",
+    "Cashier": "Cashier",
+    "Add": "Add"
 }

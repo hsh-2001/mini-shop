@@ -4,7 +4,7 @@ import {
     deleteProduct,
     fetchCategories,
     fetchCurrentUser,
-    fetchProducts,
+    callGetAllProducts,
     saveProduct,
 } from "~/utils/apiCalling";
 
@@ -80,7 +80,7 @@ export const useProductsPage = () => {
     };
 
     const loadProducts = async () => {
-        const response = await fetchProducts(keyword.value || undefined);
+        const response = await callGetAllProducts(keyword.value || undefined);
         products.value = response.data ?? [];
         currentPage.value = 1;
     };

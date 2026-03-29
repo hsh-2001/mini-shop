@@ -1,12 +1,9 @@
 import { OrderType, PaymentMethod } from "~~/prisma/generated/enums";
-import type { CategoryItem, ProductItem } from "~/model/inventory";
+import type { ProductItem } from "~/model/inventory";
 import type { CashierOrderForm } from "~/model/order";
 import { showFeedback } from "~/utils/feedback";
 import {
     createCashierOrder,
-    fetchCategories,
-    fetchCurrentUser,
-    fetchProducts,
 } from "~/utils/apiCalling";
 
 interface CartLine {
@@ -32,9 +29,9 @@ const showSuccess = (message: string) => {
 };
 
 export const useCashierPage = () => {
+    const store = useAppStore();
     const shopLabel = ref("Loading shop...");
-    const categories = ref<CategoryItem[]>([]);
-    const products = ref<ProductItem[]>([]);
+    const categories = computed(() => store.allCategories);
     const search = ref("");
     const selectedCategoryId = ref<number | "all">("all");
     const cart = ref<CartLine[]>([]);
@@ -45,7 +42,7 @@ export const useCashierPage = () => {
     const filteredProducts = computed(() => {
         const keyword = search.value.trim().toLowerCase();
 
-        return products.value.filter((product) => {
+        return store.allProducts.filter((product) => {
             if (product.isActive === false) {
                 return false;
             }
@@ -68,32 +65,6 @@ export const useCashierPage = () => {
         0,
     ));
 
-    const loadPage = async () => {
-        isLoading.value = true;
-        try {
-            const [user, categoriesResponse, productsResponse] = await Promise.all([
-                fetchCurrentUser(),
-                fetchCategories(),
-                fetchProducts(),
-            ]);
-
-            if (!categoriesResponse.isSuccess) {
-                throw new Error(categoriesResponse.message);
-            }
-
-            if (!productsResponse.isSuccess) {
-                throw new Error(productsResponse.message);
-            }
-
-            shopLabel.value = user?.shop?.name ?? user?.username ?? "Current Shop";
-            categories.value = categoriesResponse.data ?? [];
-            products.value = productsResponse.data ?? [];
-        } catch (error) {
-            await showError(error instanceof Error ? error.message : "Unable to load cashier data.");
-        } finally {
-            isLoading.value = false;
-        }
-    };
 
     const addToCart = (product: ProductItem) => {
         const existing = cart.value.find((item) => item.product.id === product.id);
@@ -176,7 +147,6 @@ export const useCashierPage = () => {
             const orderNumber = response.data.orderNumber;
             await showSuccess(`Order ${orderNumber} created.`);
             resetForm();
-            await loadPage();
         } catch (error) {
             await showError(error instanceof Error ? error.message : "Unable to create order.");
         } finally {
@@ -184,12 +154,10 @@ export const useCashierPage = () => {
         }
     };
 
-    onMounted(loadPage);
 
     return {
         shopLabel,
         categories,
-        products,
         search,
         selectedCategoryId,
         cart,
