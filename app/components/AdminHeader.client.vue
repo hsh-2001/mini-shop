@@ -18,7 +18,7 @@
           size="small"
           v-model="selectedLanguage"
           :placeholder="$t('Select')"
-          style="width: 100px"
+          style="width: 80px"
         >
           <el-option
             v-for="item in languageOptions"

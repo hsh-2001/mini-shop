@@ -7,9 +7,6 @@
     >
       <div>
         <h2 class="text-lg font-semibold text-slate-900">{{ $t("Products") }}</h2>
-        <!-- <p class="mt-1 text-sm text-slate-500">
-          {{ $t("Compact catalog for fast cashier entry.") }}
-        </p> -->
         <div class="mt-2 flex flex-wrap gap-2">
           <el-tag size="small" round type="info">
             {{ categories.length }} {{ $t("categories") }}
@@ -20,7 +17,7 @@
         </div>
       </div>
 
-      <div class="flex w-full flex-col gap-3 lg:max-w-xl">
+      <div class="flex w-full flex-col gap-2 lg:max-w-xl">
         <el-input
           :model-value="search"
           clearable
@@ -28,7 +25,7 @@
           @update:model-value="emit('update:search', String($event ?? ''))"
         />
 
-        <div class="flex flex-wrap gap-2">
+        <div class="flex flex-wrap">
           <el-button
             size="small"
             round
@@ -79,19 +76,19 @@
                 >
               </div>
               <div class="mt-2 text-slate-500">
-                <el-tag size="small" type="success">
+                <el-tag size="small" round type="danger">
                   {{ product.category?.name }}
                 </el-tag>
               </div>
             </div>
 
             <div>
-              <div class="text-md font-medium text-blue-500">
+              <div class="text-md font-medium text-secondary mt-2">
                 {{ product.name }}
               </div>
-              <div class="flex justify-between">
+              <div class="flex justify-between text-[12px]">
                 <p>{{ $t("Price") }}:</p>
-                <div class="flex flex-col justify-end items-end text-sm">
+                <div class="flex flex-col justify-end items-end">
                   <p>៛{{ Number(product.basePrice).toFixed(2) }}</p>
                   <p>{{ Number(product.basePrice).toFixed(2) }}</p>
                 </div>
