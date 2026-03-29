@@ -1,6 +1,9 @@
 import type { ILoginRequest } from "~/model/login";
+import { UserRole } from "~~/prisma/generated/enums";
 
 export default function useAuth() {
+    const store = useAppStore();
+    const { setUser } = store;
     const isAuth = ref(false);
     const isLoading = ref(false);
     const loginModel = ref<ILoginRequest>({
@@ -14,7 +17,12 @@ export default function useAuth() {
             const response = await callLogin(loginModel.value);
             if (response.isSuccess) {
                 isAuth.value = true;
-                window.location.href = "/";
+                if (response.data.role === UserRole.CASHIER) {
+                    window.location.href = "/cashier";
+                } else {
+                    window.location.href = "/";
+                }
+                localStorage.setItem("user", JSON.stringify(response.data));
             } else {
                 console.error("Login failed:", response.message);
             }

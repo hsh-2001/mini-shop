@@ -2,6 +2,19 @@ export default function useInitClientSide() {
     const store = useAppStore();
     const { setProducts, setCategories } = store;
 
+    (() => {
+        try {
+            const data = localStorage.getItem('user');
+            if (data) {
+                const dataJson = JSON.parse(data);
+                store.setUser(dataJson);
+            }
+        } catch (error) {
+            console.error("Failed to parse user info:", error);
+        }
+        return null;
+    })();
+
     const getAllProducts = async () => {
         try {
             const response = await callGetAllProducts();
@@ -27,6 +40,7 @@ export default function useInitClientSide() {
             console.error("Error fetching categories:", error);
         }
     }
+
 
     return {
         getAllProducts,

@@ -7,9 +7,9 @@
     >
       <div>
         <h2 class="text-lg font-semibold text-slate-900">{{ $t("Products") }}</h2>
-        <p class="mt-1 text-sm text-slate-500">
+        <!-- <p class="mt-1 text-sm text-slate-500">
           {{ $t("Compact catalog for fast cashier entry.") }}
-        </p>
+        </p> -->
         <div class="mt-2 flex flex-wrap gap-2">
           <el-tag size="small" round type="info">
             {{ categories.length }} {{ $t("categories") }}

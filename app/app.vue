@@ -10,7 +10,7 @@
     </ClientOnly>
   </div>
   <div v-else class="w-full min-h-screen flex items-center justify-center">
-    <RefreshCcw class="animate-spin w-10 h-10 text-blue-500" />
+    <RefreshCcw class="animate-spin w-10 h-10 text-primary" />
   </div>
 </template>
 

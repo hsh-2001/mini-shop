@@ -98,6 +98,7 @@ export const login = async (
     role: user.role,
     createdOn: user.createdOn,
     updatedOn: user.updatedOn,
+    shop: user.shop,
   };
 };
 

@@ -2,14 +2,16 @@
   <Transition name="sidebar">
     <div
       v-if="store.isSidebarOpen"
-      class="sidebar w-52 h-[calc(100dvh-40px)] text-slate-700 bg-gray-50 border-r text-sm border-slate-300 relative"
+      class="sidebar w-44 h-[calc(100dvh-40px)] text-slate-700 bg-gray-50 border-r text-sm border-slate-300 relative"
     >
       <div class="w-full py-4 flex items-center justify-center">
-        <h1 class="text-lg font-medium">{{ $t("Admin Sidebar") }}</h1>
+        <span class="text-xl uppercase font-medium text-slate-900">
+          {{ $t(store.user.role || "Admin") }}
+        </span>
       </div>
 
       <div>
-        <ul v-for="(menu, index) in menuItems" :key="menu.name">
+        <ul v-for="(menu, index) in filterMenuItems" :key="menu.name">
           <li
             class="px-2 flex justify-between items-center"
             @click="toggleMenu(index)"
@@ -70,7 +72,9 @@
 
 <script setup lang="ts">
 import { ChevronLeft, ChevronRight } from "@lucide/vue";
-import { menuItems } from "~/constants/menuItem";
+import useNavbar from "~/composables/useNavbar";
+
+const { filterMenuItems } = useNavbar();
 
 const store = useAppStore();
 const { toggleSidebar } = store;

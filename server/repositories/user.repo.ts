@@ -27,6 +27,14 @@ export const findUserByIdentifier = async (identifier: string) => {
         { phone: identifier },
       ],
     },
+    include: {
+      shop: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+    }
   });
 };
 

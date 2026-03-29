@@ -10,7 +10,7 @@
         <ChevronLeft v-if="store.isSidebarOpen" class="h-4 w-4" />
         <Menu v-else class="h-4 w-4" />
       </button>
-      {{ $t("Admin") }}
+      {{  $t(currentUser.shop?.name || 'Admin Dashboard') }}
     </div>
     <div class="mr-2">
       <ClientOnly>
@@ -39,7 +39,7 @@
 
 <script setup lang="ts">
 import { Menu, ChevronLeft, LogOut } from "@lucide/vue";
-const { selectedLanguage, logOut, languageOptions } = useNavbar();
+const { selectedLanguage, logOut, languageOptions, currentUser } = useNavbar();
 
 const store = useAppStore();
 </script>

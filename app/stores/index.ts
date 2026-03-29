@@ -7,6 +7,7 @@ export const useAppStore = defineStore('app', {
             isSidebarOpen: true,
             products: [] as ProductItem[],
             categories: [] as CategoryItem[],
+            user: {} as any,
         }
     },
     actions: {
@@ -18,6 +19,9 @@ export const useAppStore = defineStore('app', {
         },
         setCategories(categories: CategoryItem[]) {
             this.categories = categories;
+        },
+        setUser(user: any) {
+            this.user = user;
         }
     },
 
@@ -25,5 +29,6 @@ export const useAppStore = defineStore('app', {
         sidebarStatus: (state) => state.isSidebarOpen,
         allProducts: (state) => state.products,
         allCategories: (state) => state.categories,
+        currentUser: (state) => state.user,
     }
 });

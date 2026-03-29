@@ -244,5 +244,9 @@
   "Supply": "សម្ភារៈ",
   "Bean": "គ្រាប់កាហ្វេ",
   "Syrup": "ស៊ីរ៉ូ",
-  "Example SKU": "LATTE-001"
+  "Example SKU": "LATTE-001",
+  "ADMIN": "អ្នកគ្រប់គ្រង",
+  "MANAGER": "អ្នកគ្រប់គ្រងផ្នែក",
+  "STAFF": "បុគ្គលិក",
+  "CASHIER": "អ្នកលក់"
 }
