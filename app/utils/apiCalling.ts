@@ -15,6 +15,7 @@ import type {
 } from "~/model/inventory";
 import api from "~/utils/api";
 import { BaseApiResponse, getClientResponse } from "~~/types/baseApi";
+import type { ICreateUser, MemberResponse } from "~~/types/member";
 
 export const callLogin = async (request: ILoginRequest): Promise<BaseApiResponse<any>> => {
     const result = await api.post("/auth/login", request);
@@ -81,5 +82,20 @@ export const fetchOrders = async (query?: OrderListQuery): Promise<BaseApiRespon
 
 export const updateOrder = async (request: OrderUpdatePayload): Promise<BaseApiResponse<OrderSummary>> => {
     const result = await api.patch("/order", request);
+    return getClientResponse(result.data);
+}
+
+
+export const getAllMembers = async (): Promise<BaseApiResponse<MemberResponse[]>> => {
+    const result = await api.get("/member");
+    return getClientResponse(result.data);
+}
+
+export const callCreateMember = async (request: ICreateUser): Promise<BaseApiResponse<MemberResponse>> => {
+    const result = await api.post("/member", request);
+    return getClientResponse(result.data);
+}
+export const callUpdateMember = async (id: number, request: Partial<ICreateUser>): Promise<BaseApiResponse<MemberResponse>> => {
+    const result = await api.patch("/member", { id, ...request });
     return getClientResponse(result.data);
 }

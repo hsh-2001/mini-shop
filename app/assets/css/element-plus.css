@@ -1,0 +1,6 @@
+:root {
+    --el-color-primary: var(--primary) !important;
+    --el-color-primary-light-5: color-mix(in srgb, var(--primary) 70%, white) !important;
+    --el-color-primary-light-3: color-mix(in srgb, var(--primary) 70%, white) !important;
+    --el-color-secondary: var(--secondary) !important;
+}

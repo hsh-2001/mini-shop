@@ -5,7 +5,7 @@
       class="sidebar w-52 h-[calc(100dvh-40px)] text-slate-700 bg-gray-50 border-r text-sm border-slate-300 relative"
     >
       <div class="w-full py-4 flex items-center justify-center">
-        <h1 class="text-lg font-medium">Admin Sidebar</h1>
+        <h1 class="text-lg font-medium">{{ $t("Admin Sidebar") }}</h1>
       </div>
 
       <div>
@@ -16,9 +16,9 @@
           >
             <NuxtLink
               :to="menu.path"
-              class="flex items-center gap-2 w-full py-2"
+              class="flex items-center gap-2 w-full py-2 rounded-md transition-all"
               :class="{
-                'text-blue-500 bg-blue-300/10 rounded-lg':
+                'text-secondary bg-primary/10 rounded-lg':
                   currentPath === menu.path,
               }"
             >
@@ -35,7 +35,7 @@
           <Transition name="submenu">
             <ul
               v-if="menu.children && currentExpanded === index"
-              class="border-l border-slate-100 px-2 overflow-hidden"
+              class="border-l space-y-1 border-slate-100 px-2 overflow-hidden"
             >
               <li
                 v-for="sub in menu.children"
@@ -44,9 +44,9 @@
               >
                 <NuxtLink
                   :to="sub.path"
-                  class="flex items-center gap-2 px-4 py-2.5 text-[12px] rounded-md hover:text-blue-600 transition-all"
+                  class="flex items-center gap-2 px-4 py-2.5 text-[12px] rounded-md hover:text-secondary/80 hover:bg-primary/10 transition-all"
                   :class="{
-                    'bg-blue-100 text-blue-700 font-medium':
+                    'bg-primary/20 text-secondary font-medium':
                       currentPath === sub.path,
                   }"
                 >

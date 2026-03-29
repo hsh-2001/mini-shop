@@ -8,19 +8,18 @@
       <p
         class="text-sm font-semibold uppercase tracking-[0.24em] text-amber-700"
       >
-        Order Received
+        {{ $t("Order Received") }}
       </p>
-      <h1 class="mt-4 font-serif text-4xl text-slate-900">Thank you</h1>
+      <h1 class="mt-4 font-serif text-4xl text-slate-900">{{ $t("Thank you") }}</h1>
       <p class="mt-4 text-sm leading-6 text-slate-600">
-        Your order has been sent to the seller dashboard and is waiting for
-        confirmation.
+        {{ $t("Your order has been sent to the seller dashboard and is waiting for confirmation.") }}
       </p>
       <div class="mt-6 rounded-2xl bg-slate-950 px-5 py-4 text-slate-50">
         <p class="text-xs uppercase tracking-[0.2em] text-slate-400">
-          Order number
+          {{ $t("Order number") }}
         </p>
         <p class="mt-2 text-2xl font-semibold">
-          {{ orderNumber || "Pending" }}
+          {{ orderNumber || $t("Pending") }}
         </p>
       </div>
       <div class="mt-8 flex justify-center gap-3">
@@ -28,7 +27,7 @@
           to="/shop"
           class="rounded-full bg-amber-500 px-5 py-3 text-sm font-semibold text-slate-950"
         >
-          Place another order
+          {{ $t("Place another order") }}
         </NuxtLink>
       </div>
     </section>

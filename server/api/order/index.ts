@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
                 type: body.type,
                 paymentMethod: body.paymentMethod,
                 items: Array.isArray(body.items)
-                    ? body.items.map((item) => ({
+                    ? body.items.map((item: { productId: any; quantity: any; }) => ({
                         productId: Number(item.productId),
                         quantity: Number(item.quantity),
                     }))

@@ -2,8 +2,8 @@
   <div class="min-h-screen flex items-center justify-center bg-slate-100">
     <el-card class="w-full max-w-md rounded-2xl! shadow-lg">
       <div class="text-center mb-6">
-        <h1 class="text-2xl font-semibold text-slate-800">Welcome Back</h1>
-        <p class="text-sm text-slate-500">Login to your account</p>
+        <h1 class="text-2xl font-semibold text-slate-800">{{ $t("Welcome Back") }}</h1>
+        <p class="text-sm text-slate-500">{{ $t("Login to your account") }}</p>
       </div>
       <el-form
         :model="loginModel"
@@ -11,26 +11,26 @@
         ref="formRef"
         label-position="top"
       >
-        <el-form-item label="Username or Phone" prop="identifier">
+        <el-form-item :label="$t('Username or Phone')" prop="identifier">
           <el-input
             v-model="loginModel.identifier"
-            placeholder="Enter username or phone"
+            :placeholder="$t('Enter username or phone')"
             clearable
           />
         </el-form-item>
 
-        <el-form-item label="Password" prop="password">
+        <el-form-item :label="$t('Password')" prop="password">
           <el-input
             v-model="loginModel.password"
             type="password"
-            placeholder="Enter password"
+            :placeholder="$t('Enter password')"
             show-password
           />
         </el-form-item>
 
         <div class="flex justify-between items-center mb-4 text-sm">
-          <el-checkbox v-model="remember">Remember me</el-checkbox>
-          <el-link type="primary">Forgot password?</el-link>
+          <el-checkbox v-model="remember">{{ $t("Remember me") }}</el-checkbox>
+          <el-link type="primary">{{ $t("Forgot password?") }}</el-link>
         </div>
 
         <el-form-item>
@@ -40,7 +40,7 @@
             :loading="isLoading"
             @click="onSubmit"
           >
-            Login
+            {{ $t("Login") }}
           </el-button>
         </el-form-item>
       </el-form>
@@ -50,6 +50,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+const { t } = useI18n();
 
 definePageMeta({
   layout: "guest",
@@ -64,15 +65,15 @@ const rules = {
   identifier: [
     {
       required: true,
-      message: "Please enter username or phone",
+      message: t("Please enter username or phone"),
       trigger: "blur",
     },
   ],
   password: [
-    { required: true, message: "Please enter password", trigger: "blur" },
+    { required: true, message: t("Please enter password"), trigger: "blur" },
     {
       min: 4,
-      message: "Password must be at least 4 characters",
+      message: t("Password must be at least 4 characters"),
       trigger: "blur",
     },
   ],

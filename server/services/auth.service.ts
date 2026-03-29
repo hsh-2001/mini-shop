@@ -1,10 +1,14 @@
+import { ICreateUser } from './../../types/member';
 import bcrypt from "bcryptjs";
 import type { H3Event } from "h3";
 import {
   countUsers,
   createInitialAdminUser,
+  createUser,
   findAuthenticatedUserById,
   findUserByIdentifier,
+  getUsers,
+  updateUser,
 } from "../repositories/user.repo";
 import {
   clearSessionCookie,
@@ -12,7 +16,7 @@ import {
   setSessionCookie,
 } from "./session.service";
 import { validateLogin } from "../utils/vaiditionChance";
-import { User } from "~~/generated/prisma/client";
+import { UserRole } from '~~/prisma/generated/enums';
 
 export type AuthenticatedUser = NonNullable<Awaited<ReturnType<typeof findAuthenticatedUserById>>>;
 
@@ -134,7 +138,7 @@ export const registerInitialOwner = async (
       username: input.username,
       phone: input.phone,
       passwordHash,
-    }) as User;
+    });
     setSessionCookie(event, user);
 
     return {
@@ -150,3 +154,38 @@ export const registerInitialOwner = async (
     throw error;
   }
 };
+
+
+export const createUserService = async (req: ICreateUser) => {
+  const identifier = req.username || req.phone;
+  const validationMessage = await validateLogin({ identifier, password: req.password });
+  if (validationMessage) {
+    throw new Error(validationMessage);
+  }
+  if (!req.role) {
+    throw new Error("User role is required.");
+  }
+  if (!Object.values(UserRole).includes(req.role) || req.role === UserRole.ADMIN) {
+    throw new Error("Invalid user role.");
+  }
+  const passwordHash = await bcrypt.hash(req.password, SALT_ROUNDS);
+  req.password = passwordHash;
+  return await createUser(req);
+};
+
+export const getUsersService = async (shopId: number) => {
+  const users = await getUsers(shopId);
+  return users.map(user => ({
+    id: user.id,
+    shopId: user.shopId,
+    phone: user.phone,
+    username: user.username,
+    role: user.role,
+    createdOn: user.createdOn,
+    updatedOn: user.updatedOn,
+  }));
+}
+
+export const updateUserService = async (id: number, data: Partial<ICreateUser>) => {
+  return await updateUser(id, data);
+}

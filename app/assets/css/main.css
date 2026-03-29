@@ -1,1 +1,20 @@
 @import "tailwindcss";
+@import "./element-plus.css";
+
+/* :root {
+    --primary: #ffc400 !important;
+    --secondary: #ff6f00 !important;
+} */
+
+:root {
+    --primary: #00c1cb !important;
+    --secondary: #00d607 !important;
+}
+
+
+@theme {
+    --color-primary: var(--primary) !important;
+    --color-secondary: var(--secondary) !important;
+    --color-primary-hover: color-mix(in srgb, var(--primary) 80%, white) !important;
+    --color-secondary-hover: color-mix(in srgb, var(--secondary) 80%, white) !important;
+}

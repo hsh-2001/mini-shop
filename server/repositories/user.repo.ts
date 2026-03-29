@@ -1,3 +1,4 @@
+import { ICreateUser } from "~~/types/member";
 import { prisma } from "../utils/db";
 
 export const authenticatedUserSelect = {
@@ -72,3 +73,34 @@ export const createInitialAdminUser = async (input: {
     },
   });
 };
+
+export const createUser = async (request: ICreateUser) => {
+  return prisma.user.create({
+    data: {
+      shopId: request.shopId,
+      phone: request.phone,
+      username: request.username,
+      role: request.role,
+      passwordHash: request.password,
+    },
+    select: {
+      id: true,
+    },
+  });
+}
+
+export const getUsers = async (shopId: number) => {
+  return prisma.user.findMany({
+    where: { shopId },
+  });
+}
+
+export const updateUser = async (id: number, data: Partial<ICreateUser>) => {
+  return prisma.user.update({
+    where: { id },
+    data: {
+      phone: data.phone,
+      role: data.role,
+    },
+  });
+}

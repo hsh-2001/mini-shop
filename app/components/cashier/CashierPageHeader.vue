@@ -2,36 +2,36 @@
   <el-card shadow="never" class="cashier-header border-0">
     <div class="flex flex-col gap-4 xl:flex-row xl:items-end xl:justify-between">
       <div class="space-y-3">
-        <el-tag type="success" effect="plain" round size="small">Cashier</el-tag>
+        <el-tag type="success" effect="plain" round size="small">{{ $t("Cashier") }}</el-tag>
         <div>
           <h1 class="text-2xl font-semibold tracking-tight text-slate-900">
             {{ shopLabel }}
           </h1>
           <p class="mt-1 max-w-2xl text-sm text-slate-600">
-            Fast checkout with compact controls for counter orders.
+            {{ $t("Fast checkout with compact controls for counter orders.") }}
           </p>
         </div>
 
         <div class="flex flex-wrap gap-2">
-          <el-tag round effect="dark">{{ cartCount }} items</el-tag>
-          <el-tag round type="info">{{ cartLineCount }} lines</el-tag>
-          <el-tag round type="success">{{ productCount }} visible</el-tag>
+          <el-tag round effect="dark">{{ cartCount }} {{ $t("items") }}</el-tag>
+          <el-tag round type="info">{{ cartLineCount }} {{ $t("lines") }}</el-tag>
+          <el-tag round type="success">{{ productCount }} {{ $t("visible") }}</el-tag>
           <el-tag round type="warning">{{ activeCategoryLabel }}</el-tag>
         </div>
       </div>
 
       <div class="grid gap-2 sm:grid-cols-3">
         <div class="step-chip">
-          <span class="step-chip__label">Find</span>
-          <span class="step-chip__text">Search or filter</span>
+          <span class="step-chip__label">{{ $t("Find") }}</span>
+          <span class="step-chip__text">{{ $t("Search or filter") }}</span>
         </div>
         <div class="step-chip">
-          <span class="step-chip__label">Build</span>
-          <span class="step-chip__text">Add and adjust</span>
+          <span class="step-chip__label">{{ $t("Build") }}</span>
+          <span class="step-chip__text">{{ $t("Add and adjust") }}</span>
         </div>
         <div class="step-chip step-chip--accent">
-          <span class="step-chip__label">Charge</span>
-          <span class="step-chip__text">Confirm and save</span>
+          <span class="step-chip__label">{{ $t("Charge") }}</span>
+          <span class="step-chip__text">{{ $t("Confirm and save") }}</span>
         </div>
       </div>
     </div>
@@ -41,6 +41,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import type { CategoryItem } from "~/model/inventory";
+const { t } = useI18n();
 
 const props = defineProps<{
   shopLabel: string;
@@ -53,10 +54,10 @@ const props = defineProps<{
 
 const activeCategoryLabel = computed(() => {
   if (props.selectedCategoryId === "all") {
-    return "All categories";
+    return t("All categories");
   }
 
-  return props.categories.find((category) => category.id === props.selectedCategoryId)?.name ?? "Selected category";
+  return props.categories.find((category) => category.id === props.selectedCategoryId)?.name ?? t("Selected category");
 });
 </script>
 

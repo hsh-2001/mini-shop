@@ -52,7 +52,7 @@
 
             <div class="grid gap-4 md:grid-cols-2">
                 <el-form-item :label="$t('SKU')">
-                    <el-input :model-value="form.sku" placeholder="LATTE-001" @update:model-value="updateField('sku', $event)" />
+                    <el-input :model-value="form.sku" :placeholder="$t('Example SKU')" @update:model-value="updateField('sku', $event)" />
                 </el-form-item>
 
                 <el-form-item :label="$t('Barcode')">

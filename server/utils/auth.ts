@@ -7,7 +7,7 @@ const SESSION_TTL_MS = 1000 * 60 * 60 * 24 * 7;
 const PASSWORD_KEY_LENGTH = 64;
 
 type SessionPayload = {
-  
+
   userId: number;
   expiresAt: number;
   nonce: string;
@@ -171,14 +171,9 @@ export const getAuthenticatedUser = async (event: H3Event): Promise<Authenticate
 
 export const requireAuthenticatedUser = async (event: H3Event) => {
   const user = await getAuthenticatedUser(event);
-
   if (!user) {
-    throw createError({
-      statusCode: 401,
-      statusMessage: "You must be signed in.",
-    });
+    throw new Error("Authentication required. Please log in to access this resource.");
   }
-
   return user;
 };
 

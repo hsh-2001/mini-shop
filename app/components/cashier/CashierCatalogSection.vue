@@ -6,16 +6,16 @@
       class="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between p-2"
     >
       <div>
-        <h2 class="text-lg font-semibold text-slate-900">Products</h2>
+        <h2 class="text-lg font-semibold text-slate-900">{{ $t("Products") }}</h2>
         <p class="mt-1 text-sm text-slate-500">
-          Compact catalog for fast cashier entry.
+          {{ $t("Compact catalog for fast cashier entry.") }}
         </p>
         <div class="mt-2 flex flex-wrap gap-2">
           <el-tag size="small" round type="info">
-            {{ categories.length }} categories
+            {{ categories.length }} {{ $t("categories") }}
           </el-tag>
           <el-tag size="small" round type="success">
-            {{ products.length }} shown
+            {{ products.length }} {{ $t("shown") }}
           </el-tag>
         </div>
       </div>
@@ -24,7 +24,7 @@
         <el-input
           :model-value="search"
           clearable
-          placeholder="Search by name or SKU"
+          :placeholder="$t('Search by name or SKU')"
           @update:model-value="emit('update:search', String($event ?? ''))"
         />
 
@@ -35,7 +35,7 @@
             :type="selectedCategoryId === 'all' ? 'primary' : 'default'"
             @click="emit('update:selectedCategoryId', 'all')"
           >
-            All
+            {{ $t("All") }}
           </el-button>
           <el-button
             v-for="category in categories"
@@ -53,7 +53,7 @@
             text
             @click="resetFilters"
           >
-            Reset
+            {{ $t("Reset") }}
           </el-button>
         </div>
       </div>
@@ -111,7 +111,7 @@
         </div>
       </div>
 
-      <el-empty v-else description="No products match the current filters." />
+      <el-empty v-else :description="$t('No products match the current filters.')" />
     </div>
   </div>
 </template>

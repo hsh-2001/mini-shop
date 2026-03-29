@@ -17,7 +17,7 @@
         <el-select
           size="small"
           v-model="selectedLanguage"
-          placeholder="Select"
+          :placeholder="$t('Select')"
           style="width: 100px"
         >
           <el-option

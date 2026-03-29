@@ -2,30 +2,30 @@
   <section class="space-y-5 rounded-[28px] bg-white p-6 shadow-sm ring-1 ring-slate-200">
     <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
       <div>
-        <h2 class="text-xl font-semibold text-slate-900">Menu</h2>
-        <p class="text-sm text-slate-500">Choose items for the guest order.</p>
+        <h2 class="text-xl font-semibold text-slate-900">{{ $t("Menu") }}</h2>
+        <p class="text-sm text-slate-500">{{ $t("Choose items for the guest order.") }}</p>
         <div class="mt-3 flex flex-wrap gap-2 text-xs font-medium text-slate-500">
-          <span class="rounded-full bg-slate-100 px-3 py-1">{{ categories.length }} categories</span>
-          <span class="rounded-full bg-amber-50 px-3 py-1 text-amber-700">{{ products.length }} items shown</span>
+          <span class="rounded-full bg-slate-100 px-3 py-1">{{ categories.length }} {{ $t("categories") }}</span>
+          <span class="rounded-full bg-amber-50 px-3 py-1 text-amber-700">{{ products.length }} {{ $t("items shown") }}</span>
         </div>
       </div>
 
       <div class="flex flex-col gap-3 sm:flex-row">
         <el-input
           :model-value="search"
-          placeholder="Search menu"
+          :placeholder="$t('Search menu')"
           clearable
           class="w-full sm:w-64"
           @update:model-value="$emit('update:search', $event)"
         />
         <label class="relative block w-full sm:w-56">
-          <span class="sr-only">Filter by category</span>
+          <span class="sr-only">{{ $t("Filter by category") }}</span>
           <select
             :value="selectedCategoryId"
             class="w-full appearance-none rounded-[14px] border border-slate-300 bg-white px-4 py-[11px] pr-10 text-sm text-slate-700 shadow-sm outline-none transition focus:border-amber-500 focus:ring-2 focus:ring-amber-200"
             @change="$emit('update:selectedCategoryId', ($event.target as HTMLSelectElement).value === 'all' ? 'all' : Number(($event.target as HTMLSelectElement).value))"
           >
-            <option value="all">All categories</option>
+            <option value="all">{{ $t("All categories") }}</option>
             <option
             v-for="category in categories"
             :key="category.id"
@@ -56,7 +56,7 @@
               <div class="flex items-start justify-between gap-4">
                 <div>
                   <p class="text-xs font-semibold uppercase tracking-[0.18em] text-amber-700">
-                    {{ product.category?.name || "Menu Item" }}
+                    {{ product.category?.name || $t("Menu Item") }}
                   </p>
                   <h3 class="mt-2 text-lg font-semibold text-slate-900">
                     {{ product.name }}
@@ -68,7 +68,7 @@
               </div>
 
               <p class="min-h-10 text-sm leading-6 text-slate-600">
-                {{ product.description || "Freshly prepared and available for immediate ordering." }}
+                {{ product.description || $t("Freshly prepared and available for immediate ordering.") }}
               </p>
             </div>
 
@@ -77,7 +77,7 @@
                 class="rounded-full px-3 py-1"
                 :class="product.stock === 0 ? 'bg-rose-50 text-rose-600' : 'bg-slate-100 text-slate-600'"
               >
-                {{ product.stock >= 0 ? `Stock: ${product.stock}` : "Always available" }}
+                {{ product.stock >= 0 ? `${$t("Stock")}: ${product.stock}` : $t("Always available") }}
               </span>
               <el-button
                 type="warning"
@@ -85,7 +85,7 @@
                 :disabled="product.stock === 0"
                 @click="$emit('add', product)"
               >
-                Add to cart
+                {{ $t("Add to cart") }}
               </el-button>
             </div>
           </article>
@@ -94,8 +94,8 @@
           v-else
           class="rounded-3xl border border-dashed border-slate-300 bg-slate-50 px-6 py-12 text-center text-sm text-slate-500"
         >
-          <p class="font-medium text-slate-700">No products match the current filters.</p>
-          <p class="mt-2">Try another category or clear the search field.</p>
+          <p class="font-medium text-slate-700">{{ $t("No products match the current filters.") }}</p>
+          <p class="mt-2">{{ $t("Try another category or clear the search field.") }}</p>
         </div>
       </template>
     </el-skeleton>

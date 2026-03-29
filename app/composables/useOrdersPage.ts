@@ -17,6 +17,7 @@ export const useOrdersPage = () => {
     const isSaving = ref(false);
     const currentPage = ref(1);
     const pageSize = ref(10);
+    const searchKeyword = ref("");
     const statusFilter = ref<OrderStatus | "ALL">("ALL");
     const paymentStatusFilter = ref<PaymentStatus | "ALL">("ALL");
     const selectedOrder = ref<OrderSummary | null>(null);
@@ -28,9 +29,54 @@ export const useOrdersPage = () => {
         notes: "",
     });
 
+    const filteredOrders = computed(() => {
+        const keyword = searchKeyword.value.trim().toLowerCase();
+
+        if (!keyword) {
+            return orders.value;
+        }
+
+        return orders.value.filter((order) => {
+            const fields = [
+                order.orderNumber,
+                order.customer?.name,
+                order.customer?.phone,
+                order.customer?.email,
+                order.status,
+                order.paymentStatus,
+                order.type,
+            ];
+
+            return fields.some((value) => value?.toString().toLowerCase().includes(keyword));
+        });
+    });
+
     const pagedOrders = computed(() => {
         const start = (currentPage.value - 1) * pageSize.value;
-        return orders.value.slice(start, start + pageSize.value);
+        return filteredOrders.value.slice(start, start + pageSize.value);
+    });
+
+    const overviewStats = computed(() => {
+        const totalRevenue = filteredOrders.value.reduce(
+            (sum, order) => sum + Number(order.finalAmount || 0),
+            0,
+        );
+        const pendingCount = filteredOrders.value.filter((order) =>
+            ["PENDING", "CONFIRMED", "PREPARING"].includes(order.status),
+        ).length;
+        const paidCount = filteredOrders.value.filter((order) => order.paymentStatus === "PAID").length;
+        const today = new Date().toDateString();
+        const todayCount = filteredOrders.value.filter(
+            (order) => new Date(order.createdOn).toDateString() === today,
+        ).length;
+
+        return {
+            totalOrders: filteredOrders.value.length,
+            pendingCount,
+            paidCount,
+            todayCount,
+            totalRevenue,
+        };
     });
 
     const openOrder = (order: OrderSummary) => {
@@ -41,6 +87,13 @@ export const useOrdersPage = () => {
             notes: order.notes ?? "",
         };
         isDialogOpen.value = true;
+    };
+
+    const resetFilters = () => {
+        searchKeyword.value = "";
+        statusFilter.value = "ALL";
+        paymentStatusFilter.value = "ALL";
+        currentPage.value = 1;
     };
 
     const loadOrders = async () => {
@@ -105,6 +158,9 @@ export const useOrdersPage = () => {
     watch(pageSize, () => {
         currentPage.value = 1;
     });
+    watch(searchKeyword, () => {
+        currentPage.value = 1;
+    });
 
     onMounted(loadOrders);
 
@@ -114,14 +170,18 @@ export const useOrdersPage = () => {
         isSaving,
         currentPage,
         pageSize,
+        searchKeyword,
         statusFilter,
         paymentStatusFilter,
         selectedOrder,
         isDialogOpen,
         shopLabel,
         editForm,
+        filteredOrders,
         pagedOrders,
+        overviewStats,
         openOrder,
+        resetFilters,
         saveOrder,
     };
 };
