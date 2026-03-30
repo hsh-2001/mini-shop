@@ -107,7 +107,7 @@ export const useProductsPage = () => {
         try {
             const upload = await handleUploadImage(productFile.value, "products");
             if (upload) {
-                form.value.imageUrl = upload.imageUrl;
+                form.value.imageUrl = upload.filename;
             }
             const response = await saveProduct(form.value);
             if (!response.isSuccess) {

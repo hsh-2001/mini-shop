@@ -102,7 +102,7 @@
           >
             <img
               v-if="imageUrl || form.imageUrl"
-              :src="(imageUrl || form.imageUrl) ?? undefined"
+              :src="(imageUrl || getImageUrl(form.imageUrl ?? '')) ?? undefined"
               class="avatar"
             />
             <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>

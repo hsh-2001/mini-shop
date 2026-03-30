@@ -60,6 +60,9 @@ const fuzzySearch = async (shopId: number, keyword: string) => {
         include: {
             category: true,
         },
+        orderBy: [
+            { createdOn: "desc" },
+        ]
     });
 
     return response;
@@ -70,7 +73,10 @@ const findAll = async (shopId: number) => {
         where: { shopId },
         include: {
             category: true,
-        }
+        },
+        orderBy: [
+            { createdOn: "desc" },
+        ]
     });
 
     return response;

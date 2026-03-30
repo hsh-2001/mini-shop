@@ -51,12 +51,27 @@
         :empty-text="$t('No products found.')"
       >
         <el-table-column type="index" :label="$t('#')" width="60" />
-        <el-table-column :label="$t('Name')" min-width="220">
+        <el-table-column :label="$t('Name')" min-width="120">
           <template #default="{ row }">
             <div class="font-medium text-slate-900">{{ row.name }}</div>
             <div class="text-xs text-slate-500">
               {{ row.description || $t("No description") }}
             </div>
+          </template>
+        </el-table-column>
+        <el-table-column :label="$t('Image')" width="120" align="center">
+          <template #default="{ row }">
+            <div
+              v-if="row.imageUrl"
+              class="h-16 w-auto overflow-hidden rounded-md"
+            >
+              <img
+                :src="getImageUrl(row.imageUrl)"
+                class="h-full w-full object-cover"
+                @error="getFallbackImage"
+              />
+            </div>
+            <span v-else>-</span>
           </template>
         </el-table-column>
         <el-table-column :label="$t('Category')" min-width="160">
@@ -69,25 +84,10 @@
         </el-table-column>
         <el-table-column :label="$t('Price')" width="120" sortable>
           <template #default="{ row }">
-            ${{ formatPrice(row.basePrice) }}
+            {{ formatCurrency(row.basePrice, "KHR") }}
           </template>
         </el-table-column>
         <el-table-column prop="stock" :label="$t('Stock')" />
-        <el-table-column :label="$t('Image')" width="120">
-          <template #default="{ row }">
-            <div
-              v-if="row.imageUrl"
-              class="h-16 w-auto overflow-hidden rounded-md"
-            >
-              <img
-                :src="row.imageUrl"
-                class="h-full w-full object-cover"
-                @error="getFallbackImage"
-              />
-            </div>
-            <span v-else>-</span>
-          </template>
-        </el-table-column>
         <el-table-column
           :label="$t('Actions')"
           width="170"
@@ -146,6 +146,4 @@ const emit = defineEmits<{
   edit: [product: ProductItem];
   delete: [id: number];
 }>();
-
-const formatPrice = (value: string | number) => Number(value).toFixed(2);
 </script>

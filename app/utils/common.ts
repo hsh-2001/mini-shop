@@ -5,13 +5,11 @@ export const handleUploadImage = async (file: File | null, path = "") => {
     try {
         const { data } = await callUpload(file, path);
         if (!data?.filename) {
-            console.warn("No filename returned from upload");
             return;
         }
-        const imageResponse = await getImageFile(data.filename) ?? "";
         return {
             filename: data.filename,
-            imageUrl: imageResponse.data?.url ?? "",
+            url: data.url,
         }
     } catch (error) {
         console.error("Image upload failed:", error);
@@ -22,6 +20,11 @@ export const getFallbackImage = (e: Event) => {
     const target = e.target as HTMLImageElement;
     target.src = 'images/no_image.jpg';
 }
+
+export const getImageUrl = (filename: string) => {
+    const og = window.location.origin;
+    return `${og}/api/upload/read?filename=${filename}`;
+};
 
 export const downLoadCSV = async (fileName: string, page: string) => {
     const response = await api.get(`/export/csv?page=${page}`, {

@@ -72,8 +72,7 @@
             <div class="product-photo">
               <div class="w-auto h-40">
                 <img
-                  :src="
-                    product.imageUrl ||
+                  :src=" getImageUrl(product.imageUrl ?? '') ||
                     'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/iced-latte-30188f7.jpg'
                   "
                   alt="product-image"
