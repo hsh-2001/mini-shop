@@ -6,3 +6,10 @@
 
     --el-color-primary-dark-2: color-mix(in srgb, var(--primary) 70%, black) !important;
 }
+
+.el-card__body {
+    padding: 0!important;
+}
+.el-card__footer , .el-card__header {
+    padding: 0.5rem 1rem!important;
+}

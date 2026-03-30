@@ -1,22 +1,24 @@
 <template>
-  <section
-    class="space-y-5 rounded-md bg-white p-2 shadow-sm ring-1 ring-slate-200"
-  >
-    <div
-      class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between"
-    >
-      <div>
-        <h2 class="text-xl font-semibold text-slate-900">{{ $t("Orders") }}</h2>
-        <p class="text-sm text-slate-500">
-          {{ total }} {{ $t("matching orders across the current filters.") }}
-        </p>
+  <el-card class="w-full" shadow="never">
+    <template #header>
+      <div class="flex justify-between">
+        <div class="w-full">
+          <h3 class="text-xl font-bold">{{ $t("Orders") }}</h3>
+        </div>
+        <div class="w-full flex justify-end gap-2">
+          <el-button type="primary">
+            <Sheet class="mr-1 h-4 w-4" />
+            <span>{{ $t("Export") }}</span>
+          </el-button>
+        </div>
       </div>
-    </div>
+    </template>
     <div class="min-w-0 overflow-x-auto">
       <el-table
         :data="items"
         v-loading="loading"
         width="100%"
+        height="70dvh"
         :empty-text="
           searchKeyword
             ? $t('No orders match your search.')
@@ -117,20 +119,21 @@
         </template>
       </el-table>
     </div>
-
-    <div class="flex justify-end" v-if="total">
-      <el-pagination
-        background
-        layout="total, sizes, prev, pager, next"
-        :total="total"
-        :current-page="currentPage"
-        :page-size="pageSize"
-        :page-sizes="[10, 20, 50]"
-        @update:current-page="$emit('update:currentPage', $event)"
-        @update:page-size="$emit('update:pageSize', $event)"
-      />
-    </div>
-  </section>
+    <template #footer>
+      <div class="flex justify-end" v-if="total">
+        <el-pagination
+          background
+          layout="total, sizes, prev, pager, next"
+          :total="total"
+          :current-page="currentPage"
+          :page-size="pageSize"
+          :page-sizes="[10, 20, 50]"
+          @update:current-page="$emit('update:currentPage', $event)"
+          @update:page-size="$emit('update:pageSize', $event)"
+        />
+      </div>
+    </template>
+  </el-card>
 </template>
 
 <script setup lang="ts">
@@ -138,6 +141,7 @@ import { Box, View } from "@element-plus/icons-vue";
 import type { OrderStatus, PaymentStatus } from "~~/prisma/generated/enums";
 import type { GetOrderSummaryListResponse } from "~/model/order";
 import { formatCurrency } from "~/utils/currencyFormat";
+import { Sheet } from "@lucide/vue";
 const { t } = useI18n();
 
 const props = defineProps<{
@@ -177,12 +181,15 @@ const paymentTag = (status: PaymentStatus) => {
 };
 
 const store = useAppStore();
-const primaryCurrency = computed(() => store.currentCurrency.currencyBase || "USD");
+const primaryCurrency = computed(
+  () => store.currentCurrency.currencyBase || "USD",
+);
 const secondaryCurrency = computed(() =>
   primaryCurrency.value === "USD" ? "KHR" : "USD",
 );
 
-const formatMoney = (amount: number) => formatCurrency(amount, primaryCurrency.value);
+const formatMoney = (amount: number) =>
+  formatCurrency(amount, primaryCurrency.value);
 const formatAlternateMoney = (amount: number) =>
   formatCurrency(amount, secondaryCurrency.value);
 
