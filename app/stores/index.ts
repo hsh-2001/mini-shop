@@ -8,6 +8,11 @@ export const useAppStore = defineStore('app', {
             products: [] as ProductItem[],
             categories: [] as CategoryItem[],
             user: {} as any,
+            currency: {
+                currencyBase: 'USD',
+                exchangeUSD: 1,
+                exchangeKHR: 4100,
+            }
         }
     },
     actions: {
@@ -22,6 +27,9 @@ export const useAppStore = defineStore('app', {
         },
         setUser(user: any) {
             this.user = user;
+        },
+        setCurrency(currency: { currencyBase: string; exchangeUSD: number; exchangeKHR: number }) {
+            this.currency = currency;
         }
     },
 
@@ -30,5 +38,6 @@ export const useAppStore = defineStore('app', {
         allProducts: (state) => state.products,
         allCategories: (state) => state.categories,
         currentUser: (state) => state.user,
+        currentCurrency: (state) => state.currency,
     }
 });

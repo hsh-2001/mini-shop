@@ -61,12 +61,12 @@
                 {{ item.product?.name || $t("Unknown") }}
               </p>
               <p class="text-xs text-slate-500">
-                {{ item.quantity }} × ${{ Number(item.unitPrice).toFixed(2) }}
+                {{ item.quantity }} × {{ formatMoney(Number(item.unitPrice)) }}
               </p>
             </div>
 
             <p class="font-semibold text-sm">
-              ${{ Number(item.subtotal).toFixed(2) }}
+              {{ formatMoney(Number(item.subtotal)) }}
             </p>
           </div>
         </div>
@@ -111,7 +111,11 @@
 
         <div class="flex justify-between mt-2 text-lg font-semibold">
           <span>{{ $t("Total") }}</span>
-          <span> ${{ Number(order.finalAmount).toFixed(2) }} </span>
+          <span>{{ formatMoney(Number(order.finalAmount)) }}</span>
+        </div>
+        <div class="mt-1 flex justify-between text-xs opacity-70">
+          <span>{{ $t("Converted") }}</span>
+          <span>{{ formatAlternateMoney(Number(order.finalAmount)) }}</span>
         </div>
       </div>
     </div>
@@ -133,6 +137,7 @@
 <script setup lang="ts">
 import type { OrderStatus, PaymentStatus } from "~~/prisma/generated/enums";
 import type { IOrderSummary } from "~/model/order";
+import { formatCurrency } from "~/utils/currencyFormat";
 const { t } = useI18n();
 
 
@@ -166,6 +171,16 @@ const formModel = computed({
   get: () => props.form,
   set: (val) => emit("update:form", val),
 });
+
+const store = useAppStore();
+const primaryCurrency = computed(() => store.currentCurrency.currencyBase || "USD");
+const secondaryCurrency = computed(() =>
+  primaryCurrency.value === "USD" ? "KHR" : "USD",
+);
+
+const formatMoney = (amount: number) => formatCurrency(amount, primaryCurrency.value);
+const formatAlternateMoney = (amount: number) =>
+  formatCurrency(amount, secondaryCurrency.value);
 
 const formatLabel = (value: string) =>
   t(

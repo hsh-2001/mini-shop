@@ -23,6 +23,9 @@ export interface CatalogShop {
     description: string | null;
     address: string | null;
     phone: string | null;
+    currencyBase: string;
+    exchangeUSD: number;
+    exchangeKHR: number;
 }
 
 export interface CatalogResponse {

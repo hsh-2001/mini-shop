@@ -61,7 +61,7 @@
               "
             />
             <span class="text-sm font-semibold text-slate-900">
-              ${{ (Number(item.product.basePrice) * item.quantity).toFixed(2) }}
+              {{ formatMoney(Number(item.product.basePrice) * item.quantity) }}
             </span>
           </div>
         </div>
@@ -170,13 +170,17 @@
       <div class="total-panel">
         <div class="flex items-center justify-between text-sm text-slate-500">
           <span>{{ $t("Subtotal") }}</span>
-          <span>${{ subtotal.toFixed(2) }}</span>
+          <span>{{ formatMoney(subtotal) }}</span>
+        </div>
+        <div class="mt-1 flex items-center justify-between text-xs text-slate-400">
+          <span>{{ $t("Converted") }}</span>
+          <span>{{ formatAlternateMoney(subtotal) }}</span>
         </div>
         <div
           class="mt-2 flex items-center justify-between text-base font-semibold text-slate-900"
         >
           <span>{{ $t("Total") }}</span>
-          <span>${{ subtotal.toFixed(2) }}</span>
+          <span>{{ formatMoney(subtotal) }}</span>
         </div>
       </div>
 
@@ -204,6 +208,7 @@ import {
 import type { ProductItem } from "~/model/inventory";
 import type { CashierOrderForm } from "~/model/order";
 import { X } from "@lucide/vue";
+import { formatCurrency } from "~/utils/currencyFormat";
 
 interface CartLine {
   product: ProductItem;
@@ -244,6 +249,16 @@ const emits = defineEmits<{
   (event: "clear-cart"): void;
   (event: "submit"): void;
 }>();
+
+const store = useAppStore();
+const primaryCurrency = computed(() => store.currentCurrency.currencyBase || "USD");
+const secondaryCurrency = computed(() =>
+  primaryCurrency.value === "USD" ? "KHR" : "USD",
+);
+
+const formatMoney = (amount: number) => formatCurrency(amount, primaryCurrency.value);
+const formatAlternateMoney = (amount: number) =>
+  formatCurrency(amount, secondaryCurrency.value);
 
 const formModel = computed({
   get() {

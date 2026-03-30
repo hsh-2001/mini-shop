@@ -14,6 +14,9 @@ export default defineEventHandler(async () => {
                 description: true,
                 address: true,
                 phone: true,
+                currencyBase: true,
+                exchangeUSD: true,
+                exchangeKHR: true,
                 categories: {
                     select: {
                         id: true,
@@ -44,6 +47,9 @@ export default defineEventHandler(async () => {
                 description: shop.description,
                 address: shop.address,
                 phone: shop.phone,
+                currencyBase: shop.currencyBase,
+                exchangeUSD: shop.exchangeUSD,
+                exchangeKHR: shop.exchangeKHR,
             },
             categories: shop.categories,
             products,

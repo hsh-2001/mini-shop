@@ -19,7 +19,7 @@
           <div>
             <h3 class="font-medium">{{ item.product.name }}</h3>
             <p class="mt-1 text-sm text-slate-300">
-              ${{ Number(item.product.basePrice).toFixed(2) }} {{ $t("each") }}
+              {{ formatMoney(Number(item.product.basePrice)) }} {{ $t("each") }}
             </p>
           </div>
           <el-button text type="danger" @click="$emit('remove', item.product.id)">
@@ -53,7 +53,7 @@
             </button>
           </div>
           <p class="text-sm font-semibold">
-            ${{ (Number(item.product.basePrice) * item.quantity).toFixed(2) }}
+            {{ formatMoney(Number(item.product.basePrice) * item.quantity) }}
           </p>
         </div>
       </div>
@@ -155,11 +155,15 @@
     <div class="rounded-2xl bg-white/8 p-4">
       <div class="flex items-center justify-between text-sm text-slate-300">
         <span>{{ $t("Subtotal") }}</span>
-        <span>${{ subtotal.toFixed(2) }}</span>
+        <span>{{ formatMoney(subtotal) }}</span>
+      </div>
+      <div class="mt-1 flex items-center justify-between text-xs text-slate-400">
+        <span>{{ $t("Converted") }}</span>
+        <span>{{ formatAlternateMoney(subtotal) }}</span>
       </div>
       <div class="mt-3 flex items-center justify-between text-lg font-semibold text-white">
         <span>{{ $t("Total") }}</span>
-        <span>${{ subtotal.toFixed(2) }}</span>
+        <span>{{ formatMoney(subtotal) }}</span>
       </div>
     </div>
 
@@ -178,6 +182,7 @@
 
 <script setup lang="ts">
 import type { CatalogProductItem } from "~/model/order";
+import { formatCurrency } from "~/utils/currencyFormat";
 
 interface CartLine {
   product: CatalogProductItem;
@@ -212,4 +217,14 @@ defineEmits<{
   }): void;
   (event: "submit"): void;
 }>();
+
+const store = useAppStore();
+const primaryCurrency = computed(() => store.currentCurrency.currencyBase || "USD");
+const secondaryCurrency = computed(() =>
+  primaryCurrency.value === "USD" ? "KHR" : "USD",
+);
+
+const formatMoney = (amount: number) => formatCurrency(amount, primaryCurrency.value);
+const formatAlternateMoney = (amount: number) =>
+  formatCurrency(amount, secondaryCurrency.value);
 </script>

@@ -60,9 +60,10 @@
           <template #default="{ row }">
             <div>
               <p class="font-semibold text-slate-900">
-                ${{ Number(row.finalAmount).toFixed(2) }}
+                {{ formatMoney(Number(row.finalAmount)) }}
               </p>
               <p class="text-xs text-slate-500">
+                {{ formatAlternateMoney(Number(row.finalAmount)) }} ·
                 {{ formatLabel(row.paymentMethod) }}
               </p>
             </div>
@@ -135,7 +136,8 @@
 <script setup lang="ts">
 import { Box, View } from "@element-plus/icons-vue";
 import type { OrderStatus, PaymentStatus } from "~~/prisma/generated/enums";
-import type { GetOrderSummaryListResponse, IOrderSummary } from "~/model/order";
+import type { GetOrderSummaryListResponse } from "~/model/order";
+import { formatCurrency } from "~/utils/currencyFormat";
 const { t } = useI18n();
 
 const props = defineProps<{
@@ -174,6 +176,16 @@ const paymentTag = (status: PaymentStatus) => {
   return "info";
 };
 
+const store = useAppStore();
+const primaryCurrency = computed(() => store.currentCurrency.currencyBase || "USD");
+const secondaryCurrency = computed(() =>
+  primaryCurrency.value === "USD" ? "KHR" : "USD",
+);
+
+const formatMoney = (amount: number) => formatCurrency(amount, primaryCurrency.value);
+const formatAlternateMoney = (amount: number) =>
+  formatCurrency(amount, secondaryCurrency.value);
+
 const formatLabel = (value: string) =>
   t(
     {
@@ -198,12 +210,6 @@ const formatLabel = (value: string) =>
       OTHER: "Other",
     }[value] ?? value,
   );
-
-const formatDate = (value: string) =>
-  new Date(value).toLocaleString([], {
-    dateStyle: "medium",
-    timeStyle: "short",
-  });
 </script>
 
 <style scoped>

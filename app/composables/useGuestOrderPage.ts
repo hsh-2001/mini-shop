@@ -26,6 +26,7 @@ const showSuccess = (message: string) => {
 };
 
 export const useGuestOrderPage = () => {
+    const store = useAppStore();
     const catalog = ref<CatalogResponse>({
         shop: null,
         categories: [],
@@ -66,6 +67,13 @@ export const useGuestOrderPage = () => {
                 throw new Error(response.message);
             }
             catalog.value = response.data;
+            if (response.data.shop) {
+                store.setCurrency({
+                    currencyBase: response.data.shop.currencyBase,
+                    exchangeUSD: Number(response.data.shop.exchangeUSD),
+                    exchangeKHR: Number(response.data.shop.exchangeKHR),
+                });
+            }
         } catch (error) {
             await showError(error instanceof Error ? error.message : "Unable to load shop catalog.");
         } finally {

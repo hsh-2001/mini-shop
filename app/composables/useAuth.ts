@@ -3,7 +3,7 @@ import { UserRole } from "~~/prisma/generated/enums";
 
 export default function useAuth() {
     const store = useAppStore();
-    const { setUser } = store;
+    const { setCurrency } = store;
     const isAuth = ref(false);
     const isLoading = ref(false);
     const loginModel = ref<ILoginRequest>({
@@ -23,6 +23,11 @@ export default function useAuth() {
                     window.location.href = "/";
                 }
                 localStorage.setItem("user", JSON.stringify(response.data));
+                setCurrency({
+                    currencyBase: response.data.currencyBase,
+                    exchangeUSD: response.data.exchangeUSD,
+                    exchangeKHR: response.data.exchangeKHR,
+                });
             } else {
                 console.error("Login failed:", response.message);
             }

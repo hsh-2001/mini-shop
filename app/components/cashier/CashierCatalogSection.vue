@@ -95,8 +95,8 @@
               <div class="flex justify-between text-[12px]">
                 <p>{{ $t("Price") }}:</p>
                 <div class="flex flex-col justify-end items-end">
-                  <p>៛{{ Number(product.basePrice).toFixed(2) }}</p>
-                  <p>{{ Number(product.basePrice).toFixed(2) }}</p>
+                  <p>{{ formatPrice(Number(product.basePrice), primaryCurrency) }}</p>
+                  <p class="text-slate-400">{{ formatPrice(Number(product.basePrice), secondaryCurrency) }}</p>
                 </div>
               </div>
             </div>
@@ -124,6 +124,7 @@
 
 <script setup lang="ts">
 import type { CategoryItem, ProductItem } from "~/model/inventory";
+import { formatCurrency } from "~/utils/currencyFormat";
 
 defineProps<{
   loading: boolean;
@@ -138,6 +139,15 @@ const emit = defineEmits<{
   (event: "update:selectedCategoryId", value: number | "all"): void;
   (event: "add", value: ProductItem): void;
 }>();
+
+const store = useAppStore();
+const primaryCurrency = computed(() => store.currentCurrency.currencyBase || "USD");
+const secondaryCurrency = computed(() =>
+  primaryCurrency.value === "USD" ? "KHR" : "USD",
+);
+
+const formatPrice = (amount: number, currency: string) =>
+  formatCurrency(amount, currency);
 
 const resetFilters = () => {
   emit("update:search", "");

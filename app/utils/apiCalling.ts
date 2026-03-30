@@ -16,6 +16,7 @@ import type {
 import api from "~/utils/api";
 import { BaseApiResponse, getClientResponse } from "~~/types/baseApi";
 import type { ICreateUser, MemberResponse } from "~~/types/member";
+import type { ShopResponse } from "~/model/setting";
 
 export const callLogin = async (request: ILoginRequest): Promise<BaseApiResponse<any>> => {
     const result = await api.post("/auth/login", request);
@@ -119,7 +120,12 @@ export const getImageFile = async (filePath: string): Promise<BaseApiResponse<{ 
     return getClientResponse(result.data);
 }
 
-export const callGetShopSetting = async (): Promise<BaseApiResponse<any>> => {
+export const callGetShopSetting = async (): Promise<BaseApiResponse<ShopResponse>> => {
     const result = await api.get("/shop/setting");
+    return getClientResponse(result.data);
+}
+
+export const callUpdateShopSetting = async (data: Partial<ShopResponse>): Promise<BaseApiResponse<ShopResponse>> => {
+    const result = await api.post("/shop/setting", data);
     return getClientResponse(result.data);
 }

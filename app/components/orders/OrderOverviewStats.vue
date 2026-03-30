@@ -23,6 +23,7 @@
 
 <script setup lang="ts">
 import { CircleCheck, Clock, Money, Tickets } from "@element-plus/icons-vue";
+import { formatCurrency } from "~/utils/currencyFormat";
 const { t } = useI18n();
 
 const props = defineProps<{
@@ -35,12 +36,9 @@ const props = defineProps<{
   };
 }>();
 
-const formatCurrency = (value: number) =>
-  new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 2,
-  }).format(value);
+const store = useAppStore();
+const formatRevenue = (value: number) =>
+  formatCurrency(value, store.currentCurrency.currencyBase || "USD");
 
 const cards = computed(() => [
   {
@@ -66,7 +64,7 @@ const cards = computed(() => [
   },
   {
     label: t("Visible revenue"),
-    value: formatCurrency(props.stats.totalRevenue),
+    value: formatRevenue(props.stats.totalRevenue),
     caption: `${props.stats.todayCount} ${t("orders were created today.")}`,
     icon: Money,
     iconWrapperClass: "bg-blue-100 text-blue-700",

@@ -17,13 +17,12 @@
 <script lang="ts" setup>
 import { RefreshCcw } from "@lucide/vue";
 const { getAllProducts, getAllCategories } = useInitClientSide();
+const {  getShopSetting } = useSetting();
 
 const isFinished = ref(false);
 
-onMounted(async () => {
-  await Promise.all([getAllProducts(), getAllCategories()]);
-  setTimeout(() => {
-    isFinished.value = true;
-  }, 500);
+onBeforeMount(async () => {
+  await Promise.all([getAllProducts(), getAllCategories(), getShopSetting()]);
+  isFinished.value = true;
 });
 </script>

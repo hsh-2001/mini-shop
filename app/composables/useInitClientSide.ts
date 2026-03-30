@@ -1,6 +1,6 @@
 export default function useInitClientSide() {
     const store = useAppStore();
-    const { setProducts, setCategories } = store;
+    const { setProducts, setCategories, setCurrency } = store;
 
     (() => {
         if (import.meta.server) return;

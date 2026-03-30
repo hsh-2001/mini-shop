@@ -14,8 +14,8 @@ model Shop {
   address      String?
   phone        String?
   currencyBase String   @default("KHR") @map("currency_base")
-  exchangeUSD  Decimal? @map("exchange_usd") @db.Decimal(10, 4)
-  exchangeKHR  Decimal? @map("exchange_khr") @db.Decimal(10, 4)
+  exchangeUSD  Decimal? @map("exchange_usd") @db.Decimal(10, 6)
+  exchangeKHR  Decimal? @map("exchange_khr") @db.Decimal(10, 6)
   openingHours Json?    @map("opening_hours") // e.g., { "monday": "07:00-18:00", ... }
 
   createdOn DateTime @default(now()) @map("created_on")

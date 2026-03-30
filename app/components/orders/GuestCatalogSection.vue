@@ -63,7 +63,7 @@
                   </h3>
                 </div>
                 <span class="rounded-full bg-white px-3 py-1 text-sm font-semibold text-slate-900 ring-1 ring-slate-200">
-                  ${{ Number(product.basePrice).toFixed(2) }}
+                  {{ formatMoney(Number(product.basePrice)) }}
                 </span>
               </div>
 
@@ -105,6 +105,7 @@
 <script setup lang="ts">
 import type { ProductCategorySummary } from "~/model/inventory";
 import type { CatalogProductItem } from "~/model/order";
+import { formatCurrency } from "~/utils/currencyFormat";
 
 defineProps<{
   loading: boolean;
@@ -119,4 +120,8 @@ defineEmits<{
   (event: "update:selectedCategoryId", value: number | "all"): void;
   (event: "add", value: CatalogProductItem): void;
 }>();
+
+const store = useAppStore();
+const formatMoney = (amount: number) =>
+  formatCurrency(amount, store.currentCurrency.currencyBase || "USD");
 </script>
