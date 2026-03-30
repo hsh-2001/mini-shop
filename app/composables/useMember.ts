@@ -2,6 +2,7 @@ import type { FormInstance, FormRules } from "element-plus";
 import { MemberResponse, type ICreateUser } from "~~/types/member";
 
 export default function useMember() {
+    const { t } = useI18n();
     const members = ref<MemberResponse[]>([]);
     const dialogVisible = ref(false);
     const ruleFormRef = ref<FormInstance>()
@@ -11,19 +12,19 @@ export default function useMember() {
 
     const rules = reactive<FormRules<ICreateUser>>({
         username: [
-            { required: true, message: "Please input username", trigger: "blur" },
-            { min: 3, max: 20, message: "Username must be between 3 and 20 characters", trigger: "blur" },
+            { required: true, message: t("Please input username"), trigger: "blur" },
+            { min: 3, max: 20, message: t("Username must be between 3 and 20 characters"), trigger: "blur" },
         ],
         phone: [
-            { required: true, message: "Please input phone number", trigger: "blur" },
-            { type: "string", message: "Please input a valid phone number", trigger: "blur" },
+            { required: true, message: t("Please input phone number"), trigger: "blur" },
+            { type: "string", message: t("Please input a valid phone number"), trigger: "blur" },
         ],
         password: [
-            { required: true, message: "Please input password", trigger: "blur" },
-            { min: 6, message: "Password must be at least 6 characters", trigger: "blur" },
+            { required: true, message: t("Please input password"), trigger: "blur" },
+            { min: 6, message: t("Password must be at least 6 characters"), trigger: "blur" },
         ],
         role: [
-            { required: true, message: "Please select a role", trigger: "change" },
+            { required: true, message: t("Please select a role"), trigger: "change" },
         ]
     });
 
@@ -93,6 +94,12 @@ export default function useMember() {
         return isEditting.value ? handleEditMember() : createMember();
     });
 
+    const handleClose = () => {
+        formModel.value = {} as ICreateUser;
+        isEditting.value = false;
+        id.value = null;
+    }
+
     return {
         members,
         getMember,
@@ -106,5 +113,6 @@ export default function useMember() {
         ruleFormRef,
         onSubmit,
         isEditting,
+        handleClose,
     };
 }

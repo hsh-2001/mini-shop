@@ -12,6 +12,7 @@ const showSuccess = (message: string) => {
 };
 
 export const useOrdersPage = () => {
+    const { t } = useI18n();
     const orders = ref<GetOrderSummaryListResponse[]>([]);
     const isLoading = ref(true);
     const isSaving = ref(false);
@@ -22,7 +23,7 @@ export const useOrdersPage = () => {
     const paymentStatusFilter = ref<PaymentStatus | "ALL">("ALL");
     const selectedOrder = ref<GetOrderSummaryListResponse | null>(null);
     const isDialogOpen = ref(false);
-    const shopLabel = ref("Loading shop...");
+    const shopLabel = ref(t("Loading shop..."));
     const editForm = ref<{
         status: OrderStatus;
         paymentStatus: PaymentStatus;
@@ -115,11 +116,11 @@ export const useOrdersPage = () => {
                 throw new Error(response.message);
             }
 
-            shopLabel.value = user?.shop?.name ?? user?.username ?? "Current Shop";
+            shopLabel.value = user?.shop?.name ?? user?.username ?? t("Current Shop");
             orders.value = (response.data ?? []).map((order) => new GetOrderSummaryListResponse(order));
             currentPage.value = 1;
         } catch (error) {
-            await showError(error instanceof Error ? error.message : "Unable to load orders.");
+            await showError(error instanceof Error ? error.message : t("Unable to load orders."));
         } finally {
             isLoading.value = false;
         }
@@ -150,9 +151,9 @@ export const useOrdersPage = () => {
             }
 
             isDialogOpen.value = false;
-            await showSuccess("Order updated.");
+            await showSuccess(t("Order updated."));
         } catch (error) {
-            await showError(error instanceof Error ? error.message : "Unable to update order.");
+            await showError(error instanceof Error ? error.message : t("Unable to update order."));
         } finally {
             isSaving.value = false;
         }

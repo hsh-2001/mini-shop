@@ -30,7 +30,7 @@
               :type="row.role === 'ADMIN' ? 'danger' : 'success'"
               effect="light"
               round
-              >{{ row.role }}</el-tag
+              >{{ $t(row.role) }}</el-tag
             >
           </template>
         </el-table-column>
@@ -59,7 +59,9 @@
   </div>
   <el-dialog
     v-model="dialogVisible"
+    destroy-on-close
     :title="isEditting ? $t('Update Member') : $t('Create Member')"
+    @close="handleClose"
   >
     <el-form
       :model="formModel"
@@ -117,6 +119,7 @@ const {
   onSubmit,
   onEditMember,
   isEditting,
+  handleClose,
 } = useMember();
 
 onMounted(() => {

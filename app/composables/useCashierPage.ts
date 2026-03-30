@@ -30,8 +30,9 @@ const showSuccess = (message: string) => {
 };
 
 export const useCashierPage = () => {
+    const { t } = useI18n();
     const store = useAppStore();
-    const shopLabel = ref("Loading shop...");
+    const shopLabel = ref(t("Loading shop..."));
     const categories = computed(() => store.allCategories);
     const search = ref("");
     const selectedCategoryId = ref<number | "all">("all");
@@ -72,7 +73,7 @@ export const useCashierPage = () => {
         const currentQuantity = existing?.quantity ?? 0;
 
         if (product.stock >= 0 && currentQuantity >= product.stock) {
-            void showError("This product has reached its stock limit.");
+            void showError(t("This product has reached its stock limit."));
             return;
         }
 
@@ -99,7 +100,7 @@ export const useCashierPage = () => {
         }
 
         if (target.product.stock >= 0 && quantity > target.product.stock) {
-            void showError("Requested quantity is higher than current stock.");
+            void showError(t("Requested quantity is higher than current stock."));
             return;
         }
 
@@ -121,13 +122,13 @@ export const useCashierPage = () => {
 
     const submitOrder = async () => {
         if (!cart.value.length) {
-            await showError("Add at least one item to the cart.");
+            await showError(t("Add at least one item to the cart."));
             return;
         }
 
         isSubmitting.value = true;
         try {
-            const customerName = form.value.customerName.trim() || "Walk-in customer";
+            const customerName = form.value.customerName.trim() || t("Walk-in customer");
             const response = await createCashierOrder({
                 customerName,
                 customerPhone: form.value.customerPhone.trim() || undefined,
@@ -147,10 +148,10 @@ export const useCashierPage = () => {
             }
 
             const orderNumber = response.data.orderNumber;
-            await showSuccess(`Order ${orderNumber} created.`);
+            await showSuccess(t("Order {orderNumber} created.", { orderNumber }));
             resetForm();
         } catch (error) {
-            await showError(error instanceof Error ? error.message : "Unable to create order.");
+            await showError(error instanceof Error ? error.message : t("Unable to create order."));
         } finally {
             isSubmitting.value = false;
         }

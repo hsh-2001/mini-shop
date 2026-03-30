@@ -3,7 +3,7 @@
     <el-card class="w-full h-full" shadow="never">
       <template #header>
         <div class="flex justify-between">
-          <h2 class="text-xl font-bold">Settings</h2>
+          <h2 class="text-xl font-bold">{{ $t("Settings") }}</h2>
           <el-button
             type="primary"
             size="small"
@@ -36,25 +36,25 @@
           :model="model"
           class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
         >
-          <el-form-item label="Shop Name">
+          <el-form-item :label="$t('Shop Name')">
             <el-input
               :disabled="!isEditting"
               v-model="model.name"
-              placeholder="Shop Name"
+              :placeholder="$t('Shop Name')"
             ></el-input>
           </el-form-item>
-          <el-form-item label="Login Name">
+          <el-form-item :label="$t('Login Name')">
             <el-input
               v-model="model.username"
               disabled
-              placeholder="Login Name"
+              :placeholder="$t('Login Name')"
             ></el-input>
           </el-form-item>
           <el-form-item :label="$t('Currency Base')">
             <el-input
               v-model="model.currencyBase"
               disabled
-              placeholder="Currency Base"
+              :placeholder="$t('Currency Base')"
             ></el-input>
           </el-form-item>
           <el-form-item
@@ -65,7 +65,7 @@
               type="number"
               :disabled="!isEditting"
               v-model="model.exchangeUSD"
-              placeholder="Exchange USD"
+              :placeholder="$t('Exchange USD')"
             ></el-input>
           </el-form-item>
           <el-form-item
@@ -75,16 +75,16 @@
             <el-input
               :disabled="!isEditting"
               v-model="model.exchangeKHR"
-              placeholder="Exchange KHR"
+              :placeholder="$t('Exchange KHR')"
             ></el-input>
           </el-form-item>
-          <el-form-item label="Shop Description">
+          <el-form-item :label="$t('Shop Description')">
             <el-input
               type="textarea"
               :rows="3"
               :disabled="!isEditting"
               v-model="model.description"
-              placeholder="Shop Description"
+              :placeholder="$t('Shop Description')"
             ></el-input>
           </el-form-item>
         </el-form>

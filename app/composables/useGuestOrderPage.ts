@@ -26,6 +26,7 @@ const showSuccess = (message: string) => {
 };
 
 export const useGuestOrderPage = () => {
+    const { t } = useI18n();
     const store = useAppStore();
     const catalog = ref<CatalogResponse>({
         shop: null,
@@ -75,7 +76,7 @@ export const useGuestOrderPage = () => {
                 });
             }
         } catch (error) {
-            await showError(error instanceof Error ? error.message : "Unable to load shop catalog.");
+            await showError(error instanceof Error ? error.message : t("Unable to load shop catalog."));
         } finally {
             isLoading.value = false;
         }
@@ -86,7 +87,7 @@ export const useGuestOrderPage = () => {
         const currentQuantity = existing?.quantity ?? 0;
 
         if (product.stock >= 0 && currentQuantity >= product.stock) {
-            void showError("This product has reached its stock limit.");
+            void showError(t("This product has reached its stock limit."));
             return;
         }
 
@@ -113,7 +114,7 @@ export const useGuestOrderPage = () => {
         }
 
         if (line.product.stock >= 0 && quantity > line.product.stock) {
-            void showError("Requested quantity is higher than current stock.");
+            void showError(t("Requested quantity is higher than current stock."));
             return;
         }
 
@@ -131,17 +132,17 @@ export const useGuestOrderPage = () => {
 
     const submitOrder = async () => {
         if (!catalog.value.shop) {
-            await showError("Shop details are unavailable.");
+            await showError(t("Shop details are unavailable."));
             return;
         }
 
         if (!checkoutForm.value.customerName.trim()) {
-            await showError("Customer name is required.");
+            await showError(t("Customer name is required."));
             return;
         }
 
         if (!cart.value.length) {
-            await showError("Add at least one item to the cart.");
+            await showError(t("Add at least one item to the cart."));
             return;
         }
 
@@ -169,10 +170,10 @@ export const useGuestOrderPage = () => {
             const orderNumber = response.data.orderNumber;
             resetCheckout();
             await loadCatalog();
-            await showSuccess("Order placed successfully.");
+            await showSuccess(t("Order placed successfully."));
             await navigateTo(`/shop/success?orderNumber=${encodeURIComponent(orderNumber)}`);
         } catch (error) {
-            await showError(error instanceof Error ? error.message : "Unable to place the order.");
+            await showError(error instanceof Error ? error.message : t("Unable to place the order."));
         } finally {
             isSubmitting.value = false;
         }

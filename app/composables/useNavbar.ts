@@ -2,7 +2,7 @@ import { menuItems } from "~/constants/menuItem";
 import type { UserRole } from "~~/prisma/generated/enums";
 
 export default function useNavbar() {
-    const { locale, setLocale } = useI18n();
+    const { locale, setLocale, t } = useI18n();
     const store = useAppStore();
     const { currentUser } = store;
 
@@ -19,10 +19,10 @@ export default function useNavbar() {
         }
         return null;
     })();
-    const languageOptions = [
-        { value: "en", label: "English" },
-        { value: "km", label: "ខ្មែរ" },
-    ] as const;
+    const languageOptions = computed(() => [
+        { value: "en", label: t("English") },
+        { value: "km", label: t("Khmer") },
+    ] as const);
     const selectedLanguage = computed({
         get: () => locale.value as 'en' | 'km',
         set: (val: 'en' | 'km') => {
