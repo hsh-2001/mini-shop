@@ -46,8 +46,8 @@
       <el-table
         v-loading="loading"
         :data="items"
-        stripe
         width="100%"
+        height="70dvh"
         :empty-text="$t('No products found.')"
       >
         <el-table-column type="index" :label="$t('#')" width="60" />
@@ -107,19 +107,20 @@
         </el-table-column>
       </el-table>
     </div>
-
-    <div class="mt-4 flex justify-end" v-if="total">
-      <el-pagination
-        :current-page="currentPage"
-        :page-size="pageSize"
-        background
-        layout="total, sizes, prev, pager, next"
-        :page-sizes="[5, 10, 20, 50]"
-        :total="total"
-        @update:current-page="emit('update:current-page', $event)"
-        @update:page-size="emit('update:page-size', $event)"
-      />
-    </div>
+    <template #footer>
+      <div class="flex justify-end" v-if="total">
+        <el-pagination
+          :current-page="currentPage"
+          :page-size="pageSize"
+          background
+          layout="total, sizes, prev, pager, next"
+          :page-sizes="[5, 10, 20, 50]"
+          :total="total"
+          @update:current-page="emit('update:current-page', $event)"
+          @update:page-size="emit('update:page-size', $event)"
+        />
+      </div>
+    </template>
   </el-card>
 </template>
 

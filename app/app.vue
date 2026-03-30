@@ -25,4 +25,5 @@ onBeforeMount(async () => {
   await Promise.all([getAllProducts(), getAllCategories(), getShopSetting()]);
   isFinished.value = true;
 });
+
 </script>

@@ -12,7 +12,7 @@
         </div>
         <el-button type="primary" @click="emit('create')">
           <el-icon class="mr-1"><Plus /></el-icon>
-          {{ $t("Add Category") }}  
+          {{ $t("Add Category") }}
         </el-button>
       </div>
     </template>
@@ -54,19 +54,20 @@
         </el-table-column>
       </el-table>
     </div>
-
-    <div class="mt-4 flex justify-end" v-if="total">
-      <el-pagination
-        :current-page="currentPage"
-        :page-size="pageSize"
-        background
-        layout="total, sizes, prev, pager, next"
-        :page-sizes="[5, 10, 20, 50]"
-        :total="total"
-        @update:current-page="emit('update:current-page', $event)"
-        @update:page-size="emit('update:page-size', $event)"
-      />
-    </div>
+    <template #footer>
+      <div class="flex justify-end" v-if="total">
+        <el-pagination
+          :current-page="currentPage"
+          :page-size="pageSize"
+          background
+          layout="total, sizes, prev, pager, next"
+          :page-sizes="[5, 10, 20, 50]"
+          :total="total"
+          @update:current-page="emit('update:current-page', $event)"
+          @update:page-size="emit('update:page-size', $event)"
+        />
+      </div>
+    </template>
   </el-card>
 </template>
 
