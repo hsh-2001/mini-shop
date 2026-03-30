@@ -1,8 +1,10 @@
 <template>
   <div class="min-h-screen flex items-center justify-center bg-slate-100">
-    <el-card class="w-full max-w-md rounded-2xl! shadow-lg">
-      <div class="text-center mb-6">
-        <h1 class="text-2xl font-semibold text-slate-800">{{ $t("Welcome Back") }}</h1>
+    <el-card class="w-full max-w-md">
+      <div class="text-center p-6">
+        <h1 class="text-2xl font-semibold text-slate-800">
+          {{ $t("Welcome Back") }}
+        </h1>
         <p class="text-sm text-slate-500">{{ $t("Login to your account") }}</p>
       </div>
       <el-form
@@ -10,6 +12,7 @@
         :rules="rules"
         ref="formRef"
         label-position="top"
+        class="p-4"
       >
         <el-form-item :label="$t('Username or Phone')" prop="identifier">
           <el-input

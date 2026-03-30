@@ -11,6 +11,7 @@
       v-model:page-size="pageSize"
       @reset-filters="resetFilters"
       @view="openOrder"
+      @export="exportExcelJS"
     />
     <OrderDetailDialog
       :saving="isSaving"
@@ -42,5 +43,6 @@ const {
   openOrder,
   resetFilters,
   saveOrder,
+  exportExcelJS,
 } = useOrdersPage();
 </script>
