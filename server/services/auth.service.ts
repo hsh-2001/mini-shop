@@ -17,6 +17,7 @@ import {
 } from "./session.service";
 import { validateLogin } from "../utils/vaiditionChance";
 import { UserRole } from '~~/prisma/generated/enums';
+import { User } from '~~/prisma/generated/client';
 
 export type AuthenticatedUser = NonNullable<Awaited<ReturnType<typeof findAuthenticatedUserById>>>;
 
@@ -143,7 +144,7 @@ export const registerInitialOwner = async (
       phone: input.phone,
       passwordHash,
     });
-    setSessionCookie(event, user);
+    setSessionCookie(event, user as User);
 
     return {
       ok: true,

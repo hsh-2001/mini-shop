@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import type { H3Event } from "h3";
-import { User } from "~~/generated/prisma/client";
+import { User } from "~~/prisma/generated/client";
 
 const SESSION_COOKIE_NAME = "session_token";
 const SESSION_MAX_AGE_SECONDS = 60 * 60 * 24 * 7;

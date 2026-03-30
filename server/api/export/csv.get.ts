@@ -1,12 +1,13 @@
+import { requireAuthenticatedUser } from "~~/server/services/auth.service";
 import orderService from "~~/server/services/order.service";
 import { success } from "~~/types/baseApi";
-import product from "../product";
 
 export default defineEventHandler(async (event) => {
     try {
         const query = getQuery(event);
+        const user = await requireAuthenticatedUser(event);
         if (query.page === 'order') {
-            const data = await orderService.findAll(1);
+            const data = await orderService.findAll(user.shopId);
             const mapData = data.map(order => ({
                 orderId: order.orderNumber,
                 type: order.type,

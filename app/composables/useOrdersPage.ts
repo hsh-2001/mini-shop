@@ -174,22 +174,11 @@ export const useOrdersPage = () => {
     const exportCSV = async () => {
         isDownloading.value = true;
         try {
-            const response = await axios.get("/api/export/csv?page=order", {
-                responseType: "blob",
-            });
-
-            const blob = new Blob([response.data], { type: "text/csv" });
-            const fileName = `orders_${new Date().toISOString().split("T")[0]}.csv`;
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement("a");
-            link.href = url;
-            link.download = fileName;
-            link.click();
-            URL.revokeObjectURL(url);
-            isDialogOpen.value = false;
+            await downLoadCSV("orders", "order");
         } catch (error) {
             console.error("Failed to export orders:", error);
         }
+        isDownloading.value = false;
     };
 
     return {
