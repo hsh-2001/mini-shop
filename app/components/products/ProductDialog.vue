@@ -4,6 +4,7 @@
     :title="form.id ? $t('Update Product') : $t('Add Product')"
     width="680px"
     destroy-on-close
+    top="20px"
     @update:model-value="emit('update:open', $event)"
     @closed="emit('closed')"
   >
@@ -15,98 +16,100 @@
       class="mb-4"
     />
 
-    <el-form label-position="top" @submit.prevent="emit('submit')">
-      <el-form-item :label="$t('Name')" required>
-        <el-input
-          :model-value="form.name"
-          :placeholder="$t('Product name')"
-          @update:model-value="updateField('name', $event)"
-        />
-      </el-form-item>
-
-      <div class="grid gap-4 md:grid-cols-2">
-        <el-form-item :label="$t('Category')">
-          <el-select
-            :model-value="categoryIdModel"
-            :placeholder="$t('Uncategorized')"
-            class="w-full"
-            clearable
-            @update:model-value="updateCategory"
-          >
-            <el-option
-              v-for="category in categories"
-              :key="category.id"
-              :label="category.name"
-              :value="String(category.id)"
-            />
-          </el-select>
+    <div class="w-full max-h-[70dvh] overflow-auto pr-1">
+      <el-form label-position="top" @submit.prevent="emit('submit')">
+        <el-form-item :label="$t('Name')" required>
+          <el-input
+            :model-value="form.name"
+            :placeholder="$t('Product name')"
+            @update:model-value="updateField('name', $event)"
+          />
         </el-form-item>
 
-        <el-form-item :label="$t('Base Price')" required>
+        <div class="grid gap-4 md:grid-cols-2">
+          <el-form-item :label="$t('Category')">
+            <el-select
+              :model-value="categoryIdModel"
+              :placeholder="$t('Uncategorized')"
+              class="w-full"
+              clearable
+              @update:model-value="updateCategory"
+            >
+              <el-option
+                v-for="category in categories"
+                :key="category.id"
+                :label="category.name"
+                :value="String(category.id)"
+              />
+            </el-select>
+          </el-form-item>
+
+          <el-form-item :label="$t('Base Price')" required>
+            <el-input-number
+              :model-value="form.basePrice"
+              :min="0"
+              :step="0.01"
+              controls-position="right"
+              class="w-full"
+              @update:model-value="updateField('basePrice', $event ?? 0)"
+            />
+          </el-form-item>
+        </div>
+
+        <div class="grid gap-4 md:grid-cols-2">
+          <el-form-item :label="$t('SKU')">
+            <el-input
+              :model-value="form.sku"
+              :placeholder="$t('Example SKU')"
+              @update:model-value="updateField('sku', $event)"
+            />
+          </el-form-item>
+
+          <el-form-item :label="$t('Barcode')">
+            <el-input
+              :model-value="form.barcode"
+              :placeholder="$t('Optional')"
+              @update:model-value="updateField('barcode', $event)"
+            />
+          </el-form-item>
+        </div>
+
+        <el-form-item :label="$t('Stock')">
           <el-input-number
-            :model-value="form.basePrice"
-            :min="0"
-            :step="0.01"
+            :model-value="form.stock"
+            :step="1"
             controls-position="right"
             class="w-full"
-            @update:model-value="updateField('basePrice', $event ?? 0)"
+            @update:model-value="updateField('stock', $event ?? -1)"
           />
         </el-form-item>
-      </div>
 
-      <div class="grid gap-4 md:grid-cols-2">
-        <el-form-item :label="$t('SKU')">
+        <el-form-item :label="$t('Description')">
           <el-input
-            :model-value="form.sku"
-            :placeholder="$t('Example SKU')"
-            @update:model-value="updateField('sku', $event)"
+            :model-value="form.description"
+            type="textarea"
+            :rows="4"
+            :placeholder="$t('Short product note')"
+            @update:model-value="updateField('description', $event)"
           />
         </el-form-item>
-
-        <el-form-item :label="$t('Barcode')">
-          <el-input
-            :model-value="form.barcode"
-            :placeholder="$t('Optional')"
-            @update:model-value="updateField('barcode', $event)"
-          />
+        <el-form-item :label="$t('Image')">
+          <el-upload
+            class="avatar-uploader"
+            :show-file-list="false"
+            :on-success="handleAvatarSuccess"
+            @change="handleFileChange"
+          >
+            <img
+              v-if="imageUrl || form.imageUrl"
+              :src="(imageUrl || form.imageUrl) ?? undefined"
+              class="avatar"
+            />
+            <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
+          </el-upload>
         </el-form-item>
-      </div>
-
-      <el-form-item :label="$t('Stock')">
-        <el-input-number
-          :model-value="form.stock"
-          :step="1"
-          controls-position="right"
-          class="w-full"
-          @update:model-value="updateField('stock', $event ?? -1)"
-        />
-      </el-form-item>
-
-      <el-form-item :label="$t('Description')">
-        <el-input
-          :model-value="form.description"
-          type="textarea"
-          :rows="4"
-          :placeholder="$t('Short product note')"
-          @update:model-value="updateField('description', $event)"
-        />
-      </el-form-item>
-      <el-form-item :label="$t('Image')">
-        <el-upload
-          class="avatar-uploader"
-          :show-file-list="false"
-          :on-success="handleAvatarSuccess"
-          @change="handleFileChange"
-        >
-          <img
-            v-if="form.imageUrl || imageUrl"
-            :src="form.imageUrl || imageUrl"
-            class="avatar"
-          />
-          <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
-        </el-upload>
-      </el-form-item>
-    </el-form>
+      </el-form>
+    </div>
 
     <template #footer>
       <div class="flex justify-end gap-3">

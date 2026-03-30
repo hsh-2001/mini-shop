@@ -6,7 +6,9 @@
       class="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between p-2"
     >
       <div>
-        <h2 class="text-lg font-semibold text-slate-900">{{ $t("Products") }}</h2>
+        <h2 class="text-lg font-semibold text-slate-900">
+          {{ $t("Products") }}
+        </h2>
         <div class="mt-2 flex flex-wrap gap-2">
           <el-tag size="small" round type="info">
             {{ categories.length }} {{ $t("categories") }}
@@ -70,10 +72,14 @@
             <div class="product-photo">
               <div class="w-auto h-40">
                 <img
-                  :src="product.imageUrl || 'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/iced-latte-30188f7.jpg'"
-                  alt=""
+                  :src="
+                    product.imageUrl ||
+                    'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/iced-latte-30188f7.jpg'
+                  "
+                  alt="product-image"
+                  @error="getFallbackImage"
                   class="w-full h-full object-cover rounded-md"
-                >
+                />
               </div>
               <div class="mt-2 text-slate-500">
                 <el-tag size="small" round type="danger">
@@ -108,7 +114,10 @@
         </div>
       </div>
 
-      <el-empty v-else :description="$t('No products match the current filters.')" />
+      <el-empty
+        v-else
+        :description="$t('No products match the current filters.')"
+      />
     </div>
   </div>
 </template>

@@ -15,3 +15,8 @@ export const handleUploadImage = async (file: File | null, path = "") => {
         console.error("Image upload failed:", error);
     }
 };
+
+export const getFallbackImage = (e: Event) => {
+    const target = e.target as HTMLImageElement;
+    target.src = 'images/no_image.jpg';
+}
