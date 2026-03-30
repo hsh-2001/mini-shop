@@ -6,7 +6,7 @@
           <h3 class="text-xl font-bold">{{ $t("Orders") }}</h3>
         </div>
         <div class="w-full flex justify-end gap-2">
-          <el-button type="primary" @click="$emit('export')">
+          <el-button type="primary" :loading="isDownloading" @click="$emit('export')">
             <Sheet class="mr-1 h-4 w-4" />
             <span>{{ $t("Export") }}</span>
           </el-button>
@@ -153,6 +153,7 @@ const props = defineProps<{
   searchKeyword: string;
   statusFilter: OrderStatus | "ALL";
   paymentStatusFilter: PaymentStatus | "ALL";
+  isDownloading: boolean;
 }>();
 
 defineEmits<{

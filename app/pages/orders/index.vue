@@ -4,6 +4,7 @@
       :items="pagedOrders"
       :total="filteredOrders.length"
       :loading="isLoading"
+      :is-downloading="isDownloading"
       v-model:search-keyword="searchKeyword"
       v-model:status-filter="statusFilter"
       v-model:payment-status-filter="paymentStatusFilter"
@@ -11,7 +12,7 @@
       v-model:page-size="pageSize"
       @reset-filters="resetFilters"
       @view="openOrder"
-      @export="exportExcelJS"
+      @export="exportCSV"
     />
     <OrderDetailDialog
       :saving="isSaving"
@@ -43,6 +44,7 @@ const {
   openOrder,
   resetFilters,
   saveOrder,
-  exportExcelJS,
+  exportCSV,
+  isDownloading,
 } = useOrdersPage();
 </script>

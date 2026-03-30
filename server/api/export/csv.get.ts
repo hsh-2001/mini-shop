@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
         if (query.page === 'order') {
             const data = await orderService.findAll(1);
             const mapData = data.map(order => ({
-                orderId: order.id,
+                orderId: order.orderNumber,
                 type: order.type,
                 status: order.status,
                 paymentStatus: order.paymentStatus,

@@ -16,6 +16,7 @@
         :data="members"
         stripe
         width="100%"
+        v-loading="isLoading"
         :empty-text="$t('No members found yet.')"
       >
         <el-table-column
@@ -120,6 +121,7 @@ const {
   onEditMember,
   isEditting,
   handleClose,
+  isLoading,
 } = useMember();
 
 onMounted(() => {

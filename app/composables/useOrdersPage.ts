@@ -1,9 +1,7 @@
 import { OrderStatus, PaymentStatus } from "~~/prisma/generated/enums";
-import { GetOrderSummaryListResponse, type IOrderSummary } from "~/model/order";
+import { GetOrderSummaryListResponse } from "~/model/order";
 import { fetchCurrentUser, fetchOrders, updateOrder } from "~/utils/apiCalling";
 import { showFeedback } from "~/utils/feedback";
-import ExcelJS from "exceljs";
-import { saveAs } from "file-saver";
 import axios from "axios";
 
 const showError = (message: string) => {
@@ -27,6 +25,7 @@ export const useOrdersPage = () => {
     const selectedOrder = ref<GetOrderSummaryListResponse | null>(null);
     const isDialogOpen = ref(false);
     const shopLabel = ref(t("Loading shop..."));
+    const isDownloading = ref(false);
     const editForm = ref<{
         status: OrderStatus;
         paymentStatus: PaymentStatus;
@@ -172,7 +171,8 @@ export const useOrdersPage = () => {
 
     onMounted(loadOrders);
 
-    const exportExcelJS = async () => {
+    const exportCSV = async () => {
+        isDownloading.value = true;
         try {
             const response = await axios.get("/api/export/csv?page=order", {
                 responseType: "blob",
@@ -180,82 +180,16 @@ export const useOrdersPage = () => {
 
             const blob = new Blob([response.data], { type: "text/csv" });
             const fileName = `orders_${new Date().toISOString().split("T")[0]}.csv`;
-            saveAs(blob, fileName);
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = fileName;
+            link.click();
+            URL.revokeObjectURL(url);
+            isDialogOpen.value = false;
         } catch (error) {
             console.error("Failed to export orders:", error);
         }
-
-        return;
-        // const workbook = new ExcelJS.Workbook();
-        // const sheet = workbook.addWorksheet("Sales");
-        // sheet.columns = [
-        //     { header: "Order Id", key: "orderId", width: 20 },
-        //     { header: "Customer Name", key: "customerName", width: 25 },
-        //     { header: "Customer Phone", key: "customerPhone", width: 20 },
-        //     { header: "Customer Email", key: "customerEmail", width: 30 },
-        //     { header: "Status", key: "status", width: 15 },
-        //     { header: "Payment Status", key: "paymentStatus", width: 18 },
-        //     { header: "Type", key: "type", width: 15 },
-        //     { header: "Final Amount", key: "finalAmount", width: 15 },
-        //     { header: "Created On", key: "createdOn", width: 20 },
-        // ];
-        // const headerRow = sheet.getRow(1);
-        // headerRow.eachCell((cell) => {
-        //     cell.font = {
-        //         bold: true,
-        //         size: 14,
-        //         color: { argb: "FFFFFFFF" },
-        //     };
-        //     cell.fill = {
-        //         type: "pattern",
-        //         pattern: "solid",
-        //         fgColor: { argb: "FF4F81BD" },
-        //     };
-
-        //     cell.alignment = {
-        //         vertical: "middle",
-        //         horizontal: "center",
-        //     };
-        //     cell.border = {
-        //         top: { style: "thin" },
-        //         left: { style: "thin" },
-        //         bottom: { style: "thin" },
-        //         right: { style: "thin" },
-        //     };
-        // });
-
-        // orders.value.forEach((order) => {
-        //     sheet.addRow({
-        //         orderId: order.id,
-        //         customerName: order.customer?.name || "Walk-in guest",
-        //         customerPhone: order.customer?.phone || "",
-        //         customerEmail: order.customer?.email || "",
-        //         status: order.status,
-        //         paymentStatus: order.paymentStatus,
-        //         type: order.type,
-        //         finalAmount: order.finalAmount,
-        //         createdOn: order.formattedCreatedOn,
-        //     });
-        // });
-
-        // sheet.getColumn('paymentStatus').eachCell((cell, rowNumber) => {
-        //     if (rowNumber === 1) return;
-
-        //     cell.fill = {
-        //         type: "pattern",
-        //         pattern: "solid",
-        //         fgColor: { argb: "FFFCE4D6" },
-        //     };
-        //     cell.alignment = {
-        //         vertical: "middle",
-        //         horizontal: "right",
-        //     }
-        // });
-
-
-        // const buffer = await workbook.xlsx.writeBuffer();
-
-        // saveAs(new Blob([buffer]), "sales.xlsx");
     };
 
     return {
@@ -277,6 +211,7 @@ export const useOrdersPage = () => {
         openOrder,
         resetFilters,
         saveOrder,
-        exportExcelJS,
+        exportCSV,
+        isDownloading,
     };
 };

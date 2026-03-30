@@ -7,6 +7,7 @@ export default function useMember() {
     const dialogVisible = ref(false);
     const ruleFormRef = ref<FormInstance>()
     const isEditting = ref(false);
+    const isLoading = ref(false);
 
     const formModel = ref<ICreateUser>({} as ICreateUser);
 
@@ -29,6 +30,7 @@ export default function useMember() {
     });
 
     const getMember = async () => {
+        isLoading.value = true;
         try {
             const result = await getAllMembers();
             if (result.isSuccess) {
@@ -38,6 +40,8 @@ export default function useMember() {
             }
         } catch (error) {
             console.error("Error fetching members:", error);
+        } finally {
+            isLoading.value = false;
         }
     }
 
@@ -114,5 +118,6 @@ export default function useMember() {
         onSubmit,
         isEditting,
         handleClose,
+        isLoading,
     };
 }
