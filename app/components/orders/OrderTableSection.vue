@@ -6,7 +6,7 @@
           <h3 class="text-xl font-bold">{{ $t("Orders") }}</h3>
         </div>
         <div class="w-full flex justify-end gap-2">
-          <el-button type="primary">
+          <el-button type="primary" @click="$emit('export')">
             <Sheet class="mr-1 h-4 w-4" />
             <span>{{ $t("Export") }}</span>
           </el-button>
@@ -163,6 +163,7 @@ defineEmits<{
   (event: "update:paymentStatusFilter", value: PaymentStatus | "ALL"): void;
   (event: "reset-filters"): void;
   (event: "view", value: GetOrderSummaryListResponse): void;
+  (event: "export"): void;
 }>();
 
 const statusTag = (status: OrderStatus) => {
