@@ -26,7 +26,6 @@
 </template>
 
 <script setup lang="ts">
-import CategoryPageHeader from "~/components/products/CategoryPageHeader.vue";
 import CategoryTableSection from "~/components/products/CategoryTableSection.vue";
 import CategoryDialog from "~/components/products/CategoryDialog.vue";
 
@@ -37,7 +36,6 @@ const {
   isDialogOpen,
   currentPage,
   pageSize,
-  shopLabel,
   form,
   pagedCategories,
   setForm,
@@ -45,7 +43,10 @@ const {
   openCreateDialog,
   editCategory,
   submitCategory,
+  getAllCategories,
 } = useCategoriesPage();
+
+onMounted(getAllCategories);
 </script>
 
 <style scoped></style>

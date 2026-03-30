@@ -34,7 +34,7 @@ const createDefaultForm = (): ProductPayload => ({
 export const useProductsPage = () => {
     const { t } = useI18n();
     const store = useAppStore();
-    const categories = ref<CategoryItem[]>([]);
+    const { allCategories } = storeToRefs(store);
     const products = ref<ProductItem[]>([]);
     const productFile = ref<File | null>(null);
     const isLoading = ref(true);
@@ -53,7 +53,7 @@ export const useProductsPage = () => {
         return products.value.slice(start, end);
     });
 
-    const canCreate = computed(() => categories.value.length > 0);
+    const canCreate = computed(() => allCategories.value.length > 0);
 
     const resetForm = () => {
         form.value = createDefaultForm();
@@ -83,24 +83,13 @@ export const useProductsPage = () => {
         isDialogOpen.value = true;
     };
 
-    const loadProducts = async () => {
-        const response = await callGetAllProducts(keyword.value || undefined);
-        products.value = response.data ?? [];
-        store.setProducts(products.value);
-        currentPage.value = 1;
-    };
-
     const loadContext = async () => {
         isLoading.value = true;
         try {
-            const [user, categoryResponse] = await Promise.all([
-                fetchCurrentUser(),
-                fetchCategories(),
-            ]);
-
-            shopLabel.value = user?.shop?.name ?? user?.username ?? "Current Shop";
-            categories.value = categoryResponse.data ?? [];
-            await loadProducts();
+            const response = await callGetAllProducts(keyword.value || undefined);
+            products.value = response.data ?? [];
+            store.setProducts(products.value);
+            currentPage.value = 1;
         } catch (error) {
             await showError(error instanceof Error ? error.message : t("Unable to load products."));
         } finally {
@@ -125,7 +114,7 @@ export const useProductsPage = () => {
                 throw new Error(response.message);
             }
 
-            await loadProducts();
+            await loadContext();
             isDialogOpen.value = false;
             resetForm();
             await showSuccess(t("Product saved."));
@@ -156,7 +145,7 @@ export const useProductsPage = () => {
             if (form.value.id === id) {
                 resetForm();
             }
-            await loadProducts();
+            await loadContext();
             await showSuccess(t("Product deleted."));
         } catch (error) {
             await showError(error instanceof Error ? error.message : t("Unable to delete product."));
@@ -167,7 +156,7 @@ export const useProductsPage = () => {
 
     watch(keyword, async () => {
         try {
-            await loadProducts();
+            await loadContext();
         } catch (error) {
             await showError(error instanceof Error ? error.message : t("Unable to search products."));
         }
@@ -180,7 +169,7 @@ export const useProductsPage = () => {
     onMounted(loadContext);
 
     return {
-        categories,
+        categories: allCategories,
         products,
         isLoading,
         isSaving,

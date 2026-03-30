@@ -1,6 +1,6 @@
 import type { CategoryItem, CategoryPayload } from "~/model/inventory";
 import { showFeedback } from "~/utils/feedback";
-import { fetchCategories, fetchCurrentUser, saveCategory } from "~/utils/apiCalling";
+import { saveCategory } from "~/utils/apiCalling";
 
 const showError = (message: string) => {
     return showFeedback("error", message);
@@ -18,7 +18,10 @@ const createDefaultForm = (): CategoryPayload => ({
 
 export const useCategoriesPage = () => {
     const { t } = useI18n();
-    const categories = ref<CategoryItem[]>([]);
+    const store = useAppStore();
+    const { allCategories, setCategories } = store;
+    const user = computed(() => store.user);
+    const categories = computed(() => allCategories);
     const isLoading = ref(true);
     const isSaving = ref(false);
     const isDialogOpen = ref(false);
@@ -46,6 +49,21 @@ export const useCategoriesPage = () => {
         isDialogOpen.value = true;
     };
 
+    const getAllCategories = async () => {
+        isLoading.value = true;
+        try {
+            const response = await fetchCategories();
+            if (!response.isSuccess) {
+                throw new Error(response.message);
+            }
+            setCategories(response.data ?? []);
+        } catch (error) {
+            console.log("Unable to load categories:", error);
+        } finally {
+            isLoading.value = false;
+        }
+    }
+
     const editCategory = (category: CategoryItem) => {
         form.value = {
             id: category.id,
@@ -56,24 +74,6 @@ export const useCategoriesPage = () => {
         isDialogOpen.value = true;
     };
 
-    const loadContext = async () => {
-        isLoading.value = true;
-        try {
-            const [user, categoryResponse] = await Promise.all([
-                fetchCurrentUser(),
-                fetchCategories(),
-            ]);
-
-            shopLabel.value = user?.shop?.name ?? user?.username ?? "Current Shop";
-            categories.value = categoryResponse.data ?? [];
-            currentPage.value = 1;
-        } catch (error) {
-            await showError(error instanceof Error ? error.message : t("Unable to load categories."));
-        } finally {
-            isLoading.value = false;
-        }
-    };
-
     const submitCategory = async () => {
         isSaving.value = true;
         try {
@@ -82,9 +82,9 @@ export const useCategoriesPage = () => {
                 throw new Error(response.message);
             }
 
-            await loadContext();
             isDialogOpen.value = false;
             resetForm();
+            await getAllCategories();
             await showSuccess(t("Category saved."));
         } catch (error) {
             await showError(error instanceof Error ? error.message : t("Unable to save category."));
@@ -96,8 +96,6 @@ export const useCategoriesPage = () => {
     watch(pageSize, () => {
         currentPage.value = 1;
     });
-
-    onMounted(loadContext);
 
     return {
         categories,
@@ -114,5 +112,6 @@ export const useCategoriesPage = () => {
         openCreateDialog,
         editCategory,
         submitCategory,
+        getAllCategories,
     };
 };

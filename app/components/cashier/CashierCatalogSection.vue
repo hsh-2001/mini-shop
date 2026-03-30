@@ -25,7 +25,7 @@
           @update:model-value="emit('update:search', String($event ?? ''))"
         />
 
-        <div class="flex flex-wrap">
+        <div class="flex flex-wrap gap-2">
           <el-button
             size="small"
             round
