@@ -28,10 +28,14 @@ export type AggregateShop = {
 
 export type ShopAvgAggregateOutputType = {
   id: number | null
+  exchangeUSD: runtime.Decimal | null
+  exchangeKHR: runtime.Decimal | null
 }
 
 export type ShopSumAggregateOutputType = {
   id: number | null
+  exchangeUSD: runtime.Decimal | null
+  exchangeKHR: runtime.Decimal | null
 }
 
 export type ShopMinAggregateOutputType = {
@@ -40,6 +44,9 @@ export type ShopMinAggregateOutputType = {
   description: string | null
   address: string | null
   phone: string | null
+  currencyBase: string | null
+  exchangeUSD: runtime.Decimal | null
+  exchangeKHR: runtime.Decimal | null
   createdOn: Date | null
   updatedOn: Date | null
 }
@@ -50,6 +57,9 @@ export type ShopMaxAggregateOutputType = {
   description: string | null
   address: string | null
   phone: string | null
+  currencyBase: string | null
+  exchangeUSD: runtime.Decimal | null
+  exchangeKHR: runtime.Decimal | null
   createdOn: Date | null
   updatedOn: Date | null
 }
@@ -60,6 +70,9 @@ export type ShopCountAggregateOutputType = {
   description: number
   address: number
   phone: number
+  currencyBase: number
+  exchangeUSD: number
+  exchangeKHR: number
   openingHours: number
   createdOn: number
   updatedOn: number
@@ -69,10 +82,14 @@ export type ShopCountAggregateOutputType = {
 
 export type ShopAvgAggregateInputType = {
   id?: true
+  exchangeUSD?: true
+  exchangeKHR?: true
 }
 
 export type ShopSumAggregateInputType = {
   id?: true
+  exchangeUSD?: true
+  exchangeKHR?: true
 }
 
 export type ShopMinAggregateInputType = {
@@ -81,6 +98,9 @@ export type ShopMinAggregateInputType = {
   description?: true
   address?: true
   phone?: true
+  currencyBase?: true
+  exchangeUSD?: true
+  exchangeKHR?: true
   createdOn?: true
   updatedOn?: true
 }
@@ -91,6 +111,9 @@ export type ShopMaxAggregateInputType = {
   description?: true
   address?: true
   phone?: true
+  currencyBase?: true
+  exchangeUSD?: true
+  exchangeKHR?: true
   createdOn?: true
   updatedOn?: true
 }
@@ -101,6 +124,9 @@ export type ShopCountAggregateInputType = {
   description?: true
   address?: true
   phone?: true
+  currencyBase?: true
+  exchangeUSD?: true
+  exchangeKHR?: true
   openingHours?: true
   createdOn?: true
   updatedOn?: true
@@ -199,6 +225,9 @@ export type ShopGroupByOutputType = {
   description: string | null
   address: string | null
   phone: string | null
+  currencyBase: string
+  exchangeUSD: runtime.Decimal | null
+  exchangeKHR: runtime.Decimal | null
   openingHours: runtime.JsonValue | null
   createdOn: Date
   updatedOn: Date
@@ -233,6 +262,9 @@ export type ShopWhereInput = {
   description?: Prisma.StringNullableFilter<"Shop"> | string | null
   address?: Prisma.StringNullableFilter<"Shop"> | string | null
   phone?: Prisma.StringNullableFilter<"Shop"> | string | null
+  currencyBase?: Prisma.StringFilter<"Shop"> | string
+  exchangeUSD?: Prisma.DecimalNullableFilter<"Shop"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: Prisma.DecimalNullableFilter<"Shop"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.JsonNullableFilter<"Shop">
   createdOn?: Prisma.DateTimeFilter<"Shop"> | Date | string
   updatedOn?: Prisma.DateTimeFilter<"Shop"> | Date | string
@@ -252,6 +284,9 @@ export type ShopOrderByWithRelationInput = {
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
+  currencyBase?: Prisma.SortOrder
+  exchangeUSD?: Prisma.SortOrderInput | Prisma.SortOrder
+  exchangeKHR?: Prisma.SortOrderInput | Prisma.SortOrder
   openingHours?: Prisma.SortOrderInput | Prisma.SortOrder
   createdOn?: Prisma.SortOrder
   updatedOn?: Prisma.SortOrder
@@ -274,6 +309,9 @@ export type ShopWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringNullableFilter<"Shop"> | string | null
   address?: Prisma.StringNullableFilter<"Shop"> | string | null
   phone?: Prisma.StringNullableFilter<"Shop"> | string | null
+  currencyBase?: Prisma.StringFilter<"Shop"> | string
+  exchangeUSD?: Prisma.DecimalNullableFilter<"Shop"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: Prisma.DecimalNullableFilter<"Shop"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.JsonNullableFilter<"Shop">
   createdOn?: Prisma.DateTimeFilter<"Shop"> | Date | string
   updatedOn?: Prisma.DateTimeFilter<"Shop"> | Date | string
@@ -293,6 +331,9 @@ export type ShopOrderByWithAggregationInput = {
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
+  currencyBase?: Prisma.SortOrder
+  exchangeUSD?: Prisma.SortOrderInput | Prisma.SortOrder
+  exchangeKHR?: Prisma.SortOrderInput | Prisma.SortOrder
   openingHours?: Prisma.SortOrderInput | Prisma.SortOrder
   createdOn?: Prisma.SortOrder
   updatedOn?: Prisma.SortOrder
@@ -312,6 +353,9 @@ export type ShopScalarWhereWithAggregatesInput = {
   description?: Prisma.StringNullableWithAggregatesFilter<"Shop"> | string | null
   address?: Prisma.StringNullableWithAggregatesFilter<"Shop"> | string | null
   phone?: Prisma.StringNullableWithAggregatesFilter<"Shop"> | string | null
+  currencyBase?: Prisma.StringWithAggregatesFilter<"Shop"> | string
+  exchangeUSD?: Prisma.DecimalNullableWithAggregatesFilter<"Shop"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: Prisma.DecimalNullableWithAggregatesFilter<"Shop"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.JsonNullableWithAggregatesFilter<"Shop">
   createdOn?: Prisma.DateTimeWithAggregatesFilter<"Shop"> | Date | string
   updatedOn?: Prisma.DateTimeWithAggregatesFilter<"Shop"> | Date | string
@@ -322,6 +366,9 @@ export type ShopCreateInput = {
   description?: string | null
   address?: string | null
   phone?: string | null
+  currencyBase?: string
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Date | string
   updatedOn?: Date | string
@@ -341,6 +388,9 @@ export type ShopUncheckedCreateInput = {
   description?: string | null
   address?: string | null
   phone?: string | null
+  currencyBase?: string
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Date | string
   updatedOn?: Date | string
@@ -359,6 +409,9 @@ export type ShopUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -378,6 +431,9 @@ export type ShopUncheckedUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -397,6 +453,9 @@ export type ShopCreateManyInput = {
   description?: string | null
   address?: string | null
   phone?: string | null
+  currencyBase?: string
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Date | string
   updatedOn?: Date | string
@@ -407,6 +466,9 @@ export type ShopUpdateManyMutationInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -418,6 +480,9 @@ export type ShopUncheckedUpdateManyInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -429,6 +494,9 @@ export type ShopCountOrderByAggregateInput = {
   description?: Prisma.SortOrder
   address?: Prisma.SortOrder
   phone?: Prisma.SortOrder
+  currencyBase?: Prisma.SortOrder
+  exchangeUSD?: Prisma.SortOrder
+  exchangeKHR?: Prisma.SortOrder
   openingHours?: Prisma.SortOrder
   createdOn?: Prisma.SortOrder
   updatedOn?: Prisma.SortOrder
@@ -436,6 +504,8 @@ export type ShopCountOrderByAggregateInput = {
 
 export type ShopAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  exchangeUSD?: Prisma.SortOrder
+  exchangeKHR?: Prisma.SortOrder
 }
 
 export type ShopMaxOrderByAggregateInput = {
@@ -444,6 +514,9 @@ export type ShopMaxOrderByAggregateInput = {
   description?: Prisma.SortOrder
   address?: Prisma.SortOrder
   phone?: Prisma.SortOrder
+  currencyBase?: Prisma.SortOrder
+  exchangeUSD?: Prisma.SortOrder
+  exchangeKHR?: Prisma.SortOrder
   createdOn?: Prisma.SortOrder
   updatedOn?: Prisma.SortOrder
 }
@@ -454,12 +527,17 @@ export type ShopMinOrderByAggregateInput = {
   description?: Prisma.SortOrder
   address?: Prisma.SortOrder
   phone?: Prisma.SortOrder
+  currencyBase?: Prisma.SortOrder
+  exchangeUSD?: Prisma.SortOrder
+  exchangeKHR?: Prisma.SortOrder
   createdOn?: Prisma.SortOrder
   updatedOn?: Prisma.SortOrder
 }
 
 export type ShopSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  exchangeUSD?: Prisma.SortOrder
+  exchangeKHR?: Prisma.SortOrder
 }
 
 export type ShopScalarRelationFilter = {
@@ -473,6 +551,14 @@ export type StringFieldUpdateOperationsInput = {
 
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
+}
+
+export type NullableDecimalFieldUpdateOperationsInput = {
+  set?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
 export type DateTimeFieldUpdateOperationsInput = {
@@ -604,6 +690,9 @@ export type ShopCreateWithoutShopDetailInput = {
   description?: string | null
   address?: string | null
   phone?: string | null
+  currencyBase?: string
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Date | string
   updatedOn?: Date | string
@@ -622,6 +711,9 @@ export type ShopUncheckedCreateWithoutShopDetailInput = {
   description?: string | null
   address?: string | null
   phone?: string | null
+  currencyBase?: string
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Date | string
   updatedOn?: Date | string
@@ -655,6 +747,9 @@ export type ShopUpdateWithoutShopDetailInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -673,6 +768,9 @@ export type ShopUncheckedUpdateWithoutShopDetailInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -690,6 +788,9 @@ export type ShopCreateWithoutUsersInput = {
   description?: string | null
   address?: string | null
   phone?: string | null
+  currencyBase?: string
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Date | string
   updatedOn?: Date | string
@@ -708,6 +809,9 @@ export type ShopUncheckedCreateWithoutUsersInput = {
   description?: string | null
   address?: string | null
   phone?: string | null
+  currencyBase?: string
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Date | string
   updatedOn?: Date | string
@@ -741,6 +845,9 @@ export type ShopUpdateWithoutUsersInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -759,6 +866,9 @@ export type ShopUncheckedUpdateWithoutUsersInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -776,6 +886,9 @@ export type ShopCreateWithoutCategoriesInput = {
   description?: string | null
   address?: string | null
   phone?: string | null
+  currencyBase?: string
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Date | string
   updatedOn?: Date | string
@@ -794,6 +907,9 @@ export type ShopUncheckedCreateWithoutCategoriesInput = {
   description?: string | null
   address?: string | null
   phone?: string | null
+  currencyBase?: string
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Date | string
   updatedOn?: Date | string
@@ -827,6 +943,9 @@ export type ShopUpdateWithoutCategoriesInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -845,6 +964,9 @@ export type ShopUncheckedUpdateWithoutCategoriesInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -862,6 +984,9 @@ export type ShopCreateWithoutProductsInput = {
   description?: string | null
   address?: string | null
   phone?: string | null
+  currencyBase?: string
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Date | string
   updatedOn?: Date | string
@@ -880,6 +1005,9 @@ export type ShopUncheckedCreateWithoutProductsInput = {
   description?: string | null
   address?: string | null
   phone?: string | null
+  currencyBase?: string
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Date | string
   updatedOn?: Date | string
@@ -913,6 +1041,9 @@ export type ShopUpdateWithoutProductsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -931,6 +1062,9 @@ export type ShopUncheckedUpdateWithoutProductsInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -948,6 +1082,9 @@ export type ShopCreateWithoutModifiersInput = {
   description?: string | null
   address?: string | null
   phone?: string | null
+  currencyBase?: string
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Date | string
   updatedOn?: Date | string
@@ -966,6 +1103,9 @@ export type ShopUncheckedCreateWithoutModifiersInput = {
   description?: string | null
   address?: string | null
   phone?: string | null
+  currencyBase?: string
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Date | string
   updatedOn?: Date | string
@@ -999,6 +1139,9 @@ export type ShopUpdateWithoutModifiersInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1017,6 +1160,9 @@ export type ShopUncheckedUpdateWithoutModifiersInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1034,6 +1180,9 @@ export type ShopCreateWithoutCustomersInput = {
   description?: string | null
   address?: string | null
   phone?: string | null
+  currencyBase?: string
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Date | string
   updatedOn?: Date | string
@@ -1052,6 +1201,9 @@ export type ShopUncheckedCreateWithoutCustomersInput = {
   description?: string | null
   address?: string | null
   phone?: string | null
+  currencyBase?: string
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Date | string
   updatedOn?: Date | string
@@ -1085,6 +1237,9 @@ export type ShopUpdateWithoutCustomersInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1103,6 +1258,9 @@ export type ShopUncheckedUpdateWithoutCustomersInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1120,6 +1278,9 @@ export type ShopCreateWithoutOrdersInput = {
   description?: string | null
   address?: string | null
   phone?: string | null
+  currencyBase?: string
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Date | string
   updatedOn?: Date | string
@@ -1138,6 +1299,9 @@ export type ShopUncheckedCreateWithoutOrdersInput = {
   description?: string | null
   address?: string | null
   phone?: string | null
+  currencyBase?: string
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Date | string
   updatedOn?: Date | string
@@ -1171,6 +1335,9 @@ export type ShopUpdateWithoutOrdersInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1189,6 +1356,9 @@ export type ShopUncheckedUpdateWithoutOrdersInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1206,6 +1376,9 @@ export type ShopCreateWithoutSuppliersInput = {
   description?: string | null
   address?: string | null
   phone?: string | null
+  currencyBase?: string
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Date | string
   updatedOn?: Date | string
@@ -1224,6 +1397,9 @@ export type ShopUncheckedCreateWithoutSuppliersInput = {
   description?: string | null
   address?: string | null
   phone?: string | null
+  currencyBase?: string
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Date | string
   updatedOn?: Date | string
@@ -1257,6 +1433,9 @@ export type ShopUpdateWithoutSuppliersInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1275,6 +1454,9 @@ export type ShopUncheckedUpdateWithoutSuppliersInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1378,6 +1560,9 @@ export type ShopSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   description?: boolean
   address?: boolean
   phone?: boolean
+  currencyBase?: boolean
+  exchangeUSD?: boolean
+  exchangeKHR?: boolean
   openingHours?: boolean
   createdOn?: boolean
   updatedOn?: boolean
@@ -1398,6 +1583,9 @@ export type ShopSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   description?: boolean
   address?: boolean
   phone?: boolean
+  currencyBase?: boolean
+  exchangeUSD?: boolean
+  exchangeKHR?: boolean
   openingHours?: boolean
   createdOn?: boolean
   updatedOn?: boolean
@@ -1409,6 +1597,9 @@ export type ShopSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   description?: boolean
   address?: boolean
   phone?: boolean
+  currencyBase?: boolean
+  exchangeUSD?: boolean
+  exchangeKHR?: boolean
   openingHours?: boolean
   createdOn?: boolean
   updatedOn?: boolean
@@ -1420,12 +1611,15 @@ export type ShopSelectScalar = {
   description?: boolean
   address?: boolean
   phone?: boolean
+  currencyBase?: boolean
+  exchangeUSD?: boolean
+  exchangeKHR?: boolean
   openingHours?: boolean
   createdOn?: boolean
   updatedOn?: boolean
 }
 
-export type ShopOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "address" | "phone" | "openingHours" | "createdOn" | "updatedOn", ExtArgs["result"]["shop"]>
+export type ShopOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "address" | "phone" | "currencyBase" | "exchangeUSD" | "exchangeKHR" | "openingHours" | "createdOn" | "updatedOn", ExtArgs["result"]["shop"]>
 export type ShopInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   users?: boolean | Prisma.Shop$usersArgs<ExtArgs>
   categories?: boolean | Prisma.Shop$categoriesArgs<ExtArgs>
@@ -1458,6 +1652,9 @@ export type $ShopPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     description: string | null
     address: string | null
     phone: string | null
+    currencyBase: string
+    exchangeUSD: runtime.Decimal | null
+    exchangeKHR: runtime.Decimal | null
     openingHours: runtime.JsonValue | null
     createdOn: Date
     updatedOn: Date
@@ -1897,6 +2094,9 @@ export interface ShopFieldRefs {
   readonly description: Prisma.FieldRef<"Shop", 'String'>
   readonly address: Prisma.FieldRef<"Shop", 'String'>
   readonly phone: Prisma.FieldRef<"Shop", 'String'>
+  readonly currencyBase: Prisma.FieldRef<"Shop", 'String'>
+  readonly exchangeUSD: Prisma.FieldRef<"Shop", 'Decimal'>
+  readonly exchangeKHR: Prisma.FieldRef<"Shop", 'Decimal'>
   readonly openingHours: Prisma.FieldRef<"Shop", 'Json'>
   readonly createdOn: Prisma.FieldRef<"Shop", 'DateTime'>
   readonly updatedOn: Prisma.FieldRef<"Shop", 'DateTime'>

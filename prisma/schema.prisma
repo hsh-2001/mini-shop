@@ -8,12 +8,15 @@ datasource db {
 }
 
 model Shop {
-  id           Int     @id @default(autoincrement())
-  name         String  @unique
+  id           Int      @id @default(autoincrement())
+  name         String   @unique
   description  String?
   address      String?
   phone        String?
-  openingHours Json?   @map("opening_hours") // e.g., { "monday": "07:00-18:00", ... }
+  currencyBase String   @default("KHR") @map("currency_base")
+  exchangeUSD  Decimal? @map("exchange_usd") @db.Decimal(10, 4)
+  exchangeKHR  Decimal? @map("exchange_khr") @db.Decimal(10, 4)
+  openingHours Json?    @map("opening_hours") // e.g., { "monday": "07:00-18:00", ... }
 
   createdOn DateTime @default(now()) @map("created_on")
   updatedOn DateTime @updatedAt @map("updated_on")
@@ -32,7 +35,7 @@ model Shop {
 
 model ShopDetail {
   id     Int  @id @default(autoincrement())
-  shopId Int  @map("shop_id") @unique
+  shopId Int  @unique @map("shop_id")
   shop   Shop @relation(fields: [shopId], references: [id], onDelete: Cascade)
 
   // Additional details specific to coffee shops
@@ -94,7 +97,7 @@ model Product {
   category   Category? @relation(fields: [categoryId], references: [id])
 
   name        String
-  imageUrl  String? @map("image_url")
+  imageUrl    String? @map("image_url")
   description String?
   basePrice   Decimal @map("base_price") @db.Decimal(10, 2)
 
@@ -270,6 +273,7 @@ model SupplierProduct {
 // ======================
 
 enum UserRole {
+  OWNER
   ADMIN
   MANAGER
   BARISTA

@@ -2,7 +2,7 @@ import { createHmac, randomBytes, scryptSync, timingSafeEqual } from "node:crypt
 import type { H3Event } from "h3";
 import { getPrisma } from "./db";
 
-const SESSION_COOKIE_NAME = "mini_shop_session";
+const SESSION_COOKIE_NAME = "session_token";
 const SESSION_TTL_MS = 1000 * 60 * 60 * 24 * 7;
 const PASSWORD_KEY_LENGTH = 64;
 
@@ -143,6 +143,7 @@ const userSelect = {
 
 export const getAuthenticatedUser = async (event: H3Event): Promise<AuthenticatedUser | null> => {
   const token = getCookie(event, SESSION_COOKIE_NAME);
+  console.log("Session token from cookie:", token);
 
   if (!token) {
     return null;
@@ -160,6 +161,8 @@ export const getAuthenticatedUser = async (event: H3Event): Promise<Authenticate
     where: { id: payload.userId },
     select: userSelect,
   });
+
+  console.log("Authenticated user:", user);
 
   if (!user) {
     clearSessionCookie(event);

@@ -1,4 +1,4 @@
-import { ChartColumnBigIcon, PackageIcon, ReceiptTextIcon, ShoppingCartIcon, User2 } from "@lucide/vue";
+import { ChartColumnBigIcon, PackageIcon, ReceiptTextIcon, Settings, ShoppingCartIcon, User2 } from "@lucide/vue";
 import type { Component } from "vue";
 import type { UserRole } from "~~/prisma/generated/enums";
 
@@ -14,34 +14,34 @@ export const menuItems: IMenuItem[] = [
         name: "Dashboard",
         icon: ChartColumnBigIcon,
         path: "/",
-        allowRoles: ["ADMIN"],
+        allowRoles: ["OWNER", "ADMIN"],
     },
     {
         name: "Products",
         icon: PackageIcon,
-        allowRoles: ["ADMIN"],
+        allowRoles: ["OWNER", "ADMIN"],
         children: [
             {
                 name: "Product List",
                 path: "/products",
-                allowRoles: ["ADMIN"],
+                allowRoles: ["OWNER", "ADMIN"],
             },
             {
                 name: "Category List",
                 path: "/products/category",
-                allowRoles: ["ADMIN"],
+                allowRoles: ["OWNER", "ADMIN"],
             }
         ]
     },
     {
         name: "Members",
         icon: User2,
-        allowRoles: ["ADMIN"],
+        allowRoles: ["OWNER", "ADMIN"],
         children: [
             {
                 name: "Member List",
                 path: "/members",
-                allowRoles: ["ADMIN"],
+                allowRoles: ["OWNER", "ADMIN"],
             },
             // {
             //     name: "Add/Edit Member",
@@ -54,12 +54,18 @@ export const menuItems: IMenuItem[] = [
         name: "Cashier",
         icon: ShoppingCartIcon,
         path: "/cashier",
-        allowRoles: ["ADMIN", 'CASHIER'],
+        allowRoles: ["OWNER", "ADMIN", 'CASHIER'],
     },
     {
         name: "Orders",
         icon: ReceiptTextIcon,
         path: "/orders",
-        allowRoles: ["ADMIN", 'CASHIER'],
+        allowRoles: ["OWNER", "ADMIN", 'CASHIER'],
     },
+    {
+        name: "Settings",
+        icon: Settings,
+        path: "/settings",
+        allowRoles: ["OWNER", "ADMIN"],
+    }
 ];

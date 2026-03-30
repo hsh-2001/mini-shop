@@ -3,6 +3,7 @@ export default function useInitClientSide() {
     const { setProducts, setCategories } = store;
 
     (() => {
+        if (import.meta.server) return;
         try {
             const data = localStorage.getItem('user');
             if (data) {

@@ -32,6 +32,9 @@ export const findUserByIdentifier = async (identifier: string) => {
         select: {
           id: true,
           name: true,
+          currencyBase: true,
+          exchangeUSD: true,
+          exchangeKHR: true,
         },
       },
     }
@@ -58,7 +61,7 @@ export const findDefaultOrderUserByShopId = async (shopId: number) => {
   });
 };
 
-export const createInitialAdminUser = async (input: {
+export const createInitialOwnerUser = async (input: {
   shopName: string;
   username: string;
   phone: string;
@@ -69,7 +72,7 @@ export const createInitialAdminUser = async (input: {
       phone: input.phone,
       username: input.username,
       passwordHash: input.passwordHash,
-      role: "ADMIN",
+      role: "OWNER",
       shop: {
         create: {
           name: input.shopName,

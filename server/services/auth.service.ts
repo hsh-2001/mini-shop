@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import type { H3Event } from "h3";
 import {
   countUsers,
-  createInitialAdminUser,
+  createInitialOwnerUser,
   createUser,
   findAuthenticatedUserById,
   findUserByIdentifier,
@@ -99,6 +99,9 @@ export const login = async (
     createdOn: user.createdOn,
     updatedOn: user.updatedOn,
     shop: user.shop,
+    currencyBase: user.shop.currencyBase,
+    exchangeUSD: user.shop.exchangeUSD,
+    exchangeKHR: user.shop.exchangeKHR,
   };
 };
 
@@ -134,7 +137,7 @@ export const registerInitialOwner = async (
 
   try {
     const passwordHash = await bcrypt.hash(input.password, SALT_ROUNDS);
-    const user = await createInitialAdminUser({
+    const user = await createInitialOwnerUser({
       shopName: input.shopName,
       username: input.username,
       phone: input.phone,

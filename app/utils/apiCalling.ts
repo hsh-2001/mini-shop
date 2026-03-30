@@ -118,3 +118,8 @@ export const getImageFile = async (filePath: string): Promise<BaseApiResponse<{ 
     });
     return getClientResponse(result.data);
 }
+
+export const callGetShopSetting = async (): Promise<BaseApiResponse<any>> => {
+    const result = await api.get("/shop/setting");
+    return getClientResponse(result.data);
+}

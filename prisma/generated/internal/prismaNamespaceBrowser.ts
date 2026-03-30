@@ -87,6 +87,9 @@ export const ShopScalarFieldEnum = {
   description: 'description',
   address: 'address',
   phone: 'phone',
+  currencyBase: 'currencyBase',
+  exchangeUSD: 'exchangeUSD',
+  exchangeKHR: 'exchangeKHR',
   openingHours: 'openingHours',
   createdOn: 'createdOn',
   updatedOn: 'updatedOn'

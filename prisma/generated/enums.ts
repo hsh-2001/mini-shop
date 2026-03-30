@@ -10,6 +10,7 @@
 */
 
 export const UserRole = {
+  OWNER: 'OWNER',
   ADMIN: 'ADMIN',
   MANAGER: 'MANAGER',
   BARISTA: 'BARISTA',
