@@ -1,8 +1,24 @@
 <template>
   <div v-loading="isLoading" class="w-full h-full">
-    <div class="h-10"></div>
+    <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+      <overview-card
+        :title="$t('Total Sales')"
+        :value="overview?.totalSalesForDisplay ?? 0"
+        :icon="HandCoins"
+      />
+      <overview-card
+        :title="$t('Total Products')"
+        :value="overview.total_products ?? 0"
+        :icon="Box"
+      />
+      <overview-card
+        :title="$t('Total Orders')"
+        :value="overview.total_orders ?? 0"
+        :icon="ShoppingCart"
+      />
+    </div>
     <div class="max-w-md p-2 bg-gray-50 rounded-md">
-      <h1>{{ $t("Past 7 days sales") }}</h1>
+      <h1 class="text-xl">{{ $t("Past 7 days sales") }}</h1>
       <canvas ref="myChart"></canvas>
     </div>
   </div>
@@ -11,6 +27,7 @@
 <script setup lang="ts">
 import { Chart } from "chart.js/auto";
 import type { Chart as ChartInstance } from "chart.js";
+import { HandCoins, Box, ShoppingCart } from "@lucide/vue";
 
 const { overview, fetchOverview } = useOverview();
 

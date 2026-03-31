@@ -36,4 +36,8 @@ export class Overview implements IOverview {
         this.total_products = data.total_products;
         this.past_7_days_sales = data.past_7_days_sales.map(item => new Past7DaysSales(item));
     }
+
+    get totalSalesForDisplay(): string {
+        return formatCurrency(this.total_sales);
+    }
 }

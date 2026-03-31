@@ -20,7 +20,11 @@ export const convertAmount = (amount: number, toCurency?: string) => {
     return amount;
 }
 
-export const formatCurrency = (amount: number, currency: string = 'USD') => {
+export const formatCurrency = (amount: number, currency?: string) => {
+    if (!currency) {
+        const appStore = useAppStore();
+        currency = appStore.currentCurrency.currencyBase;
+    }
     const convertedAmount = convertAmount(amount, currency);
 
     if (currency === 'KHR') {

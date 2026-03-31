@@ -1,7 +1,7 @@
 import { Overview, type IOverview } from "~/model/overview";
 
 export default function useOverview() {
-    const overview = ref<IOverview | null>(null);
+    const overview = ref<Overview>({} as Overview);
     const fetchOverview = async () => {
         try {
             const result = await callGetOverview();
