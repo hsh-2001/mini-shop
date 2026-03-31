@@ -33,11 +33,11 @@
         </div>
       </div>
 
-      <div class="space-y-2 bg-slate-50 p-2 rounded-md">
+      <div class="space-y-2">
         <div
           v-for="(item, index) in cart"
           :key="item.product.id"
-          class="cart-line"
+          class="cart-line bg-primary/5 p-2 rounded-md"
         >
           <div class="flex items-start justify-between gap-3">
             <div class="min-w-0">
@@ -124,7 +124,7 @@
               </div>
             </div>
             <el-button
-              v-if="item.quantity > 1"
+              v-if="item.quantity > 1 && item.product.selectedModifiers?.length < item.quantity"
               type="primary"
               size="small"
               plain
@@ -280,7 +280,6 @@ import type { ProductItem } from "~/model/inventory";
 import type { CashierOrderForm } from "~/model/order";
 import { Plus, X } from "@lucide/vue";
 import { formatCurrency } from "~/utils/currencyFormat";
-import product from "~~/server/api/product";
 
 interface CartLine {
   product: ProductItem;
