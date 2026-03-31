@@ -72,17 +72,20 @@
         </div>
 
         <el-form-item :label="$t('Stock')">
-          <div class="grid gap-2">
-            <el-switch
-              v-model="isLimitStock"
-              :active-text="$t('Limited')"
-              :inactive-text="$t('No Limit')"
-            />
-            <el-input-number
+          <div class="flex gap-2 items-center">
+            <div class="w-80">
+              <el-switch
+                v-model="isLimitStock"
+                :active-text="$t('Limited')"
+                :inactive-text="$t('No Limit')"
+              />
+            </div>
+            <el-input
               v-if="isLimitStock"
               v-model="modelForm.stock"
-              :step="1"
-              class="w-full"
+              @input="
+                modelForm.stock = Number(formatInputNumber($event, false))
+              "
             />
           </div>
         </el-form-item>
@@ -167,6 +170,17 @@ watch(
   () => modelForm.value.stock,
   (newValue) => {
     isLimitStock.value = newValue?.toString() === "-1" ? false : true;
+  },
+);
+
+watch(
+  () => isLimitStock.value,
+  (newValue) => {
+    if (!newValue) {
+      modelForm.value.stock = -1;
+    } else if (modelForm.value.stock === -1) {
+      modelForm.value.stock = 0;
+    }
   },
 );
 

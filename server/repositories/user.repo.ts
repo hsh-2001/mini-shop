@@ -41,10 +41,10 @@ export const findUserByIdentifier = async (identifier: string) => {
   });
 };
 
-export const findAuthenticatedUserById = async (id: number) => {
+export const findAuthenticatedUserById = async (id: number, includePassword: boolean = false) => {
   return prisma.user.findUnique({
     where: { id },
-    select: authenticatedUserSelect,
+    select: includePassword ? { ...authenticatedUserSelect, passwordHash: true } : authenticatedUserSelect,
   });
 };
 
@@ -98,7 +98,7 @@ export const createUser = async (request: ICreateUser) => {
       id: true,
     },
   });
-}
+};
 
 export const getUsers = async (shopId: number) => {
   return prisma.user.findMany({
@@ -115,3 +115,20 @@ export const updateUser = async (id: number, data: Partial<ICreateUser>) => {
     },
   });
 }
+
+export const userPasswordHash = async (userId: number) => {
+  const user = await prisma.user.findUnique({
+    where: { id: userId },
+    select: { passwordHash: true },
+  });
+  return user?.passwordHash || null;
+};
+
+export const changePassword = async (userId: number, newPasswordHash: string) => {
+  return prisma.user.update({
+    where: { id: userId },
+    data: {
+      passwordHash: newPasswordHash,
+    },
+  });
+};

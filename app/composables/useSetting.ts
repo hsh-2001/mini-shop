@@ -2,6 +2,7 @@ import { ShopResponse, type IUpdateShopRequest } from "~/model/setting";
 
 export default function useSetting() {
     const store = useAppStore();
+    const { t } = useI18n();
     const { setCurrency } = store;
     const isEditting = ref(false);
     const shop = ref<ShopResponse>({} as ShopResponse);
@@ -62,11 +63,49 @@ export default function useSetting() {
         }
     }
 
+    const changePasswordVisible = ref(false);
+    const changePasswordModel = reactive({
+        currentPassword: "",
+        newPassword: "",
+        confirmNewPassword: "",
+    });
+
+    const isLoading = ref(false);
+    const handleChangePassword = async () => {
+        isLoading.value = true;
+        try {
+            if (changePasswordModel.newPassword !== changePasswordModel.confirmNewPassword) {
+                notificationHelper.error(t("New password and confirm new password do not match"));
+                return;
+            }
+            const response = await callChangePassword(changePasswordModel.currentPassword, changePasswordModel.newPassword);
+            if (response.isSuccess) {
+                notificationHelper.success(t("Password changed successfully"));
+                Object.assign(changePasswordModel, {
+                    currentPassword: "",
+                    newPassword: "",
+                    confirmNewPassword: "",
+                });
+                changePasswordVisible.value = false;
+            } else {
+                notificationHelper.error(t("Failed to change password: ") + response.message);
+            }
+        } catch (error) {
+            console.error("Failed to change password:", error);
+            notificationHelper.error(t("Failed to change password"));
+        }
+        isLoading.value = false;
+    }
+
     return {
         getShopSetting,
         shop,
         model,
         isEditting,
         updateShopSetting,
+        handleChangePassword,
+        changePasswordModel,
+        changePasswordVisible,
+        isLoading,
     }
 };

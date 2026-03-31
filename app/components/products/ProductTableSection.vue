@@ -51,14 +51,6 @@
         :empty-text="$t('No products found.')"
       >
         <el-table-column type="index" :label="$t('#')" width="60" />
-        <el-table-column :label="$t('Name')" min-width="120">
-          <template #default="{ row }">
-            <div class="font-medium text-slate-900">{{ row.name }}</div>
-            <div class="text-xs text-slate-500">
-              {{ row.description || $t("No description") }}
-            </div>
-          </template>
-        </el-table-column>
         <el-table-column :label="$t('Image')" width="120" align="center">
           <template #default="{ row }">
             <div
@@ -74,6 +66,14 @@
             <span v-else>-</span>
           </template>
         </el-table-column>
+        <el-table-column :label="$t('Name')" min-width="120">
+          <template #default="{ row }">
+            <div class="font-medium text-slate-900">{{ row.name }}</div>
+            <div class="text-xs text-slate-500">
+              {{ row.description || $t("No description") }}
+            </div>
+          </template>
+        </el-table-column>
         <el-table-column :label="$t('Category')" min-width="160">
           <template #default="{ row }">
             <el-tag v-if="row.category?.name" type="info" effect="plain">{{
@@ -87,7 +87,19 @@
             {{ formatCurrency(row.basePrice, "KHR") }}
           </template>
         </el-table-column>
-        <el-table-column prop="stock" :label="$t('Stock')" />
+        <el-table-column prop="stock" :label="$t('Stock')">
+          <template #default="{ row }">
+            <span v-if="row.stock === -1" class="text-secondary">
+              {{ $t("Unlimited") }}
+            </span>
+            <span v-else-if="row.stock === 0" class="text-red-500">
+              {{ $t("Out of Stock") }}
+            </span>
+            <span v-else>
+              {{ row.stock }}
+            </span>
+          </template>
+        </el-table-column>
         <el-table-column
           :label="$t('Actions')"
           width="170"
