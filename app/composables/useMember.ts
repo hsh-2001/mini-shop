@@ -11,7 +11,7 @@ export default function useMember() {
 
     const formModel = ref<ICreateUser>({} as ICreateUser);
 
-    const rules = reactive<FormRules<ICreateUser>>({
+    const rules = computed<FormRules<ICreateUser>>(() => ({
         username: [
             { required: true, message: t("Please input username"), trigger: "blur" },
             { min: 3, max: 20, message: t("Username must be between 3 and 20 characters"), trigger: "blur" },
@@ -27,7 +27,7 @@ export default function useMember() {
         role: [
             { required: true, message: t("Please select a role"), trigger: "change" },
         ]
-    });
+    }));
 
     const getMember = async () => {
         isLoading.value = true;

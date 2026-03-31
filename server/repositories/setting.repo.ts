@@ -35,3 +35,15 @@ export const updateShopSetting = async (shopId: number, data: Partial<IShop>) =>
         }
     });
 };
+
+export const getOverview = async (shopId: number) => {
+    const result = await prisma.$queryRaw<any>`
+        SELECT * FROM get_overview(${shopId});
+    `;
+    return result[0] || {
+        total_sales: 0,
+        total_orders: 0,
+        total_products: 0,
+        past_7_days_sales: []
+    };
+}

@@ -24,7 +24,13 @@ export const useOrdersPage = () => {
     const paymentStatusFilter = ref<PaymentStatus | "ALL">("ALL");
     const selectedOrder = ref<GetOrderSummaryListResponse | null>(null);
     const isDialogOpen = ref(false);
-    const shopLabel = ref(t("Loading shop..."));
+    const shopIdentity = ref<{
+        shopName: string | null;
+        username: string | null;
+    }>({
+        shopName: null,
+        username: null,
+    });
     const isDownloading = ref(false);
     const editForm = ref<{
         status: OrderStatus;
@@ -34,6 +40,13 @@ export const useOrdersPage = () => {
         status: OrderStatus.PENDING,
         paymentStatus: PaymentStatus.UNPAID,
         notes: "",
+    });
+    const shopLabel = computed(() => {
+        if (isLoading.value && !shopIdentity.value.shopName && !shopIdentity.value.username) {
+            return t("Loading shop...");
+        }
+
+        return shopIdentity.value.shopName ?? shopIdentity.value.username ?? t("Current Shop");
     });
 
     const filteredOrders = computed(() => {
@@ -118,7 +131,10 @@ export const useOrdersPage = () => {
                 throw new Error(response.message);
             }
 
-            shopLabel.value = user?.shop?.name ?? user?.username ?? t("Current Shop");
+            shopIdentity.value = {
+                shopName: user?.shop?.name ?? null,
+                username: user?.username ?? null,
+            };
             orders.value = (response.data ?? []).map((order) => new GetOrderSummaryListResponse(order));
             currentPage.value = 1;
         } catch (error) {

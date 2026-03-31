@@ -17,6 +17,7 @@ import api from "~/utils/api";
 import { BaseApiResponse, getClientResponse } from "~~/types/baseApi";
 import type { ICreateUser, MemberResponse } from "~~/types/member";
 import type { ShopResponse } from "~/model/setting";
+import type { Overview } from "~/model/overview";
 
 export const callLogin = async (request: ILoginRequest): Promise<BaseApiResponse<any>> => {
     const result = await api.post("/auth/login", request);
@@ -127,5 +128,10 @@ export const callGetShopSetting = async (): Promise<BaseApiResponse<ShopResponse
 
 export const callUpdateShopSetting = async (data: Partial<ShopResponse>): Promise<BaseApiResponse<ShopResponse>> => {
     const result = await api.post("/shop/setting", data);
+    return getClientResponse(result.data);
+}
+
+export const callGetOverview = async (): Promise<BaseApiResponse<Overview>> => {
+    const result = await api.get("/shop/overview");
     return getClientResponse(result.data);
 }

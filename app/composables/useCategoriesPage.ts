@@ -27,7 +27,7 @@ export const useCategoriesPage = () => {
     const isDialogOpen = ref(false);
     const currentPage = ref(1);
     const pageSize = ref(10);
-    const shopLabel = ref("Loading shop...");
+    const shopLabel = computed(() => t("Loading shop..."));
     const form = ref<CategoryPayload>(createDefaultForm());
 
     const pagedCategories = computed(() => {

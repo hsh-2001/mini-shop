@@ -11,8 +11,8 @@ interface CartLine {
     quantity: number;
 }
 
-const createDefaultForm = (): CashierOrderForm => ({
-    customerName: "Walk-in customer",
+const createDefaultForm = (defaultCustomerName: string): CashierOrderForm => ({
+    customerName: defaultCustomerName,
     customerPhone: "",
     customerEmail: "",
     notes: "",
@@ -30,14 +30,15 @@ const showSuccess = (message: string) => {
 };
 
 export const useCashierPage = () => {
-    const { t } = useI18n();
+    const { t, locale } = useI18n();
     const store = useAppStore();
-    const shopLabel = ref(t("Loading shop..."));
+    const shopLabel = computed(() => t("Loading shop..."));
     const categories = computed(() => store.allCategories);
     const search = ref("");
     const selectedCategoryId = ref<number | "all">("all");
     const cart = ref<CartLine[]>([]);
-    const form = ref<CashierOrderForm>(createDefaultForm());
+    const defaultCustomerName = ref(t("Walk-in customer"));
+    const form = ref<CashierOrderForm>(createDefaultForm(defaultCustomerName.value));
     const isLoading = ref(true);
     const isSubmitting = ref(false);
 
@@ -116,7 +117,7 @@ export const useCashierPage = () => {
     };
 
     const resetForm = () => {
-        form.value = createDefaultForm();
+        form.value = createDefaultForm(defaultCustomerName.value);
         clearCart();
     };
 
@@ -156,6 +157,14 @@ export const useCashierPage = () => {
             isSubmitting.value = false;
         }
     };
+
+    watch(locale, () => {
+        const nextDefaultCustomerName = t("Walk-in customer");
+        if (form.value.customerName === defaultCustomerName.value) {
+            form.value.customerName = nextDefaultCustomerName;
+        }
+        defaultCustomerName.value = nextDefaultCustomerName;
+    });
 
 
     return {

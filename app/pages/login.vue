@@ -65,7 +65,7 @@ const isMobile = useDevice().isMobile;
 const formRef = ref();
 const remember = ref(false);
 
-const rules = {
+const rules = computed(() => ({
   identifier: [
     {
       required: true,
@@ -81,7 +81,7 @@ const rules = {
       trigger: "blur",
     },
   ],
-};
+}));
 
 const onSubmit = async () => {
   await formRef.value.validate(async (valid: boolean) => {

@@ -44,7 +44,7 @@ export const useProductsPage = () => {
     const keyword = ref("");
     const currentPage = ref(1);
     const pageSize = ref(10);
-    const shopLabel = ref("Loading shop...");
+    const shopLabel = computed(() => t("Loading shop..."));
     const form = ref<ProductPayload>(createDefaultForm());
 
     const pagedProducts = computed(() => {
