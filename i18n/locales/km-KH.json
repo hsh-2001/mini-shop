@@ -294,5 +294,18 @@
   "Sat": "សៅរ៍",
   "Sun": "អាទិត្យ",
   "Sales": "ការលក់",
-  "Revenue": "ចំណូល"
+  "Revenue": "ចំណូល",
+  "Unlimited": "គ្មានកំណត់",
+  "Stock limit reached": "បានដល់កម្រិតស្តុក",
+  "In stock": "នៅក្នុងស្តុក",
+  "Out of stock": "អស់ស្តុក",
+  "Low stock": "ស្តុកទាប",
+  "Stock status": "ស្ថានភាពស្តុក",
+  "Stock quantity": "បរិមាណស្តុក",
+  "Stock limit": "កម្រិតស្តុក",
+  "No Limit": "គ្មានកំណត់",
+  "Limited": "បានកំណត់",
+  "Image": "រូបភាព",
+  "Out of Stock": "អស់ស្តុក",
+  "In Stock": "នៅក្នុងស្តុក"
 }
