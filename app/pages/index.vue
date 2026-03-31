@@ -1,6 +1,6 @@
 <template>
   <div v-loading="isLoading" class="w-full h-full">
-    <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+    <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 mb-2">
       <overview-card
         :title="$t('Total Sales')"
         :value="overview?.totalSalesForDisplay ?? 0"
@@ -17,7 +17,7 @@
         :icon="ShoppingCart"
       />
     </div>
-    <div class="max-w-md p-2 bg-gray-50 rounded-md">
+    <div class="max-w-md p-2 bg-gray-50 rounded-md border border-primary/20">
       <h1 class="text-xl">{{ $t("Past 7 days sales") }}</h1>
       <canvas ref="myChart"></canvas>
     </div>

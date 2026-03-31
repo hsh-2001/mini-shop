@@ -54,7 +54,7 @@ export interface ProductPayload {
     name: string;
     imageUrl?: string | null;
     description?: string;
-    basePrice: number;
+    basePrice: number | string;
     sku?: string;
     barcode?: string;
     stock?: number;
