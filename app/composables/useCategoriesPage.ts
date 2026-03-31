@@ -21,7 +21,7 @@ export const useCategoriesPage = () => {
     const store = useAppStore();
     const { allCategories, setCategories } = store;
     const user = computed(() => store.user);
-    const categories = computed(() => allCategories);
+    const categories = ref<CategoryItem[]>(allCategories);
     const isLoading = ref(true);
     const isSaving = ref(false);
     const isDialogOpen = ref(false);
@@ -57,6 +57,7 @@ export const useCategoriesPage = () => {
                 throw new Error(response.message);
             }
             setCategories(response.data ?? []);
+            categories.value = response.data ?? [];
         } catch (error) {
             console.log("Unable to load categories:", error);
         } finally {

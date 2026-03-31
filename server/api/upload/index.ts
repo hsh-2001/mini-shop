@@ -1,3 +1,4 @@
+import { requireAuthenticatedUser } from './../../services/auth.service';
 import { S3Client, PutObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3"
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner"
 import { readMultipartFormData } from "h3"
@@ -7,6 +8,7 @@ export default defineEventHandler(async (event) => {
     try {
         if (isMethod(event, "POST")) {
             const form = await readMultipartFormData(event)
+            const user = await requireAuthenticatedUser(event)
             const file = form?.find(f => f.name === "file")
             const path = form?.find(f => f.name === "path")?.data.toString() || ""
             if (!file) {
@@ -23,7 +25,7 @@ export default defineEventHandler(async (event) => {
                     secretAccessKey: String(config.cfSecretKey),
                 },
             })
-            const fileName = path ? `${path}/${Date.now()}-${file.filename}` : `${Date.now()}-${file.filename}`
+            const fileName = path ? `${user.shopId}/${path}/${Date.now()}-${file.filename}` : `${user.shopId}/${Date.now()}-${file.filename}`
 
             await s3.send(new PutObjectCommand({
                 Bucket: config.cfBucketName,
