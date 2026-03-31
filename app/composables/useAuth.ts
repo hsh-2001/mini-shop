@@ -23,20 +23,13 @@ export default function useAuth() {
                     window.location.href = "/";
                 }
                 localStorage.setItem("user", JSON.stringify(response.data));
-                setCurrency({
-                    currencyBase: response.data.currencyBase,
-                    exchangeUSD: response.data.exchangeUSD,
-                    exchangeKHR: response.data.exchangeKHR,
-                });
             } else {
                 console.error("Login failed:", response.message);
             }
         } catch (error) {
             console.error("Login failed:", error);
         }
-        finally {
-            isLoading.value = false;
-        }
+        isLoading.value = false;
     }
 
     return {

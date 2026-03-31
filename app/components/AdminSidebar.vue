@@ -1,7 +1,7 @@
 <template>
   <Transition name="sidebar">
     <div
-      v-if="store.isSidebarOpen"
+      v-if="store.isSidebarOpen && !isMobile"
       class="sidebar w-44 h-[calc(100dvh-40px)] text-slate-700 bg-gray-50 border-r text-sm border-slate-300 relative"
     >
       <div class="w-full py-4 flex items-center justify-center">
@@ -75,6 +75,7 @@ import { ChevronLeft, ChevronRight } from "@lucide/vue";
 import useNavbar from "~/composables/useNavbar";
 
 const { filterMenuItems } = useNavbar();
+const isMobile = useDevice().isMobile;
 
 const store = useAppStore();
 const { toggleSidebar } = store;

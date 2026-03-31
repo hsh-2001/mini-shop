@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen flex items-center justify-center bg-slate-100">
-    <el-card class="w-full max-w-md">
+    <el-card class="max-w-md" :class="isMobile ? 'w-[90%]' : 'w-full'">
       <div class="text-center p-6">
         <h1 class="text-2xl font-semibold text-slate-800">
           {{ $t("Welcome Back") }}
@@ -60,6 +60,7 @@ definePageMeta({
 });
 
 const { loginModel, handleLogin, isLoading } = useAuth();
+const isMobile = useDevice().isMobile;
 
 const formRef = ref();
 const remember = ref(false);

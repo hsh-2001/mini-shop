@@ -2,7 +2,7 @@
   <div
     class="border bg-white rounded-md p-2 border-slate-200 h-[90dvh] overflow-hidden flex flex-col relative"
   >
-    <div class="space-y-4 overflow-auto h-[calc(90dvh-7rem)] px-2">
+    <div class="space-y-4 overflow-auto h-[calc(90dvh-8rem)] px-2">
       <div class="flex items-start justify-between gap-3">
         <div>
           <p
