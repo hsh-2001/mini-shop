@@ -135,3 +135,8 @@ export const callGetOverview = async (): Promise<BaseApiResponse<Overview>> => {
     const result = await api.get("/shop/overview");
     return getClientResponse(result.data);
 }
+
+export const callChangePassword = async (currentPassword: string, newPassword: string): Promise<BaseApiResponse<any>> => {
+    const result = await api.post("/auth/change-password", { currentPassword, newPassword });
+    return getClientResponse(result.data);
+}

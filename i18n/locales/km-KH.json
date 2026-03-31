@@ -307,5 +307,17 @@
   "Limited": "បានកំណត់",
   "Image": "រូបភាព",
   "Out of Stock": "អស់ស្តុក",
-  "In Stock": "នៅក្នុងស្តុក"
+  "In Stock": "នៅក្នុងស្តុក",
+  "Change Password": "ប្ដូរពាក្យសម្ងាត់",
+  "Current Password": "ពាក្យសម្ងាត់បច្ចុប្បន្ន",
+  "New Password": "ពាក្យសម្ងាត់ថ្មី",
+  "Confirm New Password": "បញ្ជាក់ពាក្យសម្ងាត់ថ្មី",
+  "Passwords do not match": "ពាក្យសម្ងាត់មិនត្រូវគ្នា",
+  "Current password is required": "ត្រូវការពាក្យសម្ងាត់បច្ចុប្បន្ន",
+  "New password is required": "ត្រូវការពាក្យសម្ងាត់ថ្មី",
+  "Confirm new password is required": "ត្រូវការបញ្ជាក់ពាក្យសម្ងាត់ថ្មី",
+  "Password changed successfully": "បានប្ដូរពាក្យសម្ងាត់ដោយជោគជ័យ",
+  "Failed to change password": "ប្ដូរពាក្យសម្ងាត់បរាជ័យ",
+  "New password and confirm new password do not match": "ពាក្យសម្ងាត់ថ្មី និង បញ្ជាក់ពាក្យសម្ងាត់ថ្មី មិនត្រូវគ្នា",
+  "Failed to change password: ": "ប្ដូរពាក្យសម្ងាត់បរាជ័យ: "
 }

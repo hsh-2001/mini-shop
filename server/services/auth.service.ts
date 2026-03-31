@@ -2,6 +2,7 @@ import { ICreateUser } from './../../types/member';
 import bcrypt from "bcryptjs";
 import type { H3Event } from "h3";
 import {
+  changePassword,
   countUsers,
   createInitialOwnerUser,
   createUser,
@@ -9,6 +10,7 @@ import {
   findUserByIdentifier,
   getUsers,
   updateUser,
+  userPasswordHash,
 } from "../repositories/user.repo";
 import {
   clearSessionCookie,
@@ -195,3 +197,19 @@ export const getUsersService = async (shopId: number) => {
 export const updateUserService = async (id: number, data: Partial<ICreateUser>) => {
   return await updateUser(id, data);
 }
+
+
+export const changePasswordService = async (shopId: number, userId: number, input: { currentPassword: string; newPassword: string }) => {
+  const passwordHash = await userPasswordHash(userId);
+
+  if (!passwordHash) {
+    throw new Error("User not found.");
+  }
+
+  if (!(await bcrypt.compare(input.currentPassword, passwordHash))) {
+    throw new Error("Current password is incorrect.");
+  }
+
+  const newPasswordHash = await bcrypt.hash(input.newPassword, SALT_ROUNDS);
+  await changePassword(userId, newPasswordHash);
+};
