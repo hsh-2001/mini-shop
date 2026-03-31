@@ -15,6 +15,7 @@ export interface CreateGuestOrderInput {
     items: Array<{
         productId: number;
         quantity: number;
+        selectedModifiers?: any;
     }>;
 }
 
@@ -136,6 +137,7 @@ const createGuestOrder = async (request: CreateGuestOrderInput) => {
                 quantity: item.quantity,
                 unitPrice,
                 subtotal,
+                selectedModifiers: item.selectedModifiers || null,
             };
         });
 
@@ -199,7 +201,6 @@ const createGuestOrder = async (request: CreateGuestOrderInput) => {
         const orderNumber = `ORD-${Date.now()}-${Math.floor(Math.random() * 1000)
             .toString()
             .padStart(3, "0")}`;
-
         const order = await tx.order.create({
             data: {
                 shopId: request.shopId,
@@ -221,6 +222,7 @@ const createGuestOrder = async (request: CreateGuestOrderInput) => {
                         quantity: item.quantity,
                         unitPrice: item.unitPrice,
                         subtotal: item.subtotal,
+                        selectedModifiers: JSON.parse(JSON.stringify(item.selectedModifiers)),
                     })),
                 },
             },

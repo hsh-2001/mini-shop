@@ -40,11 +40,20 @@ export const downLoadCSV = async (fileName: string, page: string) => {
     URL.revokeObjectURL(url);
 };
 
-export const formatInputNumber = (value: string, allowDot: boolean = true) => {
+export const formatInputNumber = (value: string, allowDot: boolean = true, option?: { min: number | undefined, max: number | undefined }) => {
     value = value.replace(allowDot ? /[^0-9.]/g : /[^0-9]/g, '')
     const parts = value.split('.')
     if (parts.length > 2) {
         value = parts[0] + '.' + parts.slice(1).join('')
+    }
+    if (option) {
+        const num = Number(value);
+        if (option.min !== undefined && num < option.min) {
+            value = String(option.min);
+        }
+        if (option.max !== undefined && num > option.max) {
+            value = String(option.max);
+        }
     }
     return value
 }

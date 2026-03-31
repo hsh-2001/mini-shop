@@ -271,5 +271,11 @@
   "Unable to place the order.": "Unable to place the order.",
   "Unable to load orders.": "Unable to load orders.",
   "Order updated.": "Order updated.",
-  "Unable to update order.": "Unable to update order."
+  "Unable to update order.": "Unable to update order.",
+  "ice": "Ice",
+  "sugar": "Sugar",
+  "size": "Size",
+  "quantity": "Quantity",
+  "Small": "Small",
+  "Medium": "Medium"
 }

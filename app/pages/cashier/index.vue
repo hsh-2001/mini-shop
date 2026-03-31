@@ -25,6 +25,7 @@
             @quantity-change="updateCartQuantity"
             @clear-cart="clearCart"
             @submit="submitOrder"
+            @add-item-modifier="addItemModifier"
           />
         </div>
       </div>
@@ -51,5 +52,6 @@ const {
   removeFromCart,
   clearCart,
   submitOrder,
+  addItemModifier,
 } = useCashierPage();
 </script>

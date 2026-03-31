@@ -319,5 +319,14 @@
   "Password changed successfully": "បានប្ដូរពាក្យសម្ងាត់ដោយជោគជ័យ",
   "Failed to change password": "ប្ដូរពាក្យសម្ងាត់បរាជ័យ",
   "New password and confirm new password do not match": "ពាក្យសម្ងាត់ថ្មី និង បញ្ជាក់ពាក្យសម្ងាត់ថ្មី មិនត្រូវគ្នា",
-  "Failed to change password: ": "ប្ដូរពាក្យសម្ងាត់បរាជ័យ: "
+  "Failed to change password: ": "ប្ដូរពាក្យសម្ងាត់បរាជ័យ: ",
+  "ice": "ទឹកកក",
+  "sugar": "ស្ករ",
+  "size": "ទំហំ",
+  "Normal": "ធម្មតា",
+  "Less": "តិច",
+  "Extra": "បន្ថែម",
+  "Small": "តូច",
+  "quantity": "ចំនួន",
+  "Medium": "មធ្យម"
 }

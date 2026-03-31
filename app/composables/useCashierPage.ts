@@ -68,7 +68,6 @@ export const useCashierPage = () => {
         0,
     ));
 
-
     const addToCart = (product: ProductItem) => {
         const existing = cart.value.find((item) => item.product.id === product.id);
         const currentQuantity = existing?.quantity ?? 0;
@@ -83,9 +82,26 @@ export const useCashierPage = () => {
             return;
         }
 
+        product.selectedModifiers = [
+            {
+                ice: 100,
+                sugar: 100,
+                size: "M",
+            }
+        ];
+
         cart.value.push({
             product,
             quantity: 1,
+        });
+    };
+
+    const addItemModifier = (productId: number) => {
+        cart.value.find((item) => item.product.id === productId)?.product.selectedModifiers?.push({
+            quantity: 1,
+            ice: 100,
+            sugar: 100,
+            size: "M",
         });
     };
 
@@ -126,11 +142,10 @@ export const useCashierPage = () => {
             await showError(t("Add at least one item to the cart."));
             return;
         }
-
         isSubmitting.value = true;
         try {
             const customerName = form.value.customerName.trim() || t("Walk-in customer");
-            const response = await createCashierOrder({
+            const requst = {
                 customerName,
                 customerPhone: form.value.customerPhone.trim() || undefined,
                 customerEmail: form.value.customerEmail.trim() || undefined,
@@ -141,8 +156,10 @@ export const useCashierPage = () => {
                 items: cart.value.map((item) => ({
                     productId: item.product.id,
                     quantity: item.quantity,
+                    selectedModifiers: item.product.selectedModifiers,
                 })),
-            });
+            }
+            const response = await createCashierOrder(requst);
 
             if (!response.isSuccess) {
                 throw new Error(response.message);
@@ -185,5 +202,6 @@ export const useCashierPage = () => {
         removeFromCart,
         clearCart,
         submitOrder,
+        addItemModifier,
     };
 };

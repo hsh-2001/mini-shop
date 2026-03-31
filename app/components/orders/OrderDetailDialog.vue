@@ -54,19 +54,31 @@
           <div
             v-for="item in order.orderItems"
             :key="item.id"
-            class="flex justify-between items-center border border-primary/40 rounded-md p-2"
+            class="flex justify-between border border-primary/40 rounded-md p-2"
           >
             <div>
               <p class="font-medium text-sm">
                 {{ item.product?.name || $t("Unknown") }}
               </p>
-              <p class="text-xs text-slate-500">
+              <p class="text-sm font-medium text-slate-500">
                 {{ item.quantity }} × {{ formatMoney(Number(item.unitPrice)) }}
               </p>
             </div>
 
-            <p class="font-semibold text-sm">
-              {{ formatMoney(Number(item.subtotal)) }}
+            <p class="text-sm grid place-content-end place-items-end">
+              <span class="font-medium">{{ formatMoney(Number(item.subtotal)) }}</span>
+              <div  class="grid gap-1"> 
+                <div v-for="(modifiers, index) in item.selectedModifiers" :key="index" class="flex gap-1 justify-end bg-gray-50 rounded-md p-1">
+                   <div v-for="(modifier, key, modIndex) in modifiers" :key="key"">
+                     <p class="text-xs text-slate-500">
+                      {{ $t(String(key)) }}:
+                      {{ typeof modifier === "string" ? $t(modifier) : modifier }}
+                      {{ ['ice', 'sugar'].includes(String(key)) ? '%' : '' }}
+                      <span v-if="modIndex !== Object.keys(modifiers).length - 1">,</span>
+                    </p>
+                   </div>
+                </div>
+              </div>
             </p>
           </div>
         </div>

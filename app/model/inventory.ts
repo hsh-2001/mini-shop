@@ -1,4 +1,5 @@
 import type { CategoryType } from "~~/prisma/generated/enums";
+import type { ISelectedModifier } from "./order";
 
 export interface AuthUser {
     id: number;
@@ -46,6 +47,7 @@ export interface ProductItem {
     stock: number;
     isActive?: boolean;
     category?: ProductCategorySummary | null;
+    selectedModifiers?: any;
 }
 
 export interface ProductPayload {

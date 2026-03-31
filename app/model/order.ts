@@ -37,6 +37,7 @@ export interface CatalogResponse {
 export interface GuestOrderItemPayload {
     productId: number;
     quantity: number;
+    selectedModifiers?: any;
 }
 
 export interface GuestOrderPayload {
@@ -49,6 +50,10 @@ export interface GuestOrderPayload {
     paymentMethod: PaymentMethod;
     paymentStatus?: PaymentStatus;
     items: GuestOrderItemPayload[];
+}
+
+export interface ISelectedModifier {
+    [key: string]: string | number | boolean;
 }
 
 export interface CashierOrderForm {
@@ -68,6 +73,7 @@ export interface OrderItemSummary {
     quantity: number;
     unitPrice: string | number;
     subtotal: string | number;
+    selectedModifiers?: any | null;
     product?: {
         id: number;
         name: string;
