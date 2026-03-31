@@ -39,3 +39,12 @@ export const downLoadCSV = async (fileName: string, page: string) => {
     link.click();
     URL.revokeObjectURL(url);
 };
+
+export const formatInputNumber = (value: string) => {
+    value = value.replace(/[^0-9.]/g, '')
+    const parts = value.split('.')
+    if (parts.length > 2) {
+        value = parts[0] + '.' + parts.slice(1).join('')
+    }
+    return value
+}

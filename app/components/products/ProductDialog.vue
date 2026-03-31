@@ -6,7 +6,7 @@
     destroy-on-close
     top="20px"
     @update:model-value="emit('update:open', $event)"
-    @closed="emit('closed')"
+    @closed="onCloseDailog"
   >
     <el-alert
       v-if="!canCreate"
@@ -17,23 +17,25 @@
     />
 
     <div class="w-full max-h-[70dvh] overflow-auto pr-1">
-      <el-form label-position="top" @submit.prevent="emit('submit')">
+      <el-form
+        :model="modelForm"
+        label-position="top"
+        @submit.prevent="emit('submit')"
+      >
         <el-form-item :label="$t('Name')" required>
           <el-input
-            :model-value="form.name"
+            v-model="modelForm.name"
             :placeholder="$t('Product name')"
-            @update:model-value="updateField('name', $event)"
           />
         </el-form-item>
 
         <div class="grid gap-4 md:grid-cols-2">
           <el-form-item :label="$t('Category')">
             <el-select
-              :model-value="categoryIdModel"
+              v-model="modelForm.categoryId"
               :placeholder="$t('Uncategorized')"
               class="w-full"
               clearable
-              @update:model-value="updateCategory"
             >
               <el-option
                 v-for="category in categories"
@@ -45,13 +47,10 @@
           </el-form-item>
 
           <el-form-item :label="$t('Base Price')" required>
-            <el-input-number
-              :model-value="form.basePrice"
-              :min="0"
-              :step="0.01"
-              controls-position="right"
-              class="w-full"
-              @update:model-value="updateField('basePrice', $event ?? 0)"
+            <el-input
+              v-model="modelForm.basePrice"
+              :placeholder="$t('0.00')"
+              @input="modelForm.basePrice = formatInputNumber($event)"
             />
           </el-form-item>
         </div>
@@ -59,50 +58,58 @@
         <div class="grid gap-4 md:grid-cols-2">
           <el-form-item :label="$t('SKU')">
             <el-input
-              :model-value="form.sku"
+              v-model="modelForm.sku"
               :placeholder="$t('Example SKU')"
-              @update:model-value="updateField('sku', $event)"
             />
           </el-form-item>
 
           <el-form-item :label="$t('Barcode')">
             <el-input
-              :model-value="form.barcode"
+              v-model="modelForm.barcode"
               :placeholder="$t('Optional')"
-              @update:model-value="updateField('barcode', $event)"
             />
           </el-form-item>
         </div>
 
         <el-form-item :label="$t('Stock')">
-          <el-input-number
-            :model-value="form.stock"
-            :step="1"
-            controls-position="right"
-            class="w-full"
-            @update:model-value="updateField('stock', $event ?? -1)"
-          />
+          <div class="grid gap-2">
+            <el-switch
+              v-model="isLimitStock"
+              :active-text="$t('Limited')"
+              :inactive-text="$t('No Limit')"
+            />
+            <el-input-number
+              v-if="isLimitStock"
+              v-model="modelForm.stock"
+              :step="1"
+              class="w-full"
+            />
+          </div>
         </el-form-item>
 
         <el-form-item :label="$t('Description')">
           <el-input
-            :model-value="form.description"
+            v-model="modelForm.description"
             type="textarea"
             :rows="4"
             :placeholder="$t('Short product note')"
-            @update:model-value="updateField('description', $event)"
           />
         </el-form-item>
         <el-form-item :label="$t('Image')">
           <el-upload
             class="avatar-uploader"
+            :on-success="handleUpdate"
             :show-file-list="false"
-            :on-success="handleAvatarSuccess"
+            :accept="'image/*'"
             @change="handleFileChange"
           >
             <img
-              v-if="imageUrl || form.imageUrl"
-              :src="(imageUrl || getImageUrl(form.imageUrl ?? '')) ?? undefined"
+              v-if="imageUrl.length || modelForm.imageUrl"
+              :src="
+                imageUrl.length
+                  ? imageUrl
+                  : getImageUrl(modelForm.imageUrl ?? '') || ''
+              "
               class="avatar"
             />
             <el-icon v-else class="avatar-uploader-icon"><Plus /></el-icon>
@@ -133,6 +140,7 @@
 import type { UploadProps } from "element-plus";
 import type { CategoryItem, ProductPayload } from "~/model/inventory";
 
+const isLimitStock = ref(false);
 const props = defineProps<{
   open: boolean;
   saving: boolean;
@@ -150,37 +158,31 @@ const emit = defineEmits<{
   "update:productFile": [value: File | null];
 }>();
 
-const categoryIdModel = computed(() =>
-  props.form.categoryId ? String(props.form.categoryId) : "",
+const modelForm = computed({
+  get: () => props.form,
+  set: (value) => emit("update:form", value),
+});
+
+watch(
+  () => modelForm.value.stock,
+  (newValue) => {
+    isLimitStock.value = newValue?.toString() === "-1" ? false : true;
+  },
 );
 
-const updateField = <K extends keyof ProductPayload>(
-  key: K,
-  value: ProductPayload[K],
-) => {
-  emit("update:form", {
-    ...props.form,
-    [key]: value,
-  });
-};
-
+const imageUrl = ref<string>("");
 const handleFileChange: UploadProps["onChange"] = (file) => {
   emit("update:productFile", file.raw ?? null);
+  imageUrl.value = file.raw ? URL.createObjectURL(file.raw) : "";
 };
 
-const updateCategory = (value: string) => {
-  emit("update:form", {
-    ...props.form,
-    categoryId: value ? Number(value) : null,
-  });
-};
-
-const imageUrl = ref<string>("");
-const handleAvatarSuccess: UploadProps["onSuccess"] = (
-  response,
-  uploadFile,
-) => {
+const handleUpdate: UploadProps["onSuccess"] = (uploadFile) => {
   imageUrl.value = URL.createObjectURL(uploadFile.raw!);
+};
+
+const onCloseDailog = () => {
+  imageUrl.value = "";
+  emit("closed");
 };
 </script>
 
