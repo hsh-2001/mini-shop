@@ -123,10 +123,10 @@ export const registerInitialOwner = async (
     password: string;
   },
 ) => {
-  const existingUsers = await countUsers();
-  if (existingUsers > 0) {
-    throw new Error("User already exists. Initial owner registration is not allowed.");
-  }
+  // const existingUsers = await countUsers();
+  // if (existingUsers > 0) {
+  //   throw new Error("User already exists. Initial owner registration is not allowed.");
+  // }
   const validationMessage = await validateLogin(input);
   if (validationMessage) {
     throw new Error(validationMessage);

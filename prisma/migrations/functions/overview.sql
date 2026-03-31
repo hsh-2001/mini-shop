@@ -40,11 +40,13 @@ BEGIN
                     SUM(o2.final_amount) AS sales
                 FROM orders o2
                 WHERE o2.shop_id = p_shop_id
+                    AND o2.status NOT IN ('CANCELLED', 'PENDING')
                 GROUP BY 1
             ) s ON s.day = d.day
         )::JSONB AS past_7_days_sales
 
     FROM orders o
-    WHERE o.shop_id = p_shop_id;
+    WHERE o.shop_id = p_shop_id
+        AND o.status NOT IN ('CANCELLED', 'PENDING');
 END;
 $$ LANGUAGE plpgsql;
