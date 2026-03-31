@@ -127,7 +127,8 @@ export const registerInitialOwner = async (
   // if (existingUsers > 0) {
   //   throw new Error("User already exists. Initial owner registration is not allowed.");
   // }
-  const validationMessage = await validateLogin(input);
+  const identifier = input.username || input.phone;
+  const validationMessage = await validateLogin({ identifier, password: input.password });
   if (validationMessage) {
     throw new Error(validationMessage);
   }
