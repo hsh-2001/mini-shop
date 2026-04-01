@@ -1,10 +1,16 @@
 const rateMap = new Map<string, { count: number; time: number }>()
 
 const LIMIT = 10      // max requests
-const WINDOW = 60 * 1000 // 1 minute
+const WINDOW = 60 * 2000 // 1 minute
 
 export default defineEventHandler((event) => {
-    if (!event.path.startsWith("/api")) return
+    const apiForCheck = [
+        "/api/auth/login",
+        "/api/auth/register",
+        "/api/products",
+    ]
+    if (!apiForCheck.includes(event.path)) return
+    if (isMethod(event, "GET")) return
 
     const ip = getRequestHeader(event, "x-forwarded-for") ||
         event.node.req.socket.remoteAddress ||
