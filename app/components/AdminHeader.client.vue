@@ -4,6 +4,7 @@
   >
     <div class="flex gap-2 items-center px-4 text-lg font-bold text-gray-800">
       <button
+        v-if="!isMobile"
         @click="() => (store.isSidebarOpen = !store.isSidebarOpen)"
         class="rounded-full p-1 bg-white border border-gray-200"
       >
@@ -28,11 +29,10 @@
           />
         </el-select>
       </ClientOnly>
-      <el-button size="small" type="danger" class="ml-2" @click="logOut" >
+      <el-button size="small" type="danger" class="ml-2" @click="logOut">
         <LogOut class="h-4 w-4 mr-1" />
         {{ $t("Logout") }}
       </el-button>
-
     </div>
   </div>
 </template>
@@ -43,7 +43,10 @@ const { selectedLanguage, logOut, languageOptions, currentUser } = useNavbar();
 const { t } = useI18n();
 
 const store = useAppStore();
-const headerLabel = computed(() => currentUser.shop?.name || t("Admin Dashboard"));
+const headerLabel = computed(
+  () => currentUser.shop?.name || t("Admin Dashboard"),
+);
+const { isMobile } = deviceHelper();
 </script>
 
 <style scoped></style>

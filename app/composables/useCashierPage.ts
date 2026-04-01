@@ -86,7 +86,7 @@ export const useCashierPage = () => {
             {
                 ice: 100,
                 sugar: 100,
-                size: "M",
+                // size: "M",
             }
         ];
 
@@ -95,13 +95,12 @@ export const useCashierPage = () => {
             quantity: 1,
         });
     };
-
     const addItemModifier = (productId: number) => {
         cart.value.find((item) => item.product.id === productId)?.product.selectedModifiers?.push({
             quantity: 1,
             ice: 100,
             sugar: 100,
-            size: "M",
+            // size: "M",
         });
     };
 

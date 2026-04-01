@@ -61,7 +61,7 @@
     <div :loading="loading" class="h-[77dvh] overflow-auto p-2">
       <div
         v-if="products.length"
-        class="grid grid-cols-2 md:grid-cols-4 2xl:grid-cols-4 gap-2"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-2"
       >
         <div
           v-for="product in products"
@@ -72,9 +72,7 @@
             <div class="product-photo">
               <div class="w-auto h-40">
                 <img
-                  :src=" getImageUrl(product.imageUrl ?? '') ||
-                    'https://images.immediate.co.uk/production/volatile/sites/30/2020/08/iced-latte-30188f7.jpg'
-                  "
+                  :src="getImageUrl(product.imageUrl ?? '')"
                   alt="product-image"
                   @error="getFallbackImage"
                   class="w-full h-full object-cover rounded-md"
@@ -94,12 +92,28 @@
               <div class="flex justify-between text-[12px]">
                 <p>{{ $t("Price") }}:</p>
                 <div class="flex flex-col justify-end items-end">
-                  <p>{{ formatPrice(Number(product.basePrice), primaryCurrency) }}</p>
-                  <p class="text-slate-400">{{ formatPrice(Number(product.basePrice), secondaryCurrency) }}</p>
+                  <p>
+                    {{
+                      formatPrice(Number(product.basePrice), primaryCurrency)
+                    }}
+                  </p>
+                  <p class="text-slate-400">
+                    {{
+                      formatPrice(Number(product.basePrice), secondaryCurrency)
+                    }}
+                  </p>
                 </div>
               </div>
             </div>
-            <div class="w-full gap-2 mt-2">
+            <div class="w-full flex mt-2">
+              <el-button
+                class="w-2/5"
+                type="danger"
+                :disabled="product.stock === 0"
+                @click="emit('remove-from-cart', product.id)"
+              >
+                {{ $t("Remove") }}
+              </el-button>
               <el-button
                 class="w-full"
                 type="primary"
@@ -137,10 +151,13 @@ const emit = defineEmits<{
   (event: "update:search", value: string): void;
   (event: "update:selectedCategoryId", value: number | "all"): void;
   (event: "add", value: ProductItem): void;
+  (event: "remove-from-cart", value: number): void;
 }>();
 
 const store = useAppStore();
-const primaryCurrency = computed(() => store.currentCurrency.currencyBase || "USD");
+const primaryCurrency = computed(
+  () => store.currentCurrency.currencyBase || "USD",
+);
 const secondaryCurrency = computed(() =>
   primaryCurrency.value === "USD" ? "KHR" : "USD",
 );

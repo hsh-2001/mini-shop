@@ -17,13 +17,12 @@
     />
     <ClientOnly>
       <ProductDialog
-        :open="isDialogOpen"
         :saving="isSaving"
         :can-create="canCreate"
         :categories="categories"
         :form="form"
         v-model:product-file="productFile"
-        @update:open="isDialogOpen = $event"
+        v-model:open="isDialogOpen"
         @closed="resetForm"
         @update:form="setForm"
         @submit="submitProduct"
@@ -33,7 +32,6 @@
 </template>
 
 <script setup lang="ts">
-import ProductPageHeader from "~/components/products/ProductPageHeader.vue";
 import ProductTableSection from "~/components/products/ProductTableSection.vue";
 import ProductDialog from "~/components/products/ProductDialog.vue";
 

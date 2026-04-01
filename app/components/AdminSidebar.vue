@@ -73,12 +73,12 @@
 <script setup lang="ts">
 import { ChevronLeft, ChevronRight } from "@lucide/vue";
 import useNavbar from "~/composables/useNavbar";
+import deviceHelper from "~/utils/deviceHelper";
 
 const { filterMenuItems } = useNavbar();
-const isMobile = useDevice().isMobile;
-
 const store = useAppStore();
 const { toggleSidebar } = store;
+const { isMobile } = deviceHelper();
 
 const route = useRoute();
 const currentPath = computed(() => route.path);
@@ -91,6 +91,23 @@ const toggleMenu = (index: number) => {
     currentExpanded.value = index;
   }
 };
+
+const screenWidth = ref(window.innerWidth);
+window.addEventListener("resize", () => {
+  screenWidth.value = window.innerWidth;
+});
+
+watch(
+  screenWidth,
+  (newWidth) => {
+    if (newWidth < 1000) {
+      store.isSidebarOpen = false;
+    } else {
+      store.isSidebarOpen = true;
+    }
+  },
+  { deep: true, immediate: true },
+);
 </script>
 
 <style scoped>

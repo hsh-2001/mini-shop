@@ -81,8 +81,8 @@
                 :key="key"
                 class="flex items-center gap-1 text-xs text-slate-500"
               >
-                <span class="w-16">{{ $t(String(key)) }}:</span>
-                <template v-if="['sugar', 'ice'].includes(String(key))">
+                <span class="w-16!">{{ $t(String(key)) }}:</span>
+                <template v-if="['sugar'].includes(String(key))">
                   <el-input
                     v-model="item.product.selectedModifiers[index][key]"
                     @input="
@@ -90,6 +90,7 @@
                         formatInputNumber($event, false, { min: 0, max: 100 })
                     "
                     size="small"
+                    class="w-auto! pl-1.5!"
                   >
                     <template #append>
                       <span> % </span>
@@ -102,13 +103,29 @@
                     :min="1"
                     :max="item.quantity - 1"
                     size="small"
-                    class="w-full!"
                   />
+                </template>
+                <template v-else-if="String(key) === 'ice'">
+                  <el-radio-group
+                    v-model="item.product.selectedModifiers[index][key]"
+                    size="small"
+                  >
+                    <el-radio-button :value="50">
+                      {{ $t("Less") }}
+                    </el-radio-button>
+                    <el-radio-button :value="100">
+                      {{ $t("Normal") }}
+                    </el-radio-button>
+                    <el-radio-button :value="150">
+                      {{ $t("Extra") }}
+                    </el-radio-button>
+                  </el-radio-group>
                 </template>
                 <template v-else-if="String(key) === 'size'">
                   <el-radio-group
                     v-model="item.product.selectedModifiers[index][key]"
                     size="small"
+                    class="w-full!"
                   >
                     <el-radio-button value="S">
                       {{ $t("S") }}
@@ -122,9 +139,19 @@
                   </el-radio-group>
                 </template>
               </div>
+              <button
+                v-if="index !== 0"
+                class="absolute right-0 top-2 cursor-pointer"
+                @click="item.product.selectedModifiers.splice(index, 1)"
+              >
+                <x class="h-4 w-4 text-red-500" />
+              </button>
             </div>
             <el-button
-              v-if="item.quantity > 1 && item.product.selectedModifiers?.length < item.quantity"
+              v-if="
+                item.quantity > 1 &&
+                item.product.selectedModifiers?.length < item.quantity
+              "
               type="primary"
               size="small"
               plain

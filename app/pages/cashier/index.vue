@@ -11,10 +11,11 @@
             @update:search="search = $event"
             @update:selected-category-id="selectedCategoryId = $event"
             @add="addToCart"
+            @remove-from-cart="removeFromCart"
           />
         </div>
 
-        <div class="max-w-75">
+        <div class="max-w-75" v-if="!isMobile">
           <CashierOrderSidebar
             :cart="cart"
             :cart-count="cartCount"
@@ -54,4 +55,5 @@ const {
   submitOrder,
   addItemModifier,
 } = useCashierPage();
+const { isMobile } = deviceHelper();
 </script>
