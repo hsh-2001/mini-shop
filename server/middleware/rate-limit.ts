@@ -1,7 +1,7 @@
 const rateMap = new Map<string, { count: number; time: number }>()
 
 const LIMIT = 10      // max requests
-const WINDOW = 60 * 2000 // 1 minute
+const WINDOW = 60 * 1000 // 1 minute
 
 export default defineEventHandler((event) => {
     const apiForCheck = [
