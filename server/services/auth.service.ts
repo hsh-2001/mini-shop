@@ -80,6 +80,7 @@ export const login = async (
     identifier: string;
     password: string;
   },
+  domain: string,
 ) => {
   const errorMessage = await validateLogin(input);
   if (errorMessage) {
@@ -88,6 +89,9 @@ export const login = async (
 
   const user = await findUserByIdentifier(input.identifier);
 
+  if (!user?.shop.domains.some((d) => d.domain === domain)) {
+    throw new Error("Invalid domain for the user.");
+  }
   if (!user || !(await bcrypt.compare(input.password, user.passwordHash))) {
     throw new Error("Invalid username/phone or password.");
   }
@@ -123,19 +127,17 @@ export const registerInitialOwner = async (
     username: string;
     phone: string;
     password: string;
+    domain: string;
+    expiryDate: string;
   },
 ) => {
-  // const existingUsers = await countUsers();
-  // if (existingUsers > 0) {
-  //   throw new Error("User already exists. Initial owner registration is not allowed.");
-  // }
   const identifier = input.username || input.phone;
   const validationMessage = await validateLogin({ identifier, password: input.password });
   if (validationMessage) {
     throw new Error(validationMessage);
   }
 
-  if (input.password && input.password.length < 8) {
+  if (input.password && input.password.length < 6) {
     throw new Error("Password must be at least 8 characters.");
   }
 
@@ -146,17 +148,15 @@ export const registerInitialOwner = async (
       username: input.username,
       phone: input.phone,
       passwordHash,
+      domain: input.domain,
+      expiryDate: input.expiryDate,
     });
-    setSessionCookie(event, user as User);
-
-    return {
-      ok: true,
-    };
+    setSessionCookie(event, { id: user.id, username: user.username, phone: user.phone, shopId: user.shopId });
+    return user;
   } catch (error) {
     const message = getSafeErrorMessage(error);
-
     if (message.includes("Unique constraint")) {
-      throw new Error("Username, phone, or shop name already exists.");
+      throw new Error("Username, phone,shop name, or domain already exists.");
     }
 
     throw error;

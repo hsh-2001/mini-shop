@@ -244,8 +244,8 @@ export type SupplierWhereInput = {
   email?: Prisma.StringNullableFilter<"Supplier"> | string | null
   createdOn?: Prisma.DateTimeFilter<"Supplier"> | Date | string
   updatedOn?: Prisma.DateTimeFilter<"Supplier"> | Date | string
-  shop?: Prisma.XOR<Prisma.ShopScalarRelationFilter, Prisma.ShopWhereInput>
   supplierProducts?: Prisma.SupplierProductListRelationFilter
+  shop?: Prisma.XOR<Prisma.ShopScalarRelationFilter, Prisma.ShopWhereInput>
 }
 
 export type SupplierOrderByWithRelationInput = {
@@ -257,8 +257,8 @@ export type SupplierOrderByWithRelationInput = {
   email?: Prisma.SortOrderInput | Prisma.SortOrder
   createdOn?: Prisma.SortOrder
   updatedOn?: Prisma.SortOrder
-  shop?: Prisma.ShopOrderByWithRelationInput
   supplierProducts?: Prisma.SupplierProductOrderByRelationAggregateInput
+  shop?: Prisma.ShopOrderByWithRelationInput
 }
 
 export type SupplierWhereUniqueInput = Prisma.AtLeast<{
@@ -273,8 +273,8 @@ export type SupplierWhereUniqueInput = Prisma.AtLeast<{
   email?: Prisma.StringNullableFilter<"Supplier"> | string | null
   createdOn?: Prisma.DateTimeFilter<"Supplier"> | Date | string
   updatedOn?: Prisma.DateTimeFilter<"Supplier"> | Date | string
-  shop?: Prisma.XOR<Prisma.ShopScalarRelationFilter, Prisma.ShopWhereInput>
   supplierProducts?: Prisma.SupplierProductListRelationFilter
+  shop?: Prisma.XOR<Prisma.ShopScalarRelationFilter, Prisma.ShopWhereInput>
 }, "id">
 
 export type SupplierOrderByWithAggregationInput = {
@@ -314,8 +314,8 @@ export type SupplierCreateInput = {
   email?: string | null
   createdOn?: Date | string
   updatedOn?: Date | string
-  shop: Prisma.ShopCreateNestedOneWithoutSuppliersInput
   supplierProducts?: Prisma.SupplierProductCreateNestedManyWithoutSupplierInput
+  shop: Prisma.ShopCreateNestedOneWithoutSuppliersInput
 }
 
 export type SupplierUncheckedCreateInput = {
@@ -337,8 +337,8 @@ export type SupplierUpdateInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  shop?: Prisma.ShopUpdateOneRequiredWithoutSuppliersNestedInput
   supplierProducts?: Prisma.SupplierProductUpdateManyWithoutSupplierNestedInput
+  shop?: Prisma.ShopUpdateOneRequiredWithoutSuppliersNestedInput
 }
 
 export type SupplierUncheckedUpdateInput = {
@@ -698,8 +698,8 @@ export type SupplierSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   email?: boolean
   createdOn?: boolean
   updatedOn?: boolean
-  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
   supplierProducts?: boolean | Prisma.Supplier$supplierProductsArgs<ExtArgs>
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.SupplierCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["supplier"]>
 
@@ -740,8 +740,8 @@ export type SupplierSelectScalar = {
 
 export type SupplierOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "shopId" | "name" | "contactPerson" | "phone" | "email" | "createdOn" | "updatedOn", ExtArgs["result"]["supplier"]>
 export type SupplierInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
   supplierProducts?: boolean | Prisma.Supplier$supplierProductsArgs<ExtArgs>
+  shop?: boolean | Prisma.ShopDefaultArgs<ExtArgs>
   _count?: boolean | Prisma.SupplierCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type SupplierIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -754,8 +754,8 @@ export type SupplierIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
 export type $SupplierPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Supplier"
   objects: {
-    shop: Prisma.$ShopPayload<ExtArgs>
     supplierProducts: Prisma.$SupplierProductPayload<ExtArgs>[]
+    shop: Prisma.$ShopPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1160,8 +1160,8 @@ readonly fields: SupplierFieldRefs;
  */
 export interface Prisma__SupplierClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  shop<T extends Prisma.ShopDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ShopDefaultArgs<ExtArgs>>): Prisma.Prisma__ShopClient<runtime.Types.Result.GetResult<Prisma.$ShopPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   supplierProducts<T extends Prisma.Supplier$supplierProductsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Supplier$supplierProductsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupplierProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  shop<T extends Prisma.ShopDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ShopDefaultArgs<ExtArgs>>): Prisma.Prisma__ShopClient<runtime.Types.Result.GetResult<Prisma.$ShopPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

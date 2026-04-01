@@ -208,16 +208,16 @@ export type SupplierProductWhereInput = {
   supplierId?: Prisma.IntFilter<"SupplierProduct"> | number
   productId?: Prisma.IntFilter<"SupplierProduct"> | number
   supplyPrice?: Prisma.DecimalFilter<"SupplierProduct"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  supplier?: Prisma.XOR<Prisma.SupplierScalarRelationFilter, Prisma.SupplierWhereInput>
   product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
+  supplier?: Prisma.XOR<Prisma.SupplierScalarRelationFilter, Prisma.SupplierWhereInput>
 }
 
 export type SupplierProductOrderByWithRelationInput = {
   supplierId?: Prisma.SortOrder
   productId?: Prisma.SortOrder
   supplyPrice?: Prisma.SortOrder
-  supplier?: Prisma.SupplierOrderByWithRelationInput
   product?: Prisma.ProductOrderByWithRelationInput
+  supplier?: Prisma.SupplierOrderByWithRelationInput
 }
 
 export type SupplierProductWhereUniqueInput = Prisma.AtLeast<{
@@ -228,8 +228,8 @@ export type SupplierProductWhereUniqueInput = Prisma.AtLeast<{
   supplierId?: Prisma.IntFilter<"SupplierProduct"> | number
   productId?: Prisma.IntFilter<"SupplierProduct"> | number
   supplyPrice?: Prisma.DecimalFilter<"SupplierProduct"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  supplier?: Prisma.XOR<Prisma.SupplierScalarRelationFilter, Prisma.SupplierWhereInput>
   product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
+  supplier?: Prisma.XOR<Prisma.SupplierScalarRelationFilter, Prisma.SupplierWhereInput>
 }, "supplierId_productId">
 
 export type SupplierProductOrderByWithAggregationInput = {
@@ -254,8 +254,8 @@ export type SupplierProductScalarWhereWithAggregatesInput = {
 
 export type SupplierProductCreateInput = {
   supplyPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
-  supplier: Prisma.SupplierCreateNestedOneWithoutSupplierProductsInput
   product: Prisma.ProductCreateNestedOneWithoutSupplierProductsInput
+  supplier: Prisma.SupplierCreateNestedOneWithoutSupplierProductsInput
 }
 
 export type SupplierProductUncheckedCreateInput = {
@@ -266,8 +266,8 @@ export type SupplierProductUncheckedCreateInput = {
 
 export type SupplierProductUpdateInput = {
   supplyPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  supplier?: Prisma.SupplierUpdateOneRequiredWithoutSupplierProductsNestedInput
   product?: Prisma.ProductUpdateOneRequiredWithoutSupplierProductsNestedInput
+  supplier?: Prisma.SupplierUpdateOneRequiredWithoutSupplierProductsNestedInput
 }
 
 export type SupplierProductUncheckedUpdateInput = {
@@ -548,24 +548,24 @@ export type SupplierProductSelect<ExtArgs extends runtime.Types.Extensions.Inter
   supplierId?: boolean
   productId?: boolean
   supplyPrice?: boolean
-  supplier?: boolean | Prisma.SupplierDefaultArgs<ExtArgs>
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
+  supplier?: boolean | Prisma.SupplierDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["supplierProduct"]>
 
 export type SupplierProductSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   supplierId?: boolean
   productId?: boolean
   supplyPrice?: boolean
-  supplier?: boolean | Prisma.SupplierDefaultArgs<ExtArgs>
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
+  supplier?: boolean | Prisma.SupplierDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["supplierProduct"]>
 
 export type SupplierProductSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   supplierId?: boolean
   productId?: boolean
   supplyPrice?: boolean
-  supplier?: boolean | Prisma.SupplierDefaultArgs<ExtArgs>
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
+  supplier?: boolean | Prisma.SupplierDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["supplierProduct"]>
 
 export type SupplierProductSelectScalar = {
@@ -576,23 +576,23 @@ export type SupplierProductSelectScalar = {
 
 export type SupplierProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"supplierId" | "productId" | "supplyPrice", ExtArgs["result"]["supplierProduct"]>
 export type SupplierProductInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  supplier?: boolean | Prisma.SupplierDefaultArgs<ExtArgs>
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
+  supplier?: boolean | Prisma.SupplierDefaultArgs<ExtArgs>
 }
 export type SupplierProductIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  supplier?: boolean | Prisma.SupplierDefaultArgs<ExtArgs>
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
+  supplier?: boolean | Prisma.SupplierDefaultArgs<ExtArgs>
 }
 export type SupplierProductIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  supplier?: boolean | Prisma.SupplierDefaultArgs<ExtArgs>
   product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
+  supplier?: boolean | Prisma.SupplierDefaultArgs<ExtArgs>
 }
 
 export type $SupplierProductPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "SupplierProduct"
   objects: {
-    supplier: Prisma.$SupplierPayload<ExtArgs>
     product: Prisma.$ProductPayload<ExtArgs>
+    supplier: Prisma.$SupplierPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     supplierId: number
@@ -992,8 +992,8 @@ readonly fields: SupplierProductFieldRefs;
  */
 export interface Prisma__SupplierProductClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  supplier<T extends Prisma.SupplierDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SupplierDefaultArgs<ExtArgs>>): Prisma.Prisma__SupplierClient<runtime.Types.Result.GetResult<Prisma.$SupplierPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   product<T extends Prisma.ProductDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductDefaultArgs<ExtArgs>>): Prisma.Prisma__ProductClient<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  supplier<T extends Prisma.SupplierDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.SupplierDefaultArgs<ExtArgs>>): Prisma.Prisma__SupplierClient<runtime.Types.Result.GetResult<Prisma.$SupplierPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

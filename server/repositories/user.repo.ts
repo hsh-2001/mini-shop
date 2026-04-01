@@ -35,6 +35,13 @@ export const findUserByIdentifier = async (identifier: string) => {
           currencyBase: true,
           exchangeUSD: true,
           exchangeKHR: true,
+          domains: {
+            select: {
+              domain: true,
+              shopId: true,
+              expiraryDate: true,
+            }
+          }
         },
       },
     }
@@ -66,6 +73,8 @@ export const createInitialOwnerUser = async (input: {
   username: string;
   phone: string;
   passwordHash: string;
+  domain: string;
+  expiryDate?: string;
 }) => {
   return prisma.user.create({
     data: {
@@ -76,13 +85,37 @@ export const createInitialOwnerUser = async (input: {
       shop: {
         create: {
           name: input.shopName,
+          domains: {
+            create: {
+              domain: input.domain,
+              expiraryDate: input.expiryDate ?? new Date(),
+            }
+          }
         },
       },
     },
     select: {
       id: true,
-    },
-  });
+      shopId: true,
+      phone: true,
+      username: true,
+      role: true,
+      shop: {
+        select: {
+          id: true,
+          name: true,
+          domains: {
+            select: {
+              domain: true,
+              shopId: true,
+              expiraryDate: true,
+            }
+          }
+        },
+      },
+    }
+  }
+  )
 };
 
 export const createUser = async (request: ICreateUser) => {

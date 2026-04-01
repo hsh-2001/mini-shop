@@ -216,8 +216,8 @@ export type ProductModifierWhereInput = {
   productId?: Prisma.IntFilter<"ProductModifier"> | number
   modifierId?: Prisma.IntFilter<"ProductModifier"> | number
   isDefault?: Prisma.BoolFilter<"ProductModifier"> | boolean
-  product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
   modifier?: Prisma.XOR<Prisma.ModifierScalarRelationFilter, Prisma.ModifierWhereInput>
+  product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
 }
 
 export type ProductModifierOrderByWithRelationInput = {
@@ -225,8 +225,8 @@ export type ProductModifierOrderByWithRelationInput = {
   productId?: Prisma.SortOrder
   modifierId?: Prisma.SortOrder
   isDefault?: Prisma.SortOrder
-  product?: Prisma.ProductOrderByWithRelationInput
   modifier?: Prisma.ModifierOrderByWithRelationInput
+  product?: Prisma.ProductOrderByWithRelationInput
 }
 
 export type ProductModifierWhereUniqueInput = Prisma.AtLeast<{
@@ -238,8 +238,8 @@ export type ProductModifierWhereUniqueInput = Prisma.AtLeast<{
   productId?: Prisma.IntFilter<"ProductModifier"> | number
   modifierId?: Prisma.IntFilter<"ProductModifier"> | number
   isDefault?: Prisma.BoolFilter<"ProductModifier"> | boolean
-  product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
   modifier?: Prisma.XOR<Prisma.ModifierScalarRelationFilter, Prisma.ModifierWhereInput>
+  product?: Prisma.XOR<Prisma.ProductScalarRelationFilter, Prisma.ProductWhereInput>
 }, "id" | "productId_modifierId">
 
 export type ProductModifierOrderByWithAggregationInput = {
@@ -266,8 +266,8 @@ export type ProductModifierScalarWhereWithAggregatesInput = {
 
 export type ProductModifierCreateInput = {
   isDefault?: boolean
-  product: Prisma.ProductCreateNestedOneWithoutProductModifiersInput
   modifier: Prisma.ModifierCreateNestedOneWithoutProductModifiersInput
+  product: Prisma.ProductCreateNestedOneWithoutProductModifiersInput
 }
 
 export type ProductModifierUncheckedCreateInput = {
@@ -279,8 +279,8 @@ export type ProductModifierUncheckedCreateInput = {
 
 export type ProductModifierUpdateInput = {
   isDefault?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  product?: Prisma.ProductUpdateOneRequiredWithoutProductModifiersNestedInput
   modifier?: Prisma.ModifierUpdateOneRequiredWithoutProductModifiersNestedInput
+  product?: Prisma.ProductUpdateOneRequiredWithoutProductModifiersNestedInput
 }
 
 export type ProductModifierUncheckedUpdateInput = {
@@ -577,8 +577,8 @@ export type ProductModifierSelect<ExtArgs extends runtime.Types.Extensions.Inter
   productId?: boolean
   modifierId?: boolean
   isDefault?: boolean
-  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   modifier?: boolean | Prisma.ModifierDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["productModifier"]>
 
 export type ProductModifierSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -586,8 +586,8 @@ export type ProductModifierSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   productId?: boolean
   modifierId?: boolean
   isDefault?: boolean
-  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   modifier?: boolean | Prisma.ModifierDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["productModifier"]>
 
 export type ProductModifierSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -595,8 +595,8 @@ export type ProductModifierSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   productId?: boolean
   modifierId?: boolean
   isDefault?: boolean
-  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   modifier?: boolean | Prisma.ModifierDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["productModifier"]>
 
 export type ProductModifierSelectScalar = {
@@ -608,23 +608,23 @@ export type ProductModifierSelectScalar = {
 
 export type ProductModifierOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "productId" | "modifierId" | "isDefault", ExtArgs["result"]["productModifier"]>
 export type ProductModifierInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   modifier?: boolean | Prisma.ModifierDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
 }
 export type ProductModifierIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   modifier?: boolean | Prisma.ModifierDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
 }
 export type ProductModifierIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
   modifier?: boolean | Prisma.ModifierDefaultArgs<ExtArgs>
+  product?: boolean | Prisma.ProductDefaultArgs<ExtArgs>
 }
 
 export type $ProductModifierPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ProductModifier"
   objects: {
-    product: Prisma.$ProductPayload<ExtArgs>
     modifier: Prisma.$ModifierPayload<ExtArgs>
+    product: Prisma.$ProductPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1025,8 +1025,8 @@ readonly fields: ProductModifierFieldRefs;
  */
 export interface Prisma__ProductModifierClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  product<T extends Prisma.ProductDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductDefaultArgs<ExtArgs>>): Prisma.Prisma__ProductClient<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   modifier<T extends Prisma.ModifierDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ModifierDefaultArgs<ExtArgs>>): Prisma.Prisma__ModifierClient<runtime.Types.Result.GetResult<Prisma.$ModifierPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  product<T extends Prisma.ProductDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProductDefaultArgs<ExtArgs>>): Prisma.Prisma__ProductClient<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.

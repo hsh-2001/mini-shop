@@ -8,27 +8,41 @@ datasource db {
 }
 
 model Shop {
-  id           Int         @id @default(autoincrement())
-  name         String      @unique
+  id           Int      @id @default(autoincrement())
+  name         String   @unique
   description  String?
-  createdOn    DateTime    @default(now()) @map("created_on")
-  updatedOn    DateTime    @updatedAt @map("updated_on")
   address      String?
-  openingHours Json?       @map("opening_hours")
+  openingHours Json?    @map("opening_hours")
   phone        String?
-  currencyBase String      @default("KHR") @map("currency_base")
-  exchangeKHR  Decimal?    @map("exchange_khr") @db.Decimal(10, 6)
-  exchangeUSD  Decimal?    @map("exchange_usd") @db.Decimal(10, 6)
-  categories   Category[]
-  customers    Customer[]
-  modifiers    Modifier[]
-  orders       Order[]
-  products     Product[]
-  shopDetail   ShopDetail?
-  suppliers    Supplier[]
-  users        User[]
+  currencyBase String   @default("KHR") @map("currency_base")
+  exchangeKHR  Decimal? @map("exchange_khr") @db.Decimal(10, 6)
+  exchangeUSD  Decimal? @map("exchange_usd") @db.Decimal(10, 6)
+  createdOn    DateTime @default(now()) @map("created_on")
+  updatedOn    DateTime @updatedAt @map("updated_on")
+
+  categories Category[]
+  customers  Customer[]
+  modifiers  Modifier[]
+  orders     Order[]
+  products   Product[]
+  shopDetail ShopDetail?
+  suppliers  Supplier[]
+  users      User[]
+  domains    Domain[]
 
   @@map("shops")
+}
+
+model Domain {
+  id           Int      @id @default(autoincrement())
+  shopId       Int      @unique @map("shop_id")
+  domain       String   @unique
+  shop         Shop     @relation(fields: [shopId], references: [id], onDelete: Cascade)
+  expiraryDate DateTime @map("expiry_date")
+  createdOn    DateTime @default(now()) @map("created_on")
+  updatedOn    DateTime @updatedAt @map("updated_on")
+
+  @@map("domains")
 }
 
 model ShopDetail {

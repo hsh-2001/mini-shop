@@ -16,7 +16,7 @@ const getAuthSecret = () => {
   return secret;
 };
 
-const signSessionToken = ((user: User) => {
+const signSessionToken = ((user: { id: number; username: string; phone: string; shopId: number }) => {
   const token = {
     u: user.id,
     n: user.username,
@@ -44,7 +44,7 @@ const verifySessionToken = (token: string) => {
   }
 };
 
-export const setSessionCookie = (event: H3Event, user: User) => {
+export const setSessionCookie = (event: H3Event, user: { id: number; username: string; phone: string; shopId: number }) => {
   setCookie(event, SESSION_COOKIE_NAME, signSessionToken(user), {
     httpOnly: false,
     sameSite: "lax",

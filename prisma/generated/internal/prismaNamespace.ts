@@ -385,6 +385,7 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   Shop: 'Shop',
+  Domain: 'Domain',
   ShopDetail: 'ShopDetail',
   User: 'User',
   Category: 'Category',
@@ -411,7 +412,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "shop" | "shopDetail" | "user" | "category" | "product" | "modifier" | "productModifier" | "customer" | "order" | "orderItem" | "supplier" | "supplierProduct"
+    modelProps: "shop" | "domain" | "shopDetail" | "user" | "category" | "product" | "modifier" | "productModifier" | "customer" | "order" | "orderItem" | "supplier" | "supplierProduct"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -486,6 +487,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.ShopCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.ShopCountAggregateOutputType> | number
+        }
+      }
+    }
+    Domain: {
+      payload: Prisma.$DomainPayload<ExtArgs>
+      fields: Prisma.DomainFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DomainFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DomainPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DomainFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DomainPayload>
+        }
+        findFirst: {
+          args: Prisma.DomainFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DomainPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DomainFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DomainPayload>
+        }
+        findMany: {
+          args: Prisma.DomainFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DomainPayload>[]
+        }
+        create: {
+          args: Prisma.DomainCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DomainPayload>
+        }
+        createMany: {
+          args: Prisma.DomainCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DomainCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DomainPayload>[]
+        }
+        delete: {
+          args: Prisma.DomainDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DomainPayload>
+        }
+        update: {
+          args: Prisma.DomainUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DomainPayload>
+        }
+        deleteMany: {
+          args: Prisma.DomainDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DomainUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DomainUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DomainPayload>[]
+        }
+        upsert: {
+          args: Prisma.DomainUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DomainPayload>
+        }
+        aggregate: {
+          args: Prisma.DomainAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDomain>
+        }
+        groupBy: {
+          args: Prisma.DomainGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DomainGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DomainCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DomainCountAggregateOutputType> | number
         }
       }
     }
@@ -1347,16 +1422,28 @@ export const ShopScalarFieldEnum = {
   name: 'name',
   description: 'description',
   address: 'address',
+  openingHours: 'openingHours',
   phone: 'phone',
   currencyBase: 'currencyBase',
-  exchangeUSD: 'exchangeUSD',
   exchangeKHR: 'exchangeKHR',
-  openingHours: 'openingHours',
+  exchangeUSD: 'exchangeUSD',
   createdOn: 'createdOn',
   updatedOn: 'updatedOn'
 } as const
 
 export type ShopScalarFieldEnum = (typeof ShopScalarFieldEnum)[keyof typeof ShopScalarFieldEnum]
+
+
+export const DomainScalarFieldEnum = {
+  id: 'id',
+  shopId: 'shopId',
+  domain: 'domain',
+  expiraryDate: 'expiraryDate',
+  createdOn: 'createdOn',
+  updatedOn: 'updatedOn'
+} as const
+
+export type DomainScalarFieldEnum = (typeof DomainScalarFieldEnum)[keyof typeof DomainScalarFieldEnum]
 
 
 export const ShopDetailScalarFieldEnum = {
@@ -1374,13 +1461,14 @@ export type ShopDetailScalarFieldEnum = (typeof ShopDetailScalarFieldEnum)[keyof
 
 export const UserScalarFieldEnum = {
   id: 'id',
-  shopId: 'shopId',
   phone: 'phone',
   username: 'username',
   passwordHash: 'passwordHash',
-  role: 'role',
   createdOn: 'createdOn',
-  updatedOn: 'updatedOn'
+  updatedOn: 'updatedOn',
+  shopId: 'shopId',
+  isActive: 'isActive',
+  role: 'role'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -1404,7 +1492,6 @@ export const ProductScalarFieldEnum = {
   shopId: 'shopId',
   categoryId: 'categoryId',
   name: 'name',
-  imageUrl: 'imageUrl',
   description: 'description',
   basePrice: 'basePrice',
   size: 'size',
@@ -1416,7 +1503,8 @@ export const ProductScalarFieldEnum = {
   lowStockThreshold: 'lowStockThreshold',
   isActive: 'isActive',
   createdOn: 'createdOn',
-  updatedOn: 'updatedOn'
+  updatedOn: 'updatedOn',
+  imageUrl: 'imageUrl'
 } as const
 
 export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
@@ -1595,20 +1683,6 @@ export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaMod
 
 
 /**
- * Reference to a field of type 'Decimal'
- */
-export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
-    
-
-
-/**
- * Reference to a field of type 'Decimal[]'
- */
-export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
-    
-
-
-/**
  * Reference to a field of type 'Json'
  */
 export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
@@ -1619,6 +1693,20 @@ export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'J
  * Reference to a field of type 'QueryMode'
  */
 export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+/**
+ * Reference to a field of type 'Decimal'
+ */
+export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+    
+
+
+/**
+ * Reference to a field of type 'Decimal[]'
+ */
+export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
     
 
 
@@ -1836,6 +1924,7 @@ export type PrismaClientOptions = ({
 }
 export type GlobalOmitConfig = {
   shop?: Prisma.ShopOmit
+  domain?: Prisma.DomainOmit
   shopDetail?: Prisma.ShopDetailOmit
   user?: Prisma.UserOmit
   category?: Prisma.CategoryOmit

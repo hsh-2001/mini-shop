@@ -47,6 +47,11 @@ export { Prisma }
  */
 export type Shop = Prisma.ShopModel
 /**
+ * Model Domain
+ * 
+ */
+export type Domain = Prisma.DomainModel
+/**
  * Model ShopDetail
  * 
  */

@@ -52,6 +52,7 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   Shop: 'Shop',
+  Domain: 'Domain',
   ShopDetail: 'ShopDetail',
   User: 'User',
   Category: 'Category',
@@ -86,16 +87,28 @@ export const ShopScalarFieldEnum = {
   name: 'name',
   description: 'description',
   address: 'address',
+  openingHours: 'openingHours',
   phone: 'phone',
   currencyBase: 'currencyBase',
-  exchangeUSD: 'exchangeUSD',
   exchangeKHR: 'exchangeKHR',
-  openingHours: 'openingHours',
+  exchangeUSD: 'exchangeUSD',
   createdOn: 'createdOn',
   updatedOn: 'updatedOn'
 } as const
 
 export type ShopScalarFieldEnum = (typeof ShopScalarFieldEnum)[keyof typeof ShopScalarFieldEnum]
+
+
+export const DomainScalarFieldEnum = {
+  id: 'id',
+  shopId: 'shopId',
+  domain: 'domain',
+  expiraryDate: 'expiraryDate',
+  createdOn: 'createdOn',
+  updatedOn: 'updatedOn'
+} as const
+
+export type DomainScalarFieldEnum = (typeof DomainScalarFieldEnum)[keyof typeof DomainScalarFieldEnum]
 
 
 export const ShopDetailScalarFieldEnum = {
@@ -113,13 +126,14 @@ export type ShopDetailScalarFieldEnum = (typeof ShopDetailScalarFieldEnum)[keyof
 
 export const UserScalarFieldEnum = {
   id: 'id',
-  shopId: 'shopId',
   phone: 'phone',
   username: 'username',
   passwordHash: 'passwordHash',
-  role: 'role',
   createdOn: 'createdOn',
-  updatedOn: 'updatedOn'
+  updatedOn: 'updatedOn',
+  shopId: 'shopId',
+  isActive: 'isActive',
+  role: 'role'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -143,7 +157,6 @@ export const ProductScalarFieldEnum = {
   shopId: 'shopId',
   categoryId: 'categoryId',
   name: 'name',
-  imageUrl: 'imageUrl',
   description: 'description',
   basePrice: 'basePrice',
   size: 'size',
@@ -155,7 +168,8 @@ export const ProductScalarFieldEnum = {
   lowStockThreshold: 'lowStockThreshold',
   isActive: 'isActive',
   createdOn: 'createdOn',
-  updatedOn: 'updatedOn'
+  updatedOn: 'updatedOn',
+  imageUrl: 'imageUrl'
 } as const
 
 export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]

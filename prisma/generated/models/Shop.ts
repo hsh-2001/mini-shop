@@ -28,14 +28,14 @@ export type AggregateShop = {
 
 export type ShopAvgAggregateOutputType = {
   id: number | null
-  exchangeUSD: runtime.Decimal | null
   exchangeKHR: runtime.Decimal | null
+  exchangeUSD: runtime.Decimal | null
 }
 
 export type ShopSumAggregateOutputType = {
   id: number | null
-  exchangeUSD: runtime.Decimal | null
   exchangeKHR: runtime.Decimal | null
+  exchangeUSD: runtime.Decimal | null
 }
 
 export type ShopMinAggregateOutputType = {
@@ -45,8 +45,8 @@ export type ShopMinAggregateOutputType = {
   address: string | null
   phone: string | null
   currencyBase: string | null
-  exchangeUSD: runtime.Decimal | null
   exchangeKHR: runtime.Decimal | null
+  exchangeUSD: runtime.Decimal | null
   createdOn: Date | null
   updatedOn: Date | null
 }
@@ -58,8 +58,8 @@ export type ShopMaxAggregateOutputType = {
   address: string | null
   phone: string | null
   currencyBase: string | null
-  exchangeUSD: runtime.Decimal | null
   exchangeKHR: runtime.Decimal | null
+  exchangeUSD: runtime.Decimal | null
   createdOn: Date | null
   updatedOn: Date | null
 }
@@ -69,11 +69,11 @@ export type ShopCountAggregateOutputType = {
   name: number
   description: number
   address: number
+  openingHours: number
   phone: number
   currencyBase: number
-  exchangeUSD: number
   exchangeKHR: number
-  openingHours: number
+  exchangeUSD: number
   createdOn: number
   updatedOn: number
   _all: number
@@ -82,14 +82,14 @@ export type ShopCountAggregateOutputType = {
 
 export type ShopAvgAggregateInputType = {
   id?: true
-  exchangeUSD?: true
   exchangeKHR?: true
+  exchangeUSD?: true
 }
 
 export type ShopSumAggregateInputType = {
   id?: true
-  exchangeUSD?: true
   exchangeKHR?: true
+  exchangeUSD?: true
 }
 
 export type ShopMinAggregateInputType = {
@@ -99,8 +99,8 @@ export type ShopMinAggregateInputType = {
   address?: true
   phone?: true
   currencyBase?: true
-  exchangeUSD?: true
   exchangeKHR?: true
+  exchangeUSD?: true
   createdOn?: true
   updatedOn?: true
 }
@@ -112,8 +112,8 @@ export type ShopMaxAggregateInputType = {
   address?: true
   phone?: true
   currencyBase?: true
-  exchangeUSD?: true
   exchangeKHR?: true
+  exchangeUSD?: true
   createdOn?: true
   updatedOn?: true
 }
@@ -123,11 +123,11 @@ export type ShopCountAggregateInputType = {
   name?: true
   description?: true
   address?: true
+  openingHours?: true
   phone?: true
   currencyBase?: true
-  exchangeUSD?: true
   exchangeKHR?: true
-  openingHours?: true
+  exchangeUSD?: true
   createdOn?: true
   updatedOn?: true
   _all?: true
@@ -224,11 +224,11 @@ export type ShopGroupByOutputType = {
   name: string
   description: string | null
   address: string | null
+  openingHours: runtime.JsonValue | null
   phone: string | null
   currencyBase: string
-  exchangeUSD: runtime.Decimal | null
   exchangeKHR: runtime.Decimal | null
-  openingHours: runtime.JsonValue | null
+  exchangeUSD: runtime.Decimal | null
   createdOn: Date
   updatedOn: Date
   _count: ShopCountAggregateOutputType | null
@@ -261,21 +261,22 @@ export type ShopWhereInput = {
   name?: Prisma.StringFilter<"Shop"> | string
   description?: Prisma.StringNullableFilter<"Shop"> | string | null
   address?: Prisma.StringNullableFilter<"Shop"> | string | null
+  openingHours?: Prisma.JsonNullableFilter<"Shop">
   phone?: Prisma.StringNullableFilter<"Shop"> | string | null
   currencyBase?: Prisma.StringFilter<"Shop"> | string
-  exchangeUSD?: Prisma.DecimalNullableFilter<"Shop"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: Prisma.DecimalNullableFilter<"Shop"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.JsonNullableFilter<"Shop">
+  exchangeUSD?: Prisma.DecimalNullableFilter<"Shop"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Prisma.DateTimeFilter<"Shop"> | Date | string
   updatedOn?: Prisma.DateTimeFilter<"Shop"> | Date | string
-  users?: Prisma.UserListRelationFilter
   categories?: Prisma.CategoryListRelationFilter
-  products?: Prisma.ProductListRelationFilter
   customers?: Prisma.CustomerListRelationFilter
-  orders?: Prisma.OrderListRelationFilter
-  suppliers?: Prisma.SupplierListRelationFilter
   modifiers?: Prisma.ModifierListRelationFilter
+  orders?: Prisma.OrderListRelationFilter
+  products?: Prisma.ProductListRelationFilter
   shopDetail?: Prisma.XOR<Prisma.ShopDetailNullableScalarRelationFilter, Prisma.ShopDetailWhereInput> | null
+  suppliers?: Prisma.SupplierListRelationFilter
+  users?: Prisma.UserListRelationFilter
+  domains?: Prisma.DomainListRelationFilter
 }
 
 export type ShopOrderByWithRelationInput = {
@@ -283,21 +284,22 @@ export type ShopOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
+  openingHours?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   currencyBase?: Prisma.SortOrder
-  exchangeUSD?: Prisma.SortOrderInput | Prisma.SortOrder
   exchangeKHR?: Prisma.SortOrderInput | Prisma.SortOrder
-  openingHours?: Prisma.SortOrderInput | Prisma.SortOrder
+  exchangeUSD?: Prisma.SortOrderInput | Prisma.SortOrder
   createdOn?: Prisma.SortOrder
   updatedOn?: Prisma.SortOrder
-  users?: Prisma.UserOrderByRelationAggregateInput
   categories?: Prisma.CategoryOrderByRelationAggregateInput
-  products?: Prisma.ProductOrderByRelationAggregateInput
   customers?: Prisma.CustomerOrderByRelationAggregateInput
-  orders?: Prisma.OrderOrderByRelationAggregateInput
-  suppliers?: Prisma.SupplierOrderByRelationAggregateInput
   modifiers?: Prisma.ModifierOrderByRelationAggregateInput
+  orders?: Prisma.OrderOrderByRelationAggregateInput
+  products?: Prisma.ProductOrderByRelationAggregateInput
   shopDetail?: Prisma.ShopDetailOrderByWithRelationInput
+  suppliers?: Prisma.SupplierOrderByRelationAggregateInput
+  users?: Prisma.UserOrderByRelationAggregateInput
+  domains?: Prisma.DomainOrderByRelationAggregateInput
 }
 
 export type ShopWhereUniqueInput = Prisma.AtLeast<{
@@ -308,21 +310,22 @@ export type ShopWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.ShopWhereInput | Prisma.ShopWhereInput[]
   description?: Prisma.StringNullableFilter<"Shop"> | string | null
   address?: Prisma.StringNullableFilter<"Shop"> | string | null
+  openingHours?: Prisma.JsonNullableFilter<"Shop">
   phone?: Prisma.StringNullableFilter<"Shop"> | string | null
   currencyBase?: Prisma.StringFilter<"Shop"> | string
-  exchangeUSD?: Prisma.DecimalNullableFilter<"Shop"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: Prisma.DecimalNullableFilter<"Shop"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.JsonNullableFilter<"Shop">
+  exchangeUSD?: Prisma.DecimalNullableFilter<"Shop"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Prisma.DateTimeFilter<"Shop"> | Date | string
   updatedOn?: Prisma.DateTimeFilter<"Shop"> | Date | string
-  users?: Prisma.UserListRelationFilter
   categories?: Prisma.CategoryListRelationFilter
-  products?: Prisma.ProductListRelationFilter
   customers?: Prisma.CustomerListRelationFilter
-  orders?: Prisma.OrderListRelationFilter
-  suppliers?: Prisma.SupplierListRelationFilter
   modifiers?: Prisma.ModifierListRelationFilter
+  orders?: Prisma.OrderListRelationFilter
+  products?: Prisma.ProductListRelationFilter
   shopDetail?: Prisma.XOR<Prisma.ShopDetailNullableScalarRelationFilter, Prisma.ShopDetailWhereInput> | null
+  suppliers?: Prisma.SupplierListRelationFilter
+  users?: Prisma.UserListRelationFilter
+  domains?: Prisma.DomainListRelationFilter
 }, "id" | "name">
 
 export type ShopOrderByWithAggregationInput = {
@@ -330,11 +333,11 @@ export type ShopOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   address?: Prisma.SortOrderInput | Prisma.SortOrder
+  openingHours?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   currencyBase?: Prisma.SortOrder
-  exchangeUSD?: Prisma.SortOrderInput | Prisma.SortOrder
   exchangeKHR?: Prisma.SortOrderInput | Prisma.SortOrder
-  openingHours?: Prisma.SortOrderInput | Prisma.SortOrder
+  exchangeUSD?: Prisma.SortOrderInput | Prisma.SortOrder
   createdOn?: Prisma.SortOrder
   updatedOn?: Prisma.SortOrder
   _count?: Prisma.ShopCountOrderByAggregateInput
@@ -352,11 +355,11 @@ export type ShopScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"Shop"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Shop"> | string | null
   address?: Prisma.StringNullableWithAggregatesFilter<"Shop"> | string | null
+  openingHours?: Prisma.JsonNullableWithAggregatesFilter<"Shop">
   phone?: Prisma.StringNullableWithAggregatesFilter<"Shop"> | string | null
   currencyBase?: Prisma.StringWithAggregatesFilter<"Shop"> | string
-  exchangeUSD?: Prisma.DecimalNullableWithAggregatesFilter<"Shop"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: Prisma.DecimalNullableWithAggregatesFilter<"Shop"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.JsonNullableWithAggregatesFilter<"Shop">
+  exchangeUSD?: Prisma.DecimalNullableWithAggregatesFilter<"Shop"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Prisma.DateTimeWithAggregatesFilter<"Shop"> | Date | string
   updatedOn?: Prisma.DateTimeWithAggregatesFilter<"Shop"> | Date | string
 }
@@ -365,21 +368,22 @@ export type ShopCreateInput = {
   name: string
   description?: string | null
   address?: string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: string | null
   currencyBase?: string
-  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Date | string
   updatedOn?: Date | string
-  users?: Prisma.UserCreateNestedManyWithoutShopInput
   categories?: Prisma.CategoryCreateNestedManyWithoutShopInput
-  products?: Prisma.ProductCreateNestedManyWithoutShopInput
   customers?: Prisma.CustomerCreateNestedManyWithoutShopInput
-  orders?: Prisma.OrderCreateNestedManyWithoutShopInput
-  suppliers?: Prisma.SupplierCreateNestedManyWithoutShopInput
   modifiers?: Prisma.ModifierCreateNestedManyWithoutShopInput
+  orders?: Prisma.OrderCreateNestedManyWithoutShopInput
+  products?: Prisma.ProductCreateNestedManyWithoutShopInput
   shopDetail?: Prisma.ShopDetailCreateNestedOneWithoutShopInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutShopInput
+  users?: Prisma.UserCreateNestedManyWithoutShopInput
+  domains?: Prisma.DomainCreateNestedManyWithoutShopInput
 }
 
 export type ShopUncheckedCreateInput = {
@@ -387,42 +391,44 @@ export type ShopUncheckedCreateInput = {
   name: string
   description?: string | null
   address?: string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: string | null
   currencyBase?: string
-  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Date | string
   updatedOn?: Date | string
-  users?: Prisma.UserUncheckedCreateNestedManyWithoutShopInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutShopInput
-  products?: Prisma.ProductUncheckedCreateNestedManyWithoutShopInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutShopInput
-  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutShopInput
-  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutShopInput
   modifiers?: Prisma.ModifierUncheckedCreateNestedManyWithoutShopInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutShopInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutShopInput
   shopDetail?: Prisma.ShopDetailUncheckedCreateNestedOneWithoutShopInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutShopInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutShopInput
+  domains?: Prisma.DomainUncheckedCreateNestedManyWithoutShopInput
 }
 
 export type ShopUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
-  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  users?: Prisma.UserUpdateManyWithoutShopNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutShopNestedInput
-  products?: Prisma.ProductUpdateManyWithoutShopNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutShopNestedInput
-  orders?: Prisma.OrderUpdateManyWithoutShopNestedInput
-  suppliers?: Prisma.SupplierUpdateManyWithoutShopNestedInput
   modifiers?: Prisma.ModifierUpdateManyWithoutShopNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutShopNestedInput
+  products?: Prisma.ProductUpdateManyWithoutShopNestedInput
   shopDetail?: Prisma.ShopDetailUpdateOneWithoutShopNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutShopNestedInput
+  users?: Prisma.UserUpdateManyWithoutShopNestedInput
+  domains?: Prisma.DomainUpdateManyWithoutShopNestedInput
 }
 
 export type ShopUncheckedUpdateInput = {
@@ -430,21 +436,22 @@ export type ShopUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
-  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  users?: Prisma.UserUncheckedUpdateManyWithoutShopNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutShopNestedInput
-  products?: Prisma.ProductUncheckedUpdateManyWithoutShopNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutShopNestedInput
-  orders?: Prisma.OrderUncheckedUpdateManyWithoutShopNestedInput
-  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutShopNestedInput
   modifiers?: Prisma.ModifierUncheckedUpdateManyWithoutShopNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutShopNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutShopNestedInput
   shopDetail?: Prisma.ShopDetailUncheckedUpdateOneWithoutShopNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutShopNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutShopNestedInput
+  domains?: Prisma.DomainUncheckedUpdateManyWithoutShopNestedInput
 }
 
 export type ShopCreateManyInput = {
@@ -452,11 +459,11 @@ export type ShopCreateManyInput = {
   name: string
   description?: string | null
   address?: string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: string | null
   currencyBase?: string
-  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Date | string
   updatedOn?: Date | string
 }
@@ -465,11 +472,11 @@ export type ShopUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
-  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -479,11 +486,11 @@ export type ShopUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
-  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -493,19 +500,19 @@ export type ShopCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
   address?: Prisma.SortOrder
+  openingHours?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   currencyBase?: Prisma.SortOrder
-  exchangeUSD?: Prisma.SortOrder
   exchangeKHR?: Prisma.SortOrder
-  openingHours?: Prisma.SortOrder
+  exchangeUSD?: Prisma.SortOrder
   createdOn?: Prisma.SortOrder
   updatedOn?: Prisma.SortOrder
 }
 
 export type ShopAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  exchangeUSD?: Prisma.SortOrder
   exchangeKHR?: Prisma.SortOrder
+  exchangeUSD?: Prisma.SortOrder
 }
 
 export type ShopMaxOrderByAggregateInput = {
@@ -515,8 +522,8 @@ export type ShopMaxOrderByAggregateInput = {
   address?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   currencyBase?: Prisma.SortOrder
-  exchangeUSD?: Prisma.SortOrder
   exchangeKHR?: Prisma.SortOrder
+  exchangeUSD?: Prisma.SortOrder
   createdOn?: Prisma.SortOrder
   updatedOn?: Prisma.SortOrder
 }
@@ -528,16 +535,16 @@ export type ShopMinOrderByAggregateInput = {
   address?: Prisma.SortOrder
   phone?: Prisma.SortOrder
   currencyBase?: Prisma.SortOrder
-  exchangeUSD?: Prisma.SortOrder
   exchangeKHR?: Prisma.SortOrder
+  exchangeUSD?: Prisma.SortOrder
   createdOn?: Prisma.SortOrder
   updatedOn?: Prisma.SortOrder
 }
 
 export type ShopSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  exchangeUSD?: Prisma.SortOrder
   exchangeKHR?: Prisma.SortOrder
+  exchangeUSD?: Prisma.SortOrder
 }
 
 export type ShopScalarRelationFilter = {
@@ -571,6 +578,20 @@ export type IntFieldUpdateOperationsInput = {
   decrement?: number
   multiply?: number
   divide?: number
+}
+
+export type ShopCreateNestedOneWithoutDomainsInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutDomainsInput, Prisma.ShopUncheckedCreateWithoutDomainsInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutDomainsInput
+  connect?: Prisma.ShopWhereUniqueInput
+}
+
+export type ShopUpdateOneRequiredWithoutDomainsNestedInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutDomainsInput, Prisma.ShopUncheckedCreateWithoutDomainsInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutDomainsInput
+  upsert?: Prisma.ShopUpsertWithoutDomainsInput
+  connect?: Prisma.ShopWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ShopUpdateToOneWithWhereWithoutDomainsInput, Prisma.ShopUpdateWithoutDomainsInput>, Prisma.ShopUncheckedUpdateWithoutDomainsInput>
 }
 
 export type ShopCreateNestedOneWithoutShopDetailInput = {
@@ -685,24 +706,127 @@ export type ShopUpdateOneRequiredWithoutSuppliersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ShopUpdateToOneWithWhereWithoutSuppliersInput, Prisma.ShopUpdateWithoutSuppliersInput>, Prisma.ShopUncheckedUpdateWithoutSuppliersInput>
 }
 
+export type ShopCreateWithoutDomainsInput = {
+  name: string
+  description?: string | null
+  address?: string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  phone?: string | null
+  currencyBase?: string
+  exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdOn?: Date | string
+  updatedOn?: Date | string
+  categories?: Prisma.CategoryCreateNestedManyWithoutShopInput
+  customers?: Prisma.CustomerCreateNestedManyWithoutShopInput
+  modifiers?: Prisma.ModifierCreateNestedManyWithoutShopInput
+  orders?: Prisma.OrderCreateNestedManyWithoutShopInput
+  products?: Prisma.ProductCreateNestedManyWithoutShopInput
+  shopDetail?: Prisma.ShopDetailCreateNestedOneWithoutShopInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutShopInput
+  users?: Prisma.UserCreateNestedManyWithoutShopInput
+}
+
+export type ShopUncheckedCreateWithoutDomainsInput = {
+  id?: number
+  name: string
+  description?: string | null
+  address?: string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  phone?: string | null
+  currencyBase?: string
+  exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdOn?: Date | string
+  updatedOn?: Date | string
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutShopInput
+  customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutShopInput
+  modifiers?: Prisma.ModifierUncheckedCreateNestedManyWithoutShopInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutShopInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutShopInput
+  shopDetail?: Prisma.ShopDetailUncheckedCreateNestedOneWithoutShopInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutShopInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutShopInput
+}
+
+export type ShopCreateOrConnectWithoutDomainsInput = {
+  where: Prisma.ShopWhereUniqueInput
+  create: Prisma.XOR<Prisma.ShopCreateWithoutDomainsInput, Prisma.ShopUncheckedCreateWithoutDomainsInput>
+}
+
+export type ShopUpsertWithoutDomainsInput = {
+  update: Prisma.XOR<Prisma.ShopUpdateWithoutDomainsInput, Prisma.ShopUncheckedUpdateWithoutDomainsInput>
+  create: Prisma.XOR<Prisma.ShopCreateWithoutDomainsInput, Prisma.ShopUncheckedCreateWithoutDomainsInput>
+  where?: Prisma.ShopWhereInput
+}
+
+export type ShopUpdateToOneWithWhereWithoutDomainsInput = {
+  where?: Prisma.ShopWhereInput
+  data: Prisma.XOR<Prisma.ShopUpdateWithoutDomainsInput, Prisma.ShopUncheckedUpdateWithoutDomainsInput>
+}
+
+export type ShopUpdateWithoutDomainsInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
+  exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  categories?: Prisma.CategoryUpdateManyWithoutShopNestedInput
+  customers?: Prisma.CustomerUpdateManyWithoutShopNestedInput
+  modifiers?: Prisma.ModifierUpdateManyWithoutShopNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutShopNestedInput
+  products?: Prisma.ProductUpdateManyWithoutShopNestedInput
+  shopDetail?: Prisma.ShopDetailUpdateOneWithoutShopNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutShopNestedInput
+  users?: Prisma.UserUpdateManyWithoutShopNestedInput
+}
+
+export type ShopUncheckedUpdateWithoutDomainsInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
+  exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutShopNestedInput
+  customers?: Prisma.CustomerUncheckedUpdateManyWithoutShopNestedInput
+  modifiers?: Prisma.ModifierUncheckedUpdateManyWithoutShopNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutShopNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutShopNestedInput
+  shopDetail?: Prisma.ShopDetailUncheckedUpdateOneWithoutShopNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutShopNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutShopNestedInput
+}
+
 export type ShopCreateWithoutShopDetailInput = {
   name: string
   description?: string | null
   address?: string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: string | null
   currencyBase?: string
-  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Date | string
   updatedOn?: Date | string
-  users?: Prisma.UserCreateNestedManyWithoutShopInput
   categories?: Prisma.CategoryCreateNestedManyWithoutShopInput
-  products?: Prisma.ProductCreateNestedManyWithoutShopInput
   customers?: Prisma.CustomerCreateNestedManyWithoutShopInput
-  orders?: Prisma.OrderCreateNestedManyWithoutShopInput
-  suppliers?: Prisma.SupplierCreateNestedManyWithoutShopInput
   modifiers?: Prisma.ModifierCreateNestedManyWithoutShopInput
+  orders?: Prisma.OrderCreateNestedManyWithoutShopInput
+  products?: Prisma.ProductCreateNestedManyWithoutShopInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutShopInput
+  users?: Prisma.UserCreateNestedManyWithoutShopInput
+  domains?: Prisma.DomainCreateNestedManyWithoutShopInput
 }
 
 export type ShopUncheckedCreateWithoutShopDetailInput = {
@@ -710,20 +834,21 @@ export type ShopUncheckedCreateWithoutShopDetailInput = {
   name: string
   description?: string | null
   address?: string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: string | null
   currencyBase?: string
-  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Date | string
   updatedOn?: Date | string
-  users?: Prisma.UserUncheckedCreateNestedManyWithoutShopInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutShopInput
-  products?: Prisma.ProductUncheckedCreateNestedManyWithoutShopInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutShopInput
-  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutShopInput
-  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutShopInput
   modifiers?: Prisma.ModifierUncheckedCreateNestedManyWithoutShopInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutShopInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutShopInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutShopInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutShopInput
+  domains?: Prisma.DomainUncheckedCreateNestedManyWithoutShopInput
 }
 
 export type ShopCreateOrConnectWithoutShopDetailInput = {
@@ -746,20 +871,21 @@ export type ShopUpdateWithoutShopDetailInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
-  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  users?: Prisma.UserUpdateManyWithoutShopNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutShopNestedInput
-  products?: Prisma.ProductUpdateManyWithoutShopNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutShopNestedInput
-  orders?: Prisma.OrderUpdateManyWithoutShopNestedInput
-  suppliers?: Prisma.SupplierUpdateManyWithoutShopNestedInput
   modifiers?: Prisma.ModifierUpdateManyWithoutShopNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutShopNestedInput
+  products?: Prisma.ProductUpdateManyWithoutShopNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutShopNestedInput
+  users?: Prisma.UserUpdateManyWithoutShopNestedInput
+  domains?: Prisma.DomainUpdateManyWithoutShopNestedInput
 }
 
 export type ShopUncheckedUpdateWithoutShopDetailInput = {
@@ -767,40 +893,42 @@ export type ShopUncheckedUpdateWithoutShopDetailInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
-  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  users?: Prisma.UserUncheckedUpdateManyWithoutShopNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutShopNestedInput
-  products?: Prisma.ProductUncheckedUpdateManyWithoutShopNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutShopNestedInput
-  orders?: Prisma.OrderUncheckedUpdateManyWithoutShopNestedInput
-  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutShopNestedInput
   modifiers?: Prisma.ModifierUncheckedUpdateManyWithoutShopNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutShopNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutShopNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutShopNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutShopNestedInput
+  domains?: Prisma.DomainUncheckedUpdateManyWithoutShopNestedInput
 }
 
 export type ShopCreateWithoutUsersInput = {
   name: string
   description?: string | null
   address?: string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: string | null
   currencyBase?: string
-  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Date | string
   updatedOn?: Date | string
   categories?: Prisma.CategoryCreateNestedManyWithoutShopInput
-  products?: Prisma.ProductCreateNestedManyWithoutShopInput
   customers?: Prisma.CustomerCreateNestedManyWithoutShopInput
-  orders?: Prisma.OrderCreateNestedManyWithoutShopInput
-  suppliers?: Prisma.SupplierCreateNestedManyWithoutShopInput
   modifiers?: Prisma.ModifierCreateNestedManyWithoutShopInput
+  orders?: Prisma.OrderCreateNestedManyWithoutShopInput
+  products?: Prisma.ProductCreateNestedManyWithoutShopInput
   shopDetail?: Prisma.ShopDetailCreateNestedOneWithoutShopInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutShopInput
+  domains?: Prisma.DomainCreateNestedManyWithoutShopInput
 }
 
 export type ShopUncheckedCreateWithoutUsersInput = {
@@ -808,20 +936,21 @@ export type ShopUncheckedCreateWithoutUsersInput = {
   name: string
   description?: string | null
   address?: string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: string | null
   currencyBase?: string
-  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Date | string
   updatedOn?: Date | string
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutShopInput
-  products?: Prisma.ProductUncheckedCreateNestedManyWithoutShopInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutShopInput
-  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutShopInput
-  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutShopInput
   modifiers?: Prisma.ModifierUncheckedCreateNestedManyWithoutShopInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutShopInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutShopInput
   shopDetail?: Prisma.ShopDetailUncheckedCreateNestedOneWithoutShopInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutShopInput
+  domains?: Prisma.DomainUncheckedCreateNestedManyWithoutShopInput
 }
 
 export type ShopCreateOrConnectWithoutUsersInput = {
@@ -844,20 +973,21 @@ export type ShopUpdateWithoutUsersInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
-  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   categories?: Prisma.CategoryUpdateManyWithoutShopNestedInput
-  products?: Prisma.ProductUpdateManyWithoutShopNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutShopNestedInput
-  orders?: Prisma.OrderUpdateManyWithoutShopNestedInput
-  suppliers?: Prisma.SupplierUpdateManyWithoutShopNestedInput
   modifiers?: Prisma.ModifierUpdateManyWithoutShopNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutShopNestedInput
+  products?: Prisma.ProductUpdateManyWithoutShopNestedInput
   shopDetail?: Prisma.ShopDetailUpdateOneWithoutShopNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutShopNestedInput
+  domains?: Prisma.DomainUpdateManyWithoutShopNestedInput
 }
 
 export type ShopUncheckedUpdateWithoutUsersInput = {
@@ -865,40 +995,42 @@ export type ShopUncheckedUpdateWithoutUsersInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
-  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutShopNestedInput
-  products?: Prisma.ProductUncheckedUpdateManyWithoutShopNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutShopNestedInput
-  orders?: Prisma.OrderUncheckedUpdateManyWithoutShopNestedInput
-  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutShopNestedInput
   modifiers?: Prisma.ModifierUncheckedUpdateManyWithoutShopNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutShopNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutShopNestedInput
   shopDetail?: Prisma.ShopDetailUncheckedUpdateOneWithoutShopNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutShopNestedInput
+  domains?: Prisma.DomainUncheckedUpdateManyWithoutShopNestedInput
 }
 
 export type ShopCreateWithoutCategoriesInput = {
   name: string
   description?: string | null
   address?: string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: string | null
   currencyBase?: string
-  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Date | string
   updatedOn?: Date | string
-  users?: Prisma.UserCreateNestedManyWithoutShopInput
-  products?: Prisma.ProductCreateNestedManyWithoutShopInput
   customers?: Prisma.CustomerCreateNestedManyWithoutShopInput
-  orders?: Prisma.OrderCreateNestedManyWithoutShopInput
-  suppliers?: Prisma.SupplierCreateNestedManyWithoutShopInput
   modifiers?: Prisma.ModifierCreateNestedManyWithoutShopInput
+  orders?: Prisma.OrderCreateNestedManyWithoutShopInput
+  products?: Prisma.ProductCreateNestedManyWithoutShopInput
   shopDetail?: Prisma.ShopDetailCreateNestedOneWithoutShopInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutShopInput
+  users?: Prisma.UserCreateNestedManyWithoutShopInput
+  domains?: Prisma.DomainCreateNestedManyWithoutShopInput
 }
 
 export type ShopUncheckedCreateWithoutCategoriesInput = {
@@ -906,20 +1038,21 @@ export type ShopUncheckedCreateWithoutCategoriesInput = {
   name: string
   description?: string | null
   address?: string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: string | null
   currencyBase?: string
-  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Date | string
   updatedOn?: Date | string
-  users?: Prisma.UserUncheckedCreateNestedManyWithoutShopInput
-  products?: Prisma.ProductUncheckedCreateNestedManyWithoutShopInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutShopInput
-  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutShopInput
-  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutShopInput
   modifiers?: Prisma.ModifierUncheckedCreateNestedManyWithoutShopInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutShopInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutShopInput
   shopDetail?: Prisma.ShopDetailUncheckedCreateNestedOneWithoutShopInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutShopInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutShopInput
+  domains?: Prisma.DomainUncheckedCreateNestedManyWithoutShopInput
 }
 
 export type ShopCreateOrConnectWithoutCategoriesInput = {
@@ -942,20 +1075,21 @@ export type ShopUpdateWithoutCategoriesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
-  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  users?: Prisma.UserUpdateManyWithoutShopNestedInput
-  products?: Prisma.ProductUpdateManyWithoutShopNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutShopNestedInput
-  orders?: Prisma.OrderUpdateManyWithoutShopNestedInput
-  suppliers?: Prisma.SupplierUpdateManyWithoutShopNestedInput
   modifiers?: Prisma.ModifierUpdateManyWithoutShopNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutShopNestedInput
+  products?: Prisma.ProductUpdateManyWithoutShopNestedInput
   shopDetail?: Prisma.ShopDetailUpdateOneWithoutShopNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutShopNestedInput
+  users?: Prisma.UserUpdateManyWithoutShopNestedInput
+  domains?: Prisma.DomainUpdateManyWithoutShopNestedInput
 }
 
 export type ShopUncheckedUpdateWithoutCategoriesInput = {
@@ -963,40 +1097,42 @@ export type ShopUncheckedUpdateWithoutCategoriesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
-  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  users?: Prisma.UserUncheckedUpdateManyWithoutShopNestedInput
-  products?: Prisma.ProductUncheckedUpdateManyWithoutShopNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutShopNestedInput
-  orders?: Prisma.OrderUncheckedUpdateManyWithoutShopNestedInput
-  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutShopNestedInput
   modifiers?: Prisma.ModifierUncheckedUpdateManyWithoutShopNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutShopNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutShopNestedInput
   shopDetail?: Prisma.ShopDetailUncheckedUpdateOneWithoutShopNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutShopNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutShopNestedInput
+  domains?: Prisma.DomainUncheckedUpdateManyWithoutShopNestedInput
 }
 
 export type ShopCreateWithoutProductsInput = {
   name: string
   description?: string | null
   address?: string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: string | null
   currencyBase?: string
-  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Date | string
   updatedOn?: Date | string
-  users?: Prisma.UserCreateNestedManyWithoutShopInput
   categories?: Prisma.CategoryCreateNestedManyWithoutShopInput
   customers?: Prisma.CustomerCreateNestedManyWithoutShopInput
-  orders?: Prisma.OrderCreateNestedManyWithoutShopInput
-  suppliers?: Prisma.SupplierCreateNestedManyWithoutShopInput
   modifiers?: Prisma.ModifierCreateNestedManyWithoutShopInput
+  orders?: Prisma.OrderCreateNestedManyWithoutShopInput
   shopDetail?: Prisma.ShopDetailCreateNestedOneWithoutShopInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutShopInput
+  users?: Prisma.UserCreateNestedManyWithoutShopInput
+  domains?: Prisma.DomainCreateNestedManyWithoutShopInput
 }
 
 export type ShopUncheckedCreateWithoutProductsInput = {
@@ -1004,20 +1140,21 @@ export type ShopUncheckedCreateWithoutProductsInput = {
   name: string
   description?: string | null
   address?: string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: string | null
   currencyBase?: string
-  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Date | string
   updatedOn?: Date | string
-  users?: Prisma.UserUncheckedCreateNestedManyWithoutShopInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutShopInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutShopInput
-  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutShopInput
-  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutShopInput
   modifiers?: Prisma.ModifierUncheckedCreateNestedManyWithoutShopInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutShopInput
   shopDetail?: Prisma.ShopDetailUncheckedCreateNestedOneWithoutShopInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutShopInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutShopInput
+  domains?: Prisma.DomainUncheckedCreateNestedManyWithoutShopInput
 }
 
 export type ShopCreateOrConnectWithoutProductsInput = {
@@ -1040,20 +1177,21 @@ export type ShopUpdateWithoutProductsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
-  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  users?: Prisma.UserUpdateManyWithoutShopNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutShopNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutShopNestedInput
-  orders?: Prisma.OrderUpdateManyWithoutShopNestedInput
-  suppliers?: Prisma.SupplierUpdateManyWithoutShopNestedInput
   modifiers?: Prisma.ModifierUpdateManyWithoutShopNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutShopNestedInput
   shopDetail?: Prisma.ShopDetailUpdateOneWithoutShopNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutShopNestedInput
+  users?: Prisma.UserUpdateManyWithoutShopNestedInput
+  domains?: Prisma.DomainUpdateManyWithoutShopNestedInput
 }
 
 export type ShopUncheckedUpdateWithoutProductsInput = {
@@ -1061,40 +1199,42 @@ export type ShopUncheckedUpdateWithoutProductsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
-  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  users?: Prisma.UserUncheckedUpdateManyWithoutShopNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutShopNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutShopNestedInput
-  orders?: Prisma.OrderUncheckedUpdateManyWithoutShopNestedInput
-  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutShopNestedInput
   modifiers?: Prisma.ModifierUncheckedUpdateManyWithoutShopNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutShopNestedInput
   shopDetail?: Prisma.ShopDetailUncheckedUpdateOneWithoutShopNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutShopNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutShopNestedInput
+  domains?: Prisma.DomainUncheckedUpdateManyWithoutShopNestedInput
 }
 
 export type ShopCreateWithoutModifiersInput = {
   name: string
   description?: string | null
   address?: string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: string | null
   currencyBase?: string
-  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Date | string
   updatedOn?: Date | string
-  users?: Prisma.UserCreateNestedManyWithoutShopInput
   categories?: Prisma.CategoryCreateNestedManyWithoutShopInput
-  products?: Prisma.ProductCreateNestedManyWithoutShopInput
   customers?: Prisma.CustomerCreateNestedManyWithoutShopInput
   orders?: Prisma.OrderCreateNestedManyWithoutShopInput
-  suppliers?: Prisma.SupplierCreateNestedManyWithoutShopInput
+  products?: Prisma.ProductCreateNestedManyWithoutShopInput
   shopDetail?: Prisma.ShopDetailCreateNestedOneWithoutShopInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutShopInput
+  users?: Prisma.UserCreateNestedManyWithoutShopInput
+  domains?: Prisma.DomainCreateNestedManyWithoutShopInput
 }
 
 export type ShopUncheckedCreateWithoutModifiersInput = {
@@ -1102,20 +1242,21 @@ export type ShopUncheckedCreateWithoutModifiersInput = {
   name: string
   description?: string | null
   address?: string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: string | null
   currencyBase?: string
-  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Date | string
   updatedOn?: Date | string
-  users?: Prisma.UserUncheckedCreateNestedManyWithoutShopInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutShopInput
-  products?: Prisma.ProductUncheckedCreateNestedManyWithoutShopInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutShopInput
   orders?: Prisma.OrderUncheckedCreateNestedManyWithoutShopInput
-  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutShopInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutShopInput
   shopDetail?: Prisma.ShopDetailUncheckedCreateNestedOneWithoutShopInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutShopInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutShopInput
+  domains?: Prisma.DomainUncheckedCreateNestedManyWithoutShopInput
 }
 
 export type ShopCreateOrConnectWithoutModifiersInput = {
@@ -1138,20 +1279,21 @@ export type ShopUpdateWithoutModifiersInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
-  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  users?: Prisma.UserUpdateManyWithoutShopNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutShopNestedInput
-  products?: Prisma.ProductUpdateManyWithoutShopNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutShopNestedInput
   orders?: Prisma.OrderUpdateManyWithoutShopNestedInput
-  suppliers?: Prisma.SupplierUpdateManyWithoutShopNestedInput
+  products?: Prisma.ProductUpdateManyWithoutShopNestedInput
   shopDetail?: Prisma.ShopDetailUpdateOneWithoutShopNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutShopNestedInput
+  users?: Prisma.UserUpdateManyWithoutShopNestedInput
+  domains?: Prisma.DomainUpdateManyWithoutShopNestedInput
 }
 
 export type ShopUncheckedUpdateWithoutModifiersInput = {
@@ -1159,40 +1301,42 @@ export type ShopUncheckedUpdateWithoutModifiersInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
-  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  users?: Prisma.UserUncheckedUpdateManyWithoutShopNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutShopNestedInput
-  products?: Prisma.ProductUncheckedUpdateManyWithoutShopNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutShopNestedInput
   orders?: Prisma.OrderUncheckedUpdateManyWithoutShopNestedInput
-  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutShopNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutShopNestedInput
   shopDetail?: Prisma.ShopDetailUncheckedUpdateOneWithoutShopNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutShopNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutShopNestedInput
+  domains?: Prisma.DomainUncheckedUpdateManyWithoutShopNestedInput
 }
 
 export type ShopCreateWithoutCustomersInput = {
   name: string
   description?: string | null
   address?: string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: string | null
   currencyBase?: string
-  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Date | string
   updatedOn?: Date | string
-  users?: Prisma.UserCreateNestedManyWithoutShopInput
   categories?: Prisma.CategoryCreateNestedManyWithoutShopInput
-  products?: Prisma.ProductCreateNestedManyWithoutShopInput
-  orders?: Prisma.OrderCreateNestedManyWithoutShopInput
-  suppliers?: Prisma.SupplierCreateNestedManyWithoutShopInput
   modifiers?: Prisma.ModifierCreateNestedManyWithoutShopInput
+  orders?: Prisma.OrderCreateNestedManyWithoutShopInput
+  products?: Prisma.ProductCreateNestedManyWithoutShopInput
   shopDetail?: Prisma.ShopDetailCreateNestedOneWithoutShopInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutShopInput
+  users?: Prisma.UserCreateNestedManyWithoutShopInput
+  domains?: Prisma.DomainCreateNestedManyWithoutShopInput
 }
 
 export type ShopUncheckedCreateWithoutCustomersInput = {
@@ -1200,20 +1344,21 @@ export type ShopUncheckedCreateWithoutCustomersInput = {
   name: string
   description?: string | null
   address?: string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: string | null
   currencyBase?: string
-  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Date | string
   updatedOn?: Date | string
-  users?: Prisma.UserUncheckedCreateNestedManyWithoutShopInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutShopInput
-  products?: Prisma.ProductUncheckedCreateNestedManyWithoutShopInput
-  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutShopInput
-  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutShopInput
   modifiers?: Prisma.ModifierUncheckedCreateNestedManyWithoutShopInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutShopInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutShopInput
   shopDetail?: Prisma.ShopDetailUncheckedCreateNestedOneWithoutShopInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutShopInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutShopInput
+  domains?: Prisma.DomainUncheckedCreateNestedManyWithoutShopInput
 }
 
 export type ShopCreateOrConnectWithoutCustomersInput = {
@@ -1236,20 +1381,21 @@ export type ShopUpdateWithoutCustomersInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
-  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  users?: Prisma.UserUpdateManyWithoutShopNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutShopNestedInput
-  products?: Prisma.ProductUpdateManyWithoutShopNestedInput
-  orders?: Prisma.OrderUpdateManyWithoutShopNestedInput
-  suppliers?: Prisma.SupplierUpdateManyWithoutShopNestedInput
   modifiers?: Prisma.ModifierUpdateManyWithoutShopNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutShopNestedInput
+  products?: Prisma.ProductUpdateManyWithoutShopNestedInput
   shopDetail?: Prisma.ShopDetailUpdateOneWithoutShopNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutShopNestedInput
+  users?: Prisma.UserUpdateManyWithoutShopNestedInput
+  domains?: Prisma.DomainUpdateManyWithoutShopNestedInput
 }
 
 export type ShopUncheckedUpdateWithoutCustomersInput = {
@@ -1257,40 +1403,42 @@ export type ShopUncheckedUpdateWithoutCustomersInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
-  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  users?: Prisma.UserUncheckedUpdateManyWithoutShopNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutShopNestedInput
-  products?: Prisma.ProductUncheckedUpdateManyWithoutShopNestedInput
-  orders?: Prisma.OrderUncheckedUpdateManyWithoutShopNestedInput
-  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutShopNestedInput
   modifiers?: Prisma.ModifierUncheckedUpdateManyWithoutShopNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutShopNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutShopNestedInput
   shopDetail?: Prisma.ShopDetailUncheckedUpdateOneWithoutShopNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutShopNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutShopNestedInput
+  domains?: Prisma.DomainUncheckedUpdateManyWithoutShopNestedInput
 }
 
 export type ShopCreateWithoutOrdersInput = {
   name: string
   description?: string | null
   address?: string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: string | null
   currencyBase?: string
-  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Date | string
   updatedOn?: Date | string
-  users?: Prisma.UserCreateNestedManyWithoutShopInput
   categories?: Prisma.CategoryCreateNestedManyWithoutShopInput
-  products?: Prisma.ProductCreateNestedManyWithoutShopInput
   customers?: Prisma.CustomerCreateNestedManyWithoutShopInput
-  suppliers?: Prisma.SupplierCreateNestedManyWithoutShopInput
   modifiers?: Prisma.ModifierCreateNestedManyWithoutShopInput
+  products?: Prisma.ProductCreateNestedManyWithoutShopInput
   shopDetail?: Prisma.ShopDetailCreateNestedOneWithoutShopInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutShopInput
+  users?: Prisma.UserCreateNestedManyWithoutShopInput
+  domains?: Prisma.DomainCreateNestedManyWithoutShopInput
 }
 
 export type ShopUncheckedCreateWithoutOrdersInput = {
@@ -1298,20 +1446,21 @@ export type ShopUncheckedCreateWithoutOrdersInput = {
   name: string
   description?: string | null
   address?: string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: string | null
   currencyBase?: string
-  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Date | string
   updatedOn?: Date | string
-  users?: Prisma.UserUncheckedCreateNestedManyWithoutShopInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutShopInput
-  products?: Prisma.ProductUncheckedCreateNestedManyWithoutShopInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutShopInput
-  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutShopInput
   modifiers?: Prisma.ModifierUncheckedCreateNestedManyWithoutShopInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutShopInput
   shopDetail?: Prisma.ShopDetailUncheckedCreateNestedOneWithoutShopInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutShopInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutShopInput
+  domains?: Prisma.DomainUncheckedCreateNestedManyWithoutShopInput
 }
 
 export type ShopCreateOrConnectWithoutOrdersInput = {
@@ -1334,20 +1483,21 @@ export type ShopUpdateWithoutOrdersInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
-  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  users?: Prisma.UserUpdateManyWithoutShopNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutShopNestedInput
-  products?: Prisma.ProductUpdateManyWithoutShopNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutShopNestedInput
-  suppliers?: Prisma.SupplierUpdateManyWithoutShopNestedInput
   modifiers?: Prisma.ModifierUpdateManyWithoutShopNestedInput
+  products?: Prisma.ProductUpdateManyWithoutShopNestedInput
   shopDetail?: Prisma.ShopDetailUpdateOneWithoutShopNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutShopNestedInput
+  users?: Prisma.UserUpdateManyWithoutShopNestedInput
+  domains?: Prisma.DomainUpdateManyWithoutShopNestedInput
 }
 
 export type ShopUncheckedUpdateWithoutOrdersInput = {
@@ -1355,40 +1505,42 @@ export type ShopUncheckedUpdateWithoutOrdersInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
-  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  users?: Prisma.UserUncheckedUpdateManyWithoutShopNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutShopNestedInput
-  products?: Prisma.ProductUncheckedUpdateManyWithoutShopNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutShopNestedInput
-  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutShopNestedInput
   modifiers?: Prisma.ModifierUncheckedUpdateManyWithoutShopNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutShopNestedInput
   shopDetail?: Prisma.ShopDetailUncheckedUpdateOneWithoutShopNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutShopNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutShopNestedInput
+  domains?: Prisma.DomainUncheckedUpdateManyWithoutShopNestedInput
 }
 
 export type ShopCreateWithoutSuppliersInput = {
   name: string
   description?: string | null
   address?: string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: string | null
   currencyBase?: string
-  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Date | string
   updatedOn?: Date | string
-  users?: Prisma.UserCreateNestedManyWithoutShopInput
   categories?: Prisma.CategoryCreateNestedManyWithoutShopInput
-  products?: Prisma.ProductCreateNestedManyWithoutShopInput
   customers?: Prisma.CustomerCreateNestedManyWithoutShopInput
-  orders?: Prisma.OrderCreateNestedManyWithoutShopInput
   modifiers?: Prisma.ModifierCreateNestedManyWithoutShopInput
+  orders?: Prisma.OrderCreateNestedManyWithoutShopInput
+  products?: Prisma.ProductCreateNestedManyWithoutShopInput
   shopDetail?: Prisma.ShopDetailCreateNestedOneWithoutShopInput
+  users?: Prisma.UserCreateNestedManyWithoutShopInput
+  domains?: Prisma.DomainCreateNestedManyWithoutShopInput
 }
 
 export type ShopUncheckedCreateWithoutSuppliersInput = {
@@ -1396,20 +1548,21 @@ export type ShopUncheckedCreateWithoutSuppliersInput = {
   name: string
   description?: string | null
   address?: string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: string | null
   currencyBase?: string
-  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Date | string
   updatedOn?: Date | string
-  users?: Prisma.UserUncheckedCreateNestedManyWithoutShopInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutShopInput
-  products?: Prisma.ProductUncheckedCreateNestedManyWithoutShopInput
   customers?: Prisma.CustomerUncheckedCreateNestedManyWithoutShopInput
-  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutShopInput
   modifiers?: Prisma.ModifierUncheckedCreateNestedManyWithoutShopInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutShopInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutShopInput
   shopDetail?: Prisma.ShopDetailUncheckedCreateNestedOneWithoutShopInput
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutShopInput
+  domains?: Prisma.DomainUncheckedCreateNestedManyWithoutShopInput
 }
 
 export type ShopCreateOrConnectWithoutSuppliersInput = {
@@ -1432,20 +1585,21 @@ export type ShopUpdateWithoutSuppliersInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
-  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  users?: Prisma.UserUpdateManyWithoutShopNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutShopNestedInput
-  products?: Prisma.ProductUpdateManyWithoutShopNestedInput
   customers?: Prisma.CustomerUpdateManyWithoutShopNestedInput
-  orders?: Prisma.OrderUpdateManyWithoutShopNestedInput
   modifiers?: Prisma.ModifierUpdateManyWithoutShopNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutShopNestedInput
+  products?: Prisma.ProductUpdateManyWithoutShopNestedInput
   shopDetail?: Prisma.ShopDetailUpdateOneWithoutShopNestedInput
+  users?: Prisma.UserUpdateManyWithoutShopNestedInput
+  domains?: Prisma.DomainUpdateManyWithoutShopNestedInput
 }
 
 export type ShopUncheckedUpdateWithoutSuppliersInput = {
@@ -1453,20 +1607,21 @@ export type ShopUncheckedUpdateWithoutSuppliersInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   currencyBase?: Prisma.StringFieldUpdateOperationsInput | string
-  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   exchangeKHR?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
-  openingHours?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  exchangeUSD?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedOn?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  users?: Prisma.UserUncheckedUpdateManyWithoutShopNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutShopNestedInput
-  products?: Prisma.ProductUncheckedUpdateManyWithoutShopNestedInput
   customers?: Prisma.CustomerUncheckedUpdateManyWithoutShopNestedInput
-  orders?: Prisma.OrderUncheckedUpdateManyWithoutShopNestedInput
   modifiers?: Prisma.ModifierUncheckedUpdateManyWithoutShopNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutShopNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutShopNestedInput
   shopDetail?: Prisma.ShopDetailUncheckedUpdateOneWithoutShopNestedInput
+  users?: Prisma.UserUncheckedUpdateManyWithoutShopNestedInput
+  domains?: Prisma.DomainUncheckedUpdateManyWithoutShopNestedInput
 }
 
 
@@ -1475,23 +1630,25 @@ export type ShopUncheckedUpdateWithoutSuppliersInput = {
  */
 
 export type ShopCountOutputType = {
-  users: number
   categories: number
-  products: number
   customers: number
-  orders: number
-  suppliers: number
   modifiers: number
+  orders: number
+  products: number
+  suppliers: number
+  users: number
+  domains: number
 }
 
 export type ShopCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  users?: boolean | ShopCountOutputTypeCountUsersArgs
   categories?: boolean | ShopCountOutputTypeCountCategoriesArgs
-  products?: boolean | ShopCountOutputTypeCountProductsArgs
   customers?: boolean | ShopCountOutputTypeCountCustomersArgs
-  orders?: boolean | ShopCountOutputTypeCountOrdersArgs
-  suppliers?: boolean | ShopCountOutputTypeCountSuppliersArgs
   modifiers?: boolean | ShopCountOutputTypeCountModifiersArgs
+  orders?: boolean | ShopCountOutputTypeCountOrdersArgs
+  products?: boolean | ShopCountOutputTypeCountProductsArgs
+  suppliers?: boolean | ShopCountOutputTypeCountSuppliersArgs
+  users?: boolean | ShopCountOutputTypeCountUsersArgs
+  domains?: boolean | ShopCountOutputTypeCountDomainsArgs
 }
 
 /**
@@ -1507,22 +1664,8 @@ export type ShopCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
 /**
  * ShopCountOutputType without action
  */
-export type ShopCountOutputTypeCountUsersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.UserWhereInput
-}
-
-/**
- * ShopCountOutputType without action
- */
 export type ShopCountOutputTypeCountCategoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.CategoryWhereInput
-}
-
-/**
- * ShopCountOutputType without action
- */
-export type ShopCountOutputTypeCountProductsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ProductWhereInput
 }
 
 /**
@@ -1535,8 +1678,22 @@ export type ShopCountOutputTypeCountCustomersArgs<ExtArgs extends runtime.Types.
 /**
  * ShopCountOutputType without action
  */
+export type ShopCountOutputTypeCountModifiersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ModifierWhereInput
+}
+
+/**
+ * ShopCountOutputType without action
+ */
 export type ShopCountOutputTypeCountOrdersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.OrderWhereInput
+}
+
+/**
+ * ShopCountOutputType without action
+ */
+export type ShopCountOutputTypeCountProductsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProductWhereInput
 }
 
 /**
@@ -1549,8 +1706,15 @@ export type ShopCountOutputTypeCountSuppliersArgs<ExtArgs extends runtime.Types.
 /**
  * ShopCountOutputType without action
  */
-export type ShopCountOutputTypeCountModifiersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ModifierWhereInput
+export type ShopCountOutputTypeCountUsersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserWhereInput
+}
+
+/**
+ * ShopCountOutputType without action
+ */
+export type ShopCountOutputTypeCountDomainsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DomainWhereInput
 }
 
 
@@ -1559,21 +1723,22 @@ export type ShopSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   name?: boolean
   description?: boolean
   address?: boolean
+  openingHours?: boolean
   phone?: boolean
   currencyBase?: boolean
-  exchangeUSD?: boolean
   exchangeKHR?: boolean
-  openingHours?: boolean
+  exchangeUSD?: boolean
   createdOn?: boolean
   updatedOn?: boolean
-  users?: boolean | Prisma.Shop$usersArgs<ExtArgs>
   categories?: boolean | Prisma.Shop$categoriesArgs<ExtArgs>
-  products?: boolean | Prisma.Shop$productsArgs<ExtArgs>
   customers?: boolean | Prisma.Shop$customersArgs<ExtArgs>
-  orders?: boolean | Prisma.Shop$ordersArgs<ExtArgs>
-  suppliers?: boolean | Prisma.Shop$suppliersArgs<ExtArgs>
   modifiers?: boolean | Prisma.Shop$modifiersArgs<ExtArgs>
+  orders?: boolean | Prisma.Shop$ordersArgs<ExtArgs>
+  products?: boolean | Prisma.Shop$productsArgs<ExtArgs>
   shopDetail?: boolean | Prisma.Shop$shopDetailArgs<ExtArgs>
+  suppliers?: boolean | Prisma.Shop$suppliersArgs<ExtArgs>
+  users?: boolean | Prisma.Shop$usersArgs<ExtArgs>
+  domains?: boolean | Prisma.Shop$domainsArgs<ExtArgs>
   _count?: boolean | Prisma.ShopCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["shop"]>
 
@@ -1582,11 +1747,11 @@ export type ShopSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   name?: boolean
   description?: boolean
   address?: boolean
+  openingHours?: boolean
   phone?: boolean
   currencyBase?: boolean
-  exchangeUSD?: boolean
   exchangeKHR?: boolean
-  openingHours?: boolean
+  exchangeUSD?: boolean
   createdOn?: boolean
   updatedOn?: boolean
 }, ExtArgs["result"]["shop"]>
@@ -1596,11 +1761,11 @@ export type ShopSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   name?: boolean
   description?: boolean
   address?: boolean
+  openingHours?: boolean
   phone?: boolean
   currencyBase?: boolean
-  exchangeUSD?: boolean
   exchangeKHR?: boolean
-  openingHours?: boolean
+  exchangeUSD?: boolean
   createdOn?: boolean
   updatedOn?: boolean
 }, ExtArgs["result"]["shop"]>
@@ -1610,25 +1775,26 @@ export type ShopSelectScalar = {
   name?: boolean
   description?: boolean
   address?: boolean
+  openingHours?: boolean
   phone?: boolean
   currencyBase?: boolean
-  exchangeUSD?: boolean
   exchangeKHR?: boolean
-  openingHours?: boolean
+  exchangeUSD?: boolean
   createdOn?: boolean
   updatedOn?: boolean
 }
 
-export type ShopOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "address" | "phone" | "currencyBase" | "exchangeUSD" | "exchangeKHR" | "openingHours" | "createdOn" | "updatedOn", ExtArgs["result"]["shop"]>
+export type ShopOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "address" | "openingHours" | "phone" | "currencyBase" | "exchangeKHR" | "exchangeUSD" | "createdOn" | "updatedOn", ExtArgs["result"]["shop"]>
 export type ShopInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  users?: boolean | Prisma.Shop$usersArgs<ExtArgs>
   categories?: boolean | Prisma.Shop$categoriesArgs<ExtArgs>
-  products?: boolean | Prisma.Shop$productsArgs<ExtArgs>
   customers?: boolean | Prisma.Shop$customersArgs<ExtArgs>
-  orders?: boolean | Prisma.Shop$ordersArgs<ExtArgs>
-  suppliers?: boolean | Prisma.Shop$suppliersArgs<ExtArgs>
   modifiers?: boolean | Prisma.Shop$modifiersArgs<ExtArgs>
+  orders?: boolean | Prisma.Shop$ordersArgs<ExtArgs>
+  products?: boolean | Prisma.Shop$productsArgs<ExtArgs>
   shopDetail?: boolean | Prisma.Shop$shopDetailArgs<ExtArgs>
+  suppliers?: boolean | Prisma.Shop$suppliersArgs<ExtArgs>
+  users?: boolean | Prisma.Shop$usersArgs<ExtArgs>
+  domains?: boolean | Prisma.Shop$domainsArgs<ExtArgs>
   _count?: boolean | Prisma.ShopCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ShopIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1637,25 +1803,26 @@ export type ShopIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $ShopPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Shop"
   objects: {
-    users: Prisma.$UserPayload<ExtArgs>[]
     categories: Prisma.$CategoryPayload<ExtArgs>[]
-    products: Prisma.$ProductPayload<ExtArgs>[]
     customers: Prisma.$CustomerPayload<ExtArgs>[]
-    orders: Prisma.$OrderPayload<ExtArgs>[]
-    suppliers: Prisma.$SupplierPayload<ExtArgs>[]
     modifiers: Prisma.$ModifierPayload<ExtArgs>[]
+    orders: Prisma.$OrderPayload<ExtArgs>[]
+    products: Prisma.$ProductPayload<ExtArgs>[]
     shopDetail: Prisma.$ShopDetailPayload<ExtArgs> | null
+    suppliers: Prisma.$SupplierPayload<ExtArgs>[]
+    users: Prisma.$UserPayload<ExtArgs>[]
+    domains: Prisma.$DomainPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
     name: string
     description: string | null
     address: string | null
+    openingHours: runtime.JsonValue | null
     phone: string | null
     currencyBase: string
-    exchangeUSD: runtime.Decimal | null
     exchangeKHR: runtime.Decimal | null
-    openingHours: runtime.JsonValue | null
+    exchangeUSD: runtime.Decimal | null
     createdOn: Date
     updatedOn: Date
   }, ExtArgs["result"]["shop"]>
@@ -2052,14 +2219,15 @@ readonly fields: ShopFieldRefs;
  */
 export interface Prisma__ShopClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  users<T extends Prisma.Shop$usersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$usersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   categories<T extends Prisma.Shop$categoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$categoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  products<T extends Prisma.Shop$productsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$productsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   customers<T extends Prisma.Shop$customersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$customersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CustomerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  orders<T extends Prisma.Shop$ordersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  suppliers<T extends Prisma.Shop$suppliersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$suppliersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupplierPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   modifiers<T extends Prisma.Shop$modifiersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$modifiersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ModifierPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  orders<T extends Prisma.Shop$ordersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  products<T extends Prisma.Shop$productsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$productsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   shopDetail<T extends Prisma.Shop$shopDetailArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$shopDetailArgs<ExtArgs>>): Prisma.Prisma__ShopDetailClient<runtime.Types.Result.GetResult<Prisma.$ShopDetailPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  suppliers<T extends Prisma.Shop$suppliersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$suppliersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupplierPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  users<T extends Prisma.Shop$usersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$usersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  domains<T extends Prisma.Shop$domainsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$domainsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DomainPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2093,11 +2261,11 @@ export interface ShopFieldRefs {
   readonly name: Prisma.FieldRef<"Shop", 'String'>
   readonly description: Prisma.FieldRef<"Shop", 'String'>
   readonly address: Prisma.FieldRef<"Shop", 'String'>
+  readonly openingHours: Prisma.FieldRef<"Shop", 'Json'>
   readonly phone: Prisma.FieldRef<"Shop", 'String'>
   readonly currencyBase: Prisma.FieldRef<"Shop", 'String'>
-  readonly exchangeUSD: Prisma.FieldRef<"Shop", 'Decimal'>
   readonly exchangeKHR: Prisma.FieldRef<"Shop", 'Decimal'>
-  readonly openingHours: Prisma.FieldRef<"Shop", 'Json'>
+  readonly exchangeUSD: Prisma.FieldRef<"Shop", 'Decimal'>
   readonly createdOn: Prisma.FieldRef<"Shop", 'DateTime'>
   readonly updatedOn: Prisma.FieldRef<"Shop", 'DateTime'>
 }
@@ -2493,30 +2661,6 @@ export type ShopDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * Shop.users
- */
-export type Shop$usersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the User
-   */
-  select?: Prisma.UserSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the User
-   */
-  omit?: Prisma.UserOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UserInclude<ExtArgs> | null
-  where?: Prisma.UserWhereInput
-  orderBy?: Prisma.UserOrderByWithRelationInput | Prisma.UserOrderByWithRelationInput[]
-  cursor?: Prisma.UserWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.UserScalarFieldEnum | Prisma.UserScalarFieldEnum[]
-}
-
-/**
  * Shop.categories
  */
 export type Shop$categoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2538,30 +2682,6 @@ export type Shop$categoriesArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.CategoryScalarFieldEnum | Prisma.CategoryScalarFieldEnum[]
-}
-
-/**
- * Shop.products
- */
-export type Shop$productsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Product
-   */
-  select?: Prisma.ProductSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Product
-   */
-  omit?: Prisma.ProductOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ProductInclude<ExtArgs> | null
-  where?: Prisma.ProductWhereInput
-  orderBy?: Prisma.ProductOrderByWithRelationInput | Prisma.ProductOrderByWithRelationInput[]
-  cursor?: Prisma.ProductWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ProductScalarFieldEnum | Prisma.ProductScalarFieldEnum[]
 }
 
 /**
@@ -2589,6 +2709,30 @@ export type Shop$customersArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
+ * Shop.modifiers
+ */
+export type Shop$modifiersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Modifier
+   */
+  select?: Prisma.ModifierSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Modifier
+   */
+  omit?: Prisma.ModifierOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ModifierInclude<ExtArgs> | null
+  where?: Prisma.ModifierWhereInput
+  orderBy?: Prisma.ModifierOrderByWithRelationInput | Prisma.ModifierOrderByWithRelationInput[]
+  cursor?: Prisma.ModifierWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ModifierScalarFieldEnum | Prisma.ModifierScalarFieldEnum[]
+}
+
+/**
  * Shop.orders
  */
 export type Shop$ordersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2610,6 +2754,49 @@ export type Shop$ordersArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
   take?: number
   skip?: number
   distinct?: Prisma.OrderScalarFieldEnum | Prisma.OrderScalarFieldEnum[]
+}
+
+/**
+ * Shop.products
+ */
+export type Shop$productsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Product
+   */
+  select?: Prisma.ProductSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Product
+   */
+  omit?: Prisma.ProductOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductInclude<ExtArgs> | null
+  where?: Prisma.ProductWhereInput
+  orderBy?: Prisma.ProductOrderByWithRelationInput | Prisma.ProductOrderByWithRelationInput[]
+  cursor?: Prisma.ProductWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProductScalarFieldEnum | Prisma.ProductScalarFieldEnum[]
+}
+
+/**
+ * Shop.shopDetail
+ */
+export type Shop$shopDetailArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ShopDetail
+   */
+  select?: Prisma.ShopDetailSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ShopDetail
+   */
+  omit?: Prisma.ShopDetailOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ShopDetailInclude<ExtArgs> | null
+  where?: Prisma.ShopDetailWhereInput
 }
 
 /**
@@ -2637,46 +2824,51 @@ export type Shop$suppliersArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * Shop.modifiers
+ * Shop.users
  */
-export type Shop$modifiersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Shop$usersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Modifier
+   * Select specific fields to fetch from the User
    */
-  select?: Prisma.ModifierSelect<ExtArgs> | null
+  select?: Prisma.UserSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Modifier
+   * Omit specific fields from the User
    */
-  omit?: Prisma.ModifierOmit<ExtArgs> | null
+  omit?: Prisma.UserOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.ModifierInclude<ExtArgs> | null
-  where?: Prisma.ModifierWhereInput
-  orderBy?: Prisma.ModifierOrderByWithRelationInput | Prisma.ModifierOrderByWithRelationInput[]
-  cursor?: Prisma.ModifierWhereUniqueInput
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
+  orderBy?: Prisma.UserOrderByWithRelationInput | Prisma.UserOrderByWithRelationInput[]
+  cursor?: Prisma.UserWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.ModifierScalarFieldEnum | Prisma.ModifierScalarFieldEnum[]
+  distinct?: Prisma.UserScalarFieldEnum | Prisma.UserScalarFieldEnum[]
 }
 
 /**
- * Shop.shopDetail
+ * Shop.domains
  */
-export type Shop$shopDetailArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Shop$domainsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the ShopDetail
+   * Select specific fields to fetch from the Domain
    */
-  select?: Prisma.ShopDetailSelect<ExtArgs> | null
+  select?: Prisma.DomainSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the ShopDetail
+   * Omit specific fields from the Domain
    */
-  omit?: Prisma.ShopDetailOmit<ExtArgs> | null
+  omit?: Prisma.DomainOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.ShopDetailInclude<ExtArgs> | null
-  where?: Prisma.ShopDetailWhereInput
+  include?: Prisma.DomainInclude<ExtArgs> | null
+  where?: Prisma.DomainWhereInput
+  orderBy?: Prisma.DomainOrderByWithRelationInput | Prisma.DomainOrderByWithRelationInput[]
+  cursor?: Prisma.DomainWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DomainScalarFieldEnum | Prisma.DomainScalarFieldEnum[]
 }
 
 /**
