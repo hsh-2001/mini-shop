@@ -89,7 +89,7 @@ export const login = async (
 
   const user = await findUserByIdentifier(input.identifier);
 
-  if (!user?.shop.domains.some((d) => d.domain === domain)) {
+  if (!user?.shop?.domains?.some((d) => d.domain === domain)) {
     throw new Error("Invalid domain for the user.");
   }
   if (!user || !(await bcrypt.compare(input.password, user.passwordHash))) {
