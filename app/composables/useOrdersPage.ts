@@ -24,6 +24,13 @@ export const useOrdersPage = () => {
     const paymentStatusFilter = ref<PaymentStatus | "ALL">("ALL");
     const selectedOrder = ref<GetOrderSummaryListResponse | null>(null);
     const isDialogOpen = ref(false);
+    const filterForm = reactive<{
+        date: string;
+        status: OrderStatus[];
+    }>({
+        date: new Date().toISOString().slice(0, 16),
+        status: [],
+    });
     const shopIdentity = ref<{
         shopName: string | null;
         username: string | null;
@@ -49,56 +56,6 @@ export const useOrdersPage = () => {
         return shopIdentity.value.shopName ?? shopIdentity.value.username ?? t("Current Shop");
     });
 
-    const filteredOrders = computed(() => {
-        const keyword = searchKeyword.value.trim().toLowerCase();
-
-        if (!keyword) {
-            return orders.value;
-        }
-
-        return orders.value.filter((order) => {
-            const fields = [
-                order.orderNumber,
-                order.customer?.name,
-                order.customer?.phone,
-                order.customer?.email,
-                order.status,
-                order.paymentStatus,
-                order.type,
-            ];
-
-            return fields.some((value) => value?.toString().toLowerCase().includes(keyword));
-        });
-    });
-
-    const pagedOrders = computed(() => {
-        const start = (currentPage.value - 1) * pageSize.value;
-        return filteredOrders.value.slice(start, start + pageSize.value);
-    });
-
-    const overviewStats = computed(() => {
-        const totalRevenue = filteredOrders.value.reduce(
-            (sum, order) => sum + Number(order.finalAmount || 0),
-            0,
-        );
-        const pendingCount = filteredOrders.value.filter((order) =>
-            ["PENDING", "CONFIRMED", "PREPARING"].includes(order.status),
-        ).length;
-        const paidCount = filteredOrders.value.filter((order) => order.paymentStatus === "PAID").length;
-        const today = new Date().toDateString();
-        const todayCount = filteredOrders.value.filter(
-            (order) => new Date(order.createdOn).toDateString() === today,
-        ).length;
-
-        return {
-            totalOrders: filteredOrders.value.length,
-            pendingCount,
-            paidCount,
-            todayCount,
-            totalRevenue,
-        };
-    });
-
     const openOrder = (order: GetOrderSummaryListResponse) => {
         selectedOrder.value = order;
         editForm.value = {
@@ -122,8 +79,8 @@ export const useOrdersPage = () => {
             const [user, response] = await Promise.all([
                 fetchCurrentUser(),
                 fetchOrders({
-                    status: statusFilter.value === "ALL" ? undefined : statusFilter.value,
-                    paymentStatus: paymentStatusFilter.value === "ALL" ? undefined : paymentStatusFilter.value,
+                    date: filterForm.date,
+                    status:filterForm.status.length ? filterForm.status.join(',') : undefined,
                 }),
             ]);
 
@@ -210,13 +167,12 @@ export const useOrdersPage = () => {
         isDialogOpen,
         shopLabel,
         editForm,
-        filteredOrders,
-        pagedOrders,
-        overviewStats,
         openOrder,
         resetFilters,
         saveOrder,
         exportCSV,
         isDownloading,
+        filterForm,
+        loadOrders,
     };
 };

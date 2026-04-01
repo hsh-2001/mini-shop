@@ -6,25 +6,64 @@
           <h3 class="text-xl font-bold">{{ $t("Orders") }}</h3>
         </div>
         <div class="w-full flex justify-end gap-2">
-          <el-button type="primary" :loading="isDownloading" @click="$emit('export')">
+          <el-button
+            type="primary"
+            :loading="isDownloading"
+            @click="$emit('export')"
+          >
             <Sheet class="mr-1 h-4 w-4" />
             <span>{{ $t("Export") }}</span>
           </el-button>
         </div>
       </div>
+      <ClientOnly>
+        <div v-if="filterForm" class="w-full bg-primary/10 p-2 mt-2 rounded-md">
+          <el-form :model="form" class="w-full flex gap-2">
+            <el-form-item :label="$t('Filter date')" class="w-64 mb-0!">
+              <el-date-picker
+                v-model="form.date"
+                type="date"
+                :placeholder="$t('Select date')"
+                :format="'YYYY-MM-DD'"
+                :value-format="'YYYY-MM-DD'"
+                class="w-50!"
+                :disabled-date="
+                  (date: Date) => {
+                    const today = new Date();
+                    return date > today;
+                  }
+                "
+              />
+            </el-form-item>
+            <el-form-item :label="$t('Status')" class="w-50 mb-0!">
+              <el-select
+                v-model="form.status"
+                multiple
+                collapse-tags
+                clearable
+                :placeholder="$t('Select status')"
+              >
+                <el-option :label="$t('Pending')" value="PENDING" />
+                <el-option :label="$t('Confirmed')" value="CONFIRMED" />
+                <el-option :label="$t('Preparing')" value="PREPARING" />
+                <el-option :label="$t('Ready')" value="READY" />
+                <el-option :label="$t('Completed')" value="COMPLETED" />
+                <el-option :label="$t('Cancelled')" value="CANCELLED" />
+              </el-select>
+            </el-form-item>
+            <el-button
+              type="primary"
+              @click="$emit('search')"
+              class="self-end mb-0!"
+            >
+              {{ $t("Search") }}
+            </el-button>
+          </el-form>
+        </div>
+      </ClientOnly>
     </template>
     <div class="min-w-0 overflow-x-auto">
-      <el-table
-        :data="items"
-        v-loading="loading"
-        width="100%"
-        height="70dvh"
-        :empty-text="
-          searchKeyword
-            ? $t('No orders match your search.')
-            : $t('No orders found yet.')
-        "
-      >
+      <el-table :data="items" v-loading="loading" width="100%" height="70dvh">
         <el-table-column
           :label="$t('Order')"
           min-width="220"
@@ -119,20 +158,6 @@
         </template>
       </el-table>
     </div>
-    <template #footer>
-      <div class="flex justify-end" v-if="total">
-        <el-pagination
-          background
-          layout="total, sizes, prev, pager, next"
-          :total="total"
-          :current-page="currentPage"
-          :page-size="pageSize"
-          :page-sizes="[10, 20, 50]"
-          @update:current-page="$emit('update:currentPage', $event)"
-          @update:page-size="$emit('update:pageSize', $event)"
-        />
-      </div>
-    </template>
   </el-card>
 </template>
 
@@ -146,26 +171,29 @@ const { t } = useI18n();
 
 const props = defineProps<{
   items: GetOrderSummaryListResponse[];
-  total: number;
   loading: boolean;
   currentPage: number;
   pageSize: number;
-  searchKeyword: string;
-  statusFilter: OrderStatus | "ALL";
-  paymentStatusFilter: PaymentStatus | "ALL";
   isDownloading: boolean;
+  filterForm: {
+    date: string | Date;
+    status: OrderStatus[];
+  };
 }>();
 
-defineEmits<{
+const emit = defineEmits<{
   (event: "update:currentPage", value: number): void;
   (event: "update:pageSize", value: number): void;
-  (event: "update:searchKeyword", value: string): void;
-  (event: "update:statusFilter", value: OrderStatus | "ALL"): void;
-  (event: "update:paymentStatusFilter", value: PaymentStatus | "ALL"): void;
-  (event: "reset-filters"): void;
   (event: "view", value: GetOrderSummaryListResponse): void;
   (event: "export"): void;
+  (event: "update:filterForm", value: { date: string | Date }): void;
+  (event: "search"): void;
 }>();
+
+const form = computed({
+  get: () => props.filterForm,
+  set: (value) => emit("update:filterForm", value ?? { date: null }),
+});
 
 const statusTag = (status: OrderStatus) => {
   if (status === "COMPLETED") return "success";
@@ -219,31 +247,38 @@ const formatLabel = (value: string) =>
       OTHER: "Other",
     }[value] ?? value,
   );
+
+const value2 = ref("");
+
+const shortcuts = [
+  {
+    text: "Last week",
+    value: () => {
+      const end = new Date();
+      const start = new Date();
+      start.setDate(start.getDate() - 7);
+      return [start, end];
+    },
+  },
+  {
+    text: "Last month",
+    value: () => {
+      const end = new Date();
+      const start = new Date();
+      start.setMonth(start.getMonth() - 1);
+      return [start, end];
+    },
+  },
+  {
+    text: "Last 3 months",
+    value: () => {
+      const end = new Date();
+      const start = new Date();
+      start.setMonth(start.getMonth() - 3);
+      return [start, end];
+    },
+  },
+];
 </script>
 
-<style scoped>
-.order-filter-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.order-filter-group :deep(.el-radio-button__inner) {
-  border-radius: 9999px;
-  border: 1px solid rgb(203 213 225);
-  box-shadow: none;
-  padding: 0.55rem 0.95rem;
-}
-
-.order-filter-group :deep(.el-radio-button:first-child .el-radio-button__inner),
-.order-filter-group :deep(.el-radio-button:last-child .el-radio-button__inner) {
-  border-radius: 9999px;
-}
-
-.order-filter-group
-  :deep(.el-radio-button__original-radio:checked + .el-radio-button__inner) {
-  border-color: rgb(37 99 235);
-  background: rgb(37 99 235);
-  box-shadow: none;
-}
-</style>
+<style scoped></style>

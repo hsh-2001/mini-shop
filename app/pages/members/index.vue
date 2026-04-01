@@ -45,7 +45,7 @@
         <el-table-column :label="$t('Actions')" align="center" fixed="right">
           <template #default="{ row }">
             <Edit
-              v-if="row.role !== 'ADMIN'"
+              v-if="row.role !== UserRole.OWNER"
               class="cursor-pointer w-4 h-4 text-slate-500"
               @click="
                 () => {
@@ -86,6 +86,7 @@
       <el-form-item v-if="!isEditting" :label="$t('Password')" prop="password">
         <el-input
           v-model="formModel.password"
+          type="password"
           :placeholder="$t('Enter password')"
         />
       </el-form-item>
@@ -93,7 +94,7 @@
         <el-select v-model="formModel.role" :placeholder="$t('Select role')">
           <el-option :label="$t('Manager')" value="MANAGER" />
           <el-option :label="$t('Cashier')" value="CASHIER" />
-          <el-option :label="$t('Staff')" value="STAFF" />
+          <!-- <el-option :label="$t('Staff')" value="STAFF" /> -->
         </el-select>
       </el-form-item>
     </el-form>
@@ -110,6 +111,7 @@
 
 <script setup lang="ts">
 import { Edit, Plus } from "@lucide/vue";
+import { UserRole } from "~~/prisma/generated/enums";
 const {
   members,
   getMember,

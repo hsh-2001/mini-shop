@@ -24,7 +24,7 @@ export default function useAuth() {
                 }
                 localStorage.setItem("user", JSON.stringify(response.data));
             } else {
-                console.error("Login failed:", response.message);
+                notificationHelper.error(response.message)
             }
         } catch (error) {
             console.error("Login failed:", error);

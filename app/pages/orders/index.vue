@@ -1,18 +1,15 @@
 <template>
   <section>
     <OrderTableSection
-      :items="pagedOrders"
-      :total="filteredOrders.length"
+      :items="orders"
       :loading="isLoading"
       :is-downloading="isDownloading"
-      v-model:search-keyword="searchKeyword"
-      v-model:status-filter="statusFilter"
-      v-model:payment-status-filter="paymentStatusFilter"
       v-model:current-page="currentPage"
       v-model:page-size="pageSize"
-      @reset-filters="resetFilters"
+      v-model:filter-form="filterForm"
       @view="openOrder"
       @export="exportCSV"
+      @search="loadOrders"
     />
     <OrderDetailDialog
       :saving="isSaving"
@@ -33,18 +30,15 @@ const {
   isSaving,
   currentPage,
   pageSize,
-  searchKeyword,
-  statusFilter,
-  paymentStatusFilter,
   selectedOrder,
   isDialogOpen,
   editForm,
-  filteredOrders,
-  pagedOrders,
   openOrder,
-  resetFilters,
   saveOrder,
   exportCSV,
   isDownloading,
+  filterForm,
+  orders,
+  loadOrders,
 } = useOrdersPage();
 </script>

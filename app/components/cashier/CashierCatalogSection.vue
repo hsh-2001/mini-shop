@@ -107,14 +107,6 @@
             </div>
             <div class="w-full flex mt-2">
               <el-button
-                class="w-2/5"
-                type="danger"
-                :disabled="product.stock === 0"
-                @click="emit('remove-from-cart', product.id)"
-              >
-                {{ $t("Remove") }}
-              </el-button>
-              <el-button
                 class="w-full"
                 type="primary"
                 :disabled="product.stock === 0"

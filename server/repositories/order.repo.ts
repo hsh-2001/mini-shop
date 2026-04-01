@@ -20,7 +20,8 @@ export interface CreateGuestOrderInput {
 }
 
 export interface OrderListQuery {
-    status?: OrderStatus;
+    status?: string[] | undefined;
+    date?: string | undefined;
     paymentStatus?: PaymentStatus;
 }
 
@@ -246,11 +247,18 @@ const createGuestOrder = async (request: CreateGuestOrderInput) => {
 };
 
 const findAll = async (shopId: number, query?: OrderListQuery) => {
+    console.log("Repository - findAll called with query:", query);
     return prisma.order.findMany({
         where: {
             shopId,
-            ...(query?.status ? { status: query.status } : {}),
+            ...(query?.status && !query.status.includes("ALL") ? { status: { in: query.status.filter((s) => s !== "ALL") as OrderStatus[] } } : {}),
             ...(query?.paymentStatus ? { paymentStatus: query.paymentStatus } : {}),
+            ...(query?.date ? {
+                createdOn: {
+                    gte: new Date(new Date(query.date).setHours(0, 0, 0, 0)),
+                    lt: new Date(new Date(query.date).setHours(24, 0, 0, 0)),
+                },
+            } : {}),
         },
         include: orderInclude,
         orderBy: {

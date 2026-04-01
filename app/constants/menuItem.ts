@@ -14,22 +14,22 @@ export const menuItems: IMenuItem[] = [
         name: "Dashboard",
         icon: ChartColumnBigIcon,
         path: "/",
-        allowRoles: ["OWNER", "ADMIN"],
+        allowRoles: ["OWNER", "ADMIN", "MANAGER"],
     },
     {
         name: "Products",
         icon: PackageIcon,
-        allowRoles: ["OWNER", "ADMIN"],
+        allowRoles: ["OWNER", "ADMIN", 'MANAGER'],
         children: [
             {
                 name: "Product List",
                 path: "/products",
-                allowRoles: ["OWNER", "ADMIN"],
+                allowRoles: ["OWNER", "ADMIN", 'MANAGER'],
             },
             {
                 name: "Category List",
                 path: "/products/category",
-                allowRoles: ["OWNER", "ADMIN"],
+                allowRoles: ["OWNER", "ADMIN", 'MANAGER'],
             }
         ]
     },
@@ -60,7 +60,7 @@ export const menuItems: IMenuItem[] = [
         name: "Orders",
         icon: ReceiptTextIcon,
         path: "/orders",
-        allowRoles: ["OWNER", "ADMIN", 'CASHIER'],
+        allowRoles: ["OWNER", "ADMIN", 'CASHIER', 'MANAGER'],
     },
     {
         name: "Settings",
