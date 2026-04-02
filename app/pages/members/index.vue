@@ -28,10 +28,20 @@
         <el-table-column :label="$t('Role')" min-width="180" prop="role">
           <template #default="{ row }">
             <el-tag
-              :type="row.role === 'ADMIN' ? 'danger' : 'success'"
+              :type="row.role === 'OWNER' ? 'danger' : 'success'"
               effect="light"
               round
               >{{ $t(row.role) }}</el-tag
+            >
+          </template>
+        </el-table-column>
+        <el-table-column :label="$t('Status')" min-width="180" align="center">
+          <template #default="{ row }">
+            <el-tag
+              :type="row.isActive ? 'success' : 'danger'"
+              effect="light"
+              round
+              >{{ $t(row.isActive ? "Active" : "Inactive") }}</el-tag
             >
           </template>
         </el-table-column>
@@ -92,10 +102,17 @@
       </el-form-item>
       <el-form-item :label="$t('Role')" prop="role">
         <el-select v-model="formModel.role" :placeholder="$t('Select role')">
+          <el-option :label="$t('Admin')" value="ADMIN" />
           <el-option :label="$t('Manager')" value="MANAGER" />
           <el-option :label="$t('Cashier')" value="CASHIER" />
-          <!-- <el-option :label="$t('Staff')" value="STAFF" /> -->
         </el-select>
+      </el-form-item>
+      <el-form-item :label="$t('Member Status')" prop="isActive">
+        <el-switch
+          v-model="formModel.isActive"
+          :active-text="$t('Active')"
+          :inactive-text="$t('Inactive')"
+        />
       </el-form-item>
     </el-form>
     <template #footer>

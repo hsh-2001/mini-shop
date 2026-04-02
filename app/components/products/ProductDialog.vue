@@ -41,7 +41,7 @@
                 v-for="category in categories"
                 :key="category.id"
                 :label="category.name"
-                :value="String(category.id)"
+                :value="category.id"
               />
             </el-select>
           </el-form-item>

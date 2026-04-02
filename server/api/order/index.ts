@@ -30,7 +30,6 @@ export default defineEventHandler(async (event) => {
         if (isMethod(event, "GET")) {
             const user = await requireAuthenticatedUser(event);
             const { status, date } = getQuery(event);
-            console.log("Query params:", { status, date });
             const orders = await orderService.findAll(user.shopId, {
                 status: status ? String(status).split(',') : undefined,
                 date: date ? String(date) : undefined,

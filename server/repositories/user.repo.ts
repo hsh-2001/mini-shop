@@ -125,6 +125,7 @@ export const createUser = async (request: ICreateUser) => {
       phone: request.phone,
       username: request.username,
       role: request.role,
+      isActive: request.isActive ?? true,
       passwordHash: request.password,
     },
     select: {
@@ -145,6 +146,7 @@ export const updateUser = async (id: number, data: Partial<ICreateUser>) => {
     data: {
       phone: data.phone,
       role: data.role,
+      ...(data.isActive !== undefined ? { isActive: data.isActive } : {}),
     },
   });
 }

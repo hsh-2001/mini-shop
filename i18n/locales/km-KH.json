@@ -328,5 +328,12 @@
   "Extra": "បន្ថែម",
   "Small": "តូច",
   "quantity": "ចំនួន",
-  "Medium": "មធ្យម"
+  "Medium": "មធ្យម",
+  "Reports": "របាយការណ៍",
+  "Sales Report": "របាយការណ៍លក់",
+  "Order Report": "របាយការណ៍ការបញ្ជាទិញ",
+  "Order Reports": "របាយការណ៍ការបញ្ជាទិញ",
+  "Member Status": "ស្ថានភាពសមាជិក",
+  "Active": "សកម្ម",
+  "Inactive": "អសកម្ម"
 }

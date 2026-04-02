@@ -19,7 +19,6 @@ export default defineEventHandler(async (event) => {
 
         if (isMethod(event, "GET")) {
             const user = await requireAuthenticatedUser(event);
-            console.log("Authenticated user in GET /api/member:", user);
             const response = await getUsersService(user.shopId);
             return success(response);
         }

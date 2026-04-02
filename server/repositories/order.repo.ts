@@ -247,7 +247,6 @@ const createGuestOrder = async (request: CreateGuestOrderInput) => {
 };
 
 const findAll = async (shopId: number, query?: OrderListQuery) => {
-    console.log("Repository - findAll called with query:", query);
     return prisma.order.findMany({
         where: {
             shopId,

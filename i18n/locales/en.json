@@ -277,5 +277,11 @@
   "size": "Size",
   "quantity": "Quantity",
   "Small": "Small",
-  "Medium": "Medium"
+  "Medium": "Medium",
+  "Reports": "Reports",
+  "Sales Report": "Sales Report",
+  "Order Report": "Order Report",
+  "Member Status": "Member Status",
+  "Active": "Active",
+  "Inactive": "Inactive"
 }

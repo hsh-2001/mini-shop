@@ -70,6 +70,7 @@ export default function useMember() {
             phone: member.phone,
             password: "",
             role: member.role,
+            isActive: member.isActive,
         };
         dialogVisible.value = true;
         isEditting.value = true;
@@ -83,10 +84,10 @@ export default function useMember() {
                 await getMember();
                 formModel.value = {} as ICreateUser;
             } else {
-                console.error("Failed to update member:", result.message);
+                notificationHelper.error(result.message || "Failed to update member");
             }
         } catch (error) {
-            console.error("Error updating member:", error);
+            notificationHelper.error("Error updating member");
         } finally {
             dialogVisible.value = false;
             isEditting.value = false;

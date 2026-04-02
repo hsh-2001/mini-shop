@@ -143,8 +143,6 @@ const userSelect = {
 
 export const getAuthenticatedUser = async (event: H3Event): Promise<AuthenticatedUser | null> => {
   const token = getCookie(event, SESSION_COOKIE_NAME);
-  console.log("Session token from cookie:", token);
-
   if (!token) {
     return null;
   }
@@ -161,8 +159,6 @@ export const getAuthenticatedUser = async (event: H3Event): Promise<Authenticate
     where: { id: payload.userId },
     select: userSelect,
   });
-
-  console.log("Authenticated user:", user);
 
   if (!user) {
     clearSessionCookie(event);

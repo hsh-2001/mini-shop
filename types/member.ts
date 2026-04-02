@@ -4,6 +4,7 @@ export interface ICreateUser {
     shopId: number;
     username: string;
     phone: string;
+    isActive?: boolean;
     password: string;
     role: UserRole;
 };
@@ -20,6 +21,7 @@ export class MemberResponse implements TMemberResponse {
     username: string;
     phone: string;
     password: string;
+    isActive?: boolean;
     role: UserRole;
     createdOn: string;
     updatedOn: string;
@@ -33,6 +35,7 @@ export class MemberResponse implements TMemberResponse {
         this.role = props.role;
         this.createdOn = props.createdOn;
         this.updatedOn = props.updatedOn;
+        this.isActive = props.isActive;
     }
 
     get formattedCreatedOn() {

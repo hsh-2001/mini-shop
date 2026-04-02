@@ -89,6 +89,10 @@ export const login = async (
 
   const user = await findUserByIdentifier(input.identifier);
 
+  if (!user?.isActive) {
+    throw new Error("User account is closed");
+  }
+
   if (!user?.shop?.domains?.some((d) => d.domain === domain)) {
     throw new Error("Invalid domain for the user.");
   }
@@ -173,7 +177,7 @@ export const createUserService = async (req: ICreateUser) => {
   if (!req.role) {
     throw new Error("User role is required.");
   }
-  if (!Object.values(UserRole).includes(req.role) || req.role === UserRole.ADMIN) {
+  if (!Object.values(UserRole).includes(req.role) || req.role === UserRole.OWNER) {
     throw new Error("Invalid user role.");
   }
   const passwordHash = await bcrypt.hash(req.password, SALT_ROUNDS);
@@ -189,6 +193,7 @@ export const getUsersService = async (shopId: number) => {
     phone: user.phone,
     username: user.username,
     role: user.role,
+    isActive: user.isActive,
     createdOn: user.createdOn,
     updatedOn: user.updatedOn,
   }));

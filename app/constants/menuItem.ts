@@ -34,6 +34,18 @@ export const menuItems: IMenuItem[] = [
         ]
     },
     {
+        name: "Reports",
+        icon: ChartColumnBigIcon,
+        allowRoles: ["OWNER", "ADMIN", "MANAGER"],
+        children: [
+            {
+                name: "Order Reports",
+                path: "/reports",
+                allowRoles: ["OWNER", "ADMIN", "MANAGER"],
+            }
+        ]
+    },
+    {
         name: "Members",
         icon: User2,
         allowRoles: ["OWNER", "ADMIN"],
