@@ -1,6 +1,8 @@
 <template>
   <div v-loading="isLoading" class="w-full h-full">
-    <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 mb-2">
+    <div
+      class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 mb-2"
+    >
       <overview-card
         :title="$t('Total Sales')"
         :value="overview?.totalSalesForDisplay ?? 0"
@@ -17,7 +19,10 @@
         :icon="ShoppingCart"
       />
     </div>
-    <div class="max-w-md p-2 bg-gray-50 rounded-md border border-primary/20">
+    <div
+      :key="renderKey"
+      class="max-w-md p-2 bg-gray-50 rounded-md border border-primary/20"
+    >
       <h1 class="text-xl">{{ $t("Past 7 days sales") }}</h1>
       <canvas ref="myChart"></canvas>
     </div>
@@ -33,7 +38,7 @@ const { overview, fetchOverview } = useOverview();
 
 const myChart = ref<HTMLCanvasElement | null>(null);
 const chart = ref<ChartInstance | null>(null);
-const { t } = useI18n();
+const { t, locale } = useI18n();
 const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const todayIndex = new Date().getDay();
 
@@ -42,73 +47,87 @@ const orderedDays = [
   ...days.slice(0, todayIndex + 1),
 ];
 
-const labels = orderedDays.map((day) => t(day));
-
+const labels = computed(() => orderedDays.map((day) => t(day)));
 const isLoading = ref(false);
+
+const renderChart = () => {
+  if (!myChart.value) return;
+
+  if (chart.value) {
+    chart.value.destroy();
+    chart.value = null;
+  }
+
+  const ctx = myChart.value.getContext("2d");
+  if (!ctx) return;
+
+  chart.value = new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: labels.value,
+      datasets: [
+        {
+          label: t("Sales"),
+          data: overview.value?.past_7_days_sales.map((item) => item.sales) ?? [
+            12, 19, 3, 5, 2, 3, 7,
+          ],
+          backgroundColor: [
+            "rgba(255, 99, 132, 0.2)",
+            "rgba(54, 162, 235, 0.2)",
+            "rgba(255, 206, 86, 0.2)",
+            "rgba(75, 192, 192, 0.2)",
+            "rgba(153, 102, 255, 0.2)",
+            "rgba(255, 159, 64, 0.2)",
+            "rgba(255, 99, 132, 0.2)",
+          ],
+          borderColor: [
+            "rgba(255,99,132,1)",
+            "rgba(54,162,235,1)",
+            "rgba(255,206,86,1)",
+            "rgba(75,192,192,1)",
+            "rgba(153,102,255,1)",
+            "rgba(255,159,64,1)",
+          ],
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            callback: (value) => formatCurrency(Number(value), "KHR"),
+          },
+        },
+      },
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: (context) => formatCurrency(Number(context.raw || 0), "KHR"),
+          },
+        },
+      },
+    },
+  });
+};
 onMounted(async () => {
   isLoading.value = true;
   await fetchOverview();
   isLoading.value = false;
-  if (myChart.value) {
-    const ctx = myChart.value.getContext("2d");
-    if (ctx) {
-      chart.value = new Chart(ctx, {
-        type: "bar",
-        data: {
-          labels: labels,
-          datasets: [
-            {
-              label: t("Sales"),
-              data: overview.value?.past_7_days_sales.map(
-                (item) => item.sales,
-              ) ?? [12, 19, 3, 5, 2, 3, 7],
-              backgroundColor: [
-                "rgba(255, 99, 132, 0.2)",
-                "rgba(54, 162, 235, 0.2)",
-                "rgba(255, 206, 86, 0.2)",
-                "rgba(75, 192, 192, 0.2)",
-                "rgba(153, 102, 255, 0.2)",
-                "rgba(255, 159, 64, 0.2)",
-                "rgba(255, 99, 132, 0.2)",
-              ],
-              borderColor: [
-                "rgba(255,99,132,1)",
-                "rgba(54,162,235,1)",
-                "rgba(255,206,86,1)",
-                "rgba(75,192,192,1)",
-                "rgba(153,102,255,1)",
-                "rgba(255,159,64,1)",
-              ],
-              borderWidth: 1,
-            },
-          ],
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true,
-              ticks: {
-                callback: function (value) {
-                  return formatCurrency(Number(value), "KHR");
-                },
-              },
-            },
-          },
-          plugins: {
-            tooltip: {
-              callbacks: {
-                label: function (context) {
-                  const value = context.raw || 0;
-                  return formatCurrency(Number(value), "KHR");
-                },
-              },
-            },
-          },
-        },
-      });
-    }
-  }
+  renderChart();
 });
+
+const renderKey = ref(0);
+watch(
+  () => locale.value,
+  async () => {
+    renderKey.value += 1;
+    nextTick(() => {
+      renderChart();
+    });
+  },
+);
 </script>
 
 <style scoped></style>
