@@ -17,7 +17,7 @@
                 v-model:startDate="filterForm.startDate"
                 v-model:endDate="filterForm.endDate"
                 is-shortcuts
-                type="daterange"
+                type="datetimerange"
               />
             </el-form-item>
             <el-form-item>

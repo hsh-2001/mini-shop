@@ -4,8 +4,8 @@ export default function useReport() {
 
     const isLoading = ref(false);
     const filterForm = ref({
-        startDate: new Date(),
-        endDate: new Date(),
+        startDate: new Date(new Date().setHours(0, 0, 0, 0)),
+        endDate: new Date(new Date().setHours(23, 59, 59, 999)),
         paymentStatus: "",
     })
 
