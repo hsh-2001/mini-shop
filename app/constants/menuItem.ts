@@ -39,7 +39,7 @@ export const menuItems: IMenuItem[] = [
         allowRoles: ["OWNER", "ADMIN", "MANAGER"],
         children: [
             {
-                name: "Order Reports",
+                name: "Sales Report",
                 path: "/reports",
                 allowRoles: ["OWNER", "ADMIN", "MANAGER"],
             }
@@ -55,10 +55,6 @@ export const menuItems: IMenuItem[] = [
                 path: "/members",
                 allowRoles: ["OWNER", "ADMIN"],
             },
-            // {
-            //     name: "Add/Edit Member",
-            //     path: "/members/add-edit",
-            // }
         ]
 
     },

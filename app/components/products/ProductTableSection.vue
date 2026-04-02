@@ -48,6 +48,7 @@
         :data="items"
         width="100%"
         height="70dvh"
+        border
         :empty-text="$t('No products found.')"
       >
         <el-table-column type="index" :label="$t('#')" width="60" />

@@ -18,6 +18,8 @@ import { BaseApiResponse, getClientResponse } from "~~/types/baseApi";
 import type { ICreateUser, MemberResponse } from "~~/types/member";
 import type { ShopResponse } from "~/model/setting";
 import type { Overview } from "~/model/overview";
+import type { ISaleReportRequest } from "~~/types/report";
+import type { SaleReportResponse } from "~/model/report";
 
 export const callLogin = async (request: ILoginRequest): Promise<BaseApiResponse<any>> => {
     const result = await api.post("/auth/login", request);
@@ -138,5 +140,12 @@ export const callGetOverview = async (): Promise<BaseApiResponse<Overview>> => {
 
 export const callChangePassword = async (currentPassword: string, newPassword: string): Promise<BaseApiResponse<any>> => {
     const result = await api.post("/auth/change-password", { currentPassword, newPassword });
+    return getClientResponse(result.data);
+}
+
+export const callGetSalesReport = async (query: any): Promise<BaseApiResponse<SaleReportResponse[]>> => {
+    const result = await api.get("/reports/sale-report", {
+        params: query,
+    });
     return getClientResponse(result.data);
 }

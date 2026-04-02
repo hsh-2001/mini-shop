@@ -11,7 +11,7 @@ export default defineNuxtConfig({
       ],
     }
   },
-  plugins: ['~/plugins/pinia.ts'],
+  plugins: ['~/plugins/pinia.ts', '~/plugins/element-plus.ts'],
 
   vite: {
     plugins: [

@@ -8,8 +8,14 @@
 }
 
 .el-card__body {
-    padding: 0!important;
+    padding: 0 !important;
 }
-.el-card__footer , .el-card__header {
-    padding: 0.5rem 1rem!important;
+
+.el-card__footer, .el-card__header {
+    padding: 0.5rem 1rem !important;
+}
+
+.el-table th.el-table__cell {
+    background-color: color-mix(in srgb, var(--primary) 10%, white) !important;
+    color: var(--el-color-primary) !important;
 }

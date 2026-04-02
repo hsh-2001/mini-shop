@@ -335,5 +335,18 @@
   "Order Reports": "របាយការណ៍ការបញ្ជាទិញ",
   "Member Status": "ស្ថានភាពសមាជិក",
   "Active": "សកម្ម",
-  "Inactive": "អសកម្ម"
+  "Inactive": "អសកម្ម",
+  "Today": "ថ្ងៃនេះ",
+  "Yesterday": "ម្សិលមិញ",
+  "This week": "សប្តាហ៍នេះ",
+  "Last week": "សប្តាហ៍មុន",
+  "This month": "ខែនេះ",
+  "Last month": "ខែមុន",
+  "Last 30 days": "30 ថ្ងៃចុងក្រោយ",
+  "Last 7 days": "7 ថ្ងៃចុងក្រោយ",
+  "This year": "ឆ្នាំនេះ",
+  "Last year": "ឆ្នាំមុន",
+  "Custom range": "ជួរពេលប្ដូរ",
+  "Last 3 months": "3 ខែចុងក្រោយ",
+  "Last 6 months": "6 ខែចុងក្រោយ"
 }

@@ -21,6 +21,7 @@
       <el-table
         v-loading="loading"
         :data="items"
+        border
         stripe
         width="100%"
         :empty-text="$t('No categories found.')"
