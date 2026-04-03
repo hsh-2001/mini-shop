@@ -2,21 +2,30 @@
   <div class="h-screen flex flex-col bg-slate-100 text-slate-900">
     <AdminHeader />
 
-    <div class="flex flex-1 overflow-hidden">
+    <div class="flex w-full h-full overflow-hidden">
       <AdminSidebar />
-      <div class="w-full">
-        <div class="flex w-full h-full relative overflow-hidden">
+
+      <div class="flex-1 relative">
+        <div class="w-full h-full relative overflow-hidden">
           <div
-            class="h-full w-full p-2 transition-transform duration-300 ease-in-out"
+            class="absolute inset-0 h-full transition-transform duration-300 ease-in-out bg-white"
             :class="
-              store.isMobileMenuOpen ? '-translate-x-[70%] overflow-hidden' : 'translate-x-0 overflow-y-auto'
+              store.isMobileMenuOpen ? '-translate-x-[70%]' : 'translate-x-0'
             "
           >
-            <div v-if="store.isMobileMenuOpen" @click="store.toggleMobileMenu" class="bg-slate-900/20 w-full h-full inset-0 absolute z-10"></div>
-            <slot />
+            <div
+              v-if="store.isMobileMenuOpen"
+              @click="store.toggleMobileMenu"
+              class="absolute inset-0 bg-black/30 z-10"
+            ></div>
+
+            <div class="h-full overflow-y-auto relative z-0" :class="isMobile ? 'p-2' : 'p-4'">
+              <slot />
+            </div>
           </div>
+
           <div
-            class="w-[70%] h-full absolute right-0 top-0 transition-transform duration-300 ease-in-out"
+            class="absolute top-0 right-0 h-full w-[70%] bg-white shadow-xl transition-transform duration-300 ease-in-out z-20"
             :class="
               store.isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
             "
@@ -35,4 +44,5 @@ import AdminHeader from "~/components/AdminHeader.client.vue";
 import MobileMenuList from "~/components/MobileMenuList.vue";
 
 const store = useAppStore();
+const { isMobile } = deviceHelper();
 </script>
