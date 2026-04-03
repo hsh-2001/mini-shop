@@ -3,11 +3,9 @@
     :model-value="open"
     top="20px"
     :width="isMobile ? '95%' : '600px'"
-    @close="
-      () => {
-        $emit('update:open', false);
-      }
-    "
+    destroy-on-close
+    append-to-body
+    @update:model-value="emit('update:open', $event)"
   >
     <template #header>
       <div class="flex items-center justify-between">
@@ -26,7 +24,7 @@
 
     <div
       v-if="order"
-      class="w-full space-y-5 max-h-[70vh]! overflow-y-auto pr-1"
+      class="w-full max-h-[70dvh] space-y-5 overflow-y-auto pr-1"
     >
       <section class="grid gap-3 md:grid-cols-2">
         <div class="bg-slate-50 p-2 rounded-md">
@@ -54,7 +52,7 @@
           <div
             v-for="item in order.orderItems"
             :key="item.id"
-            class="flex justify-between border border-primary/40 rounded-md p-2"
+            class="flex flex-col gap-3 rounded-md border border-primary/40 p-2 md:flex-row md:justify-between"
           >
             <div>
               <p class="font-medium text-sm">
@@ -65,21 +63,28 @@
               </p>
             </div>
 
-            <p class="text-sm grid place-content-end place-items-end">
+            <div class="grid items-end gap-1 text-sm md:place-items-end">
               <span class="font-medium">{{ formatMoney(Number(item.subtotal)) }}</span>
-              <div  class="grid gap-1"> 
-                <div v-for="(modifiers, index) in item.selectedModifiers" :key="index" class="flex gap-1 justify-end bg-gray-50 rounded-md p-1">
-                   <div v-for="(modifier, key, modIndex) in modifiers" :key="key"">
-                     <p class="text-xs text-slate-500">
+              <div class="grid gap-1">
+                <div
+                  v-for="(modifiers, index) in item.selectedModifiers"
+                  :key="index"
+                  class="flex flex-wrap gap-1 rounded-md bg-gray-50 p-1 md:justify-end"
+                >
+                  <div
+                    v-for="(modifier, key, modIndex) in modifiers"
+                    :key="`${String(key)}-${modIndex}`"
+                  >
+                    <p class="text-xs text-slate-500">
                       {{ $t(String(key)) }}:
                       {{ typeof modifier === "string" ? $t(modifier) : modifier }}
                       {{ ['ice', 'sugar'].includes(String(key)) ? '%' : '' }}
                       <span v-if="modIndex !== Object.keys(modifiers).length - 1">,</span>
                     </p>
-                   </div>
+                  </div>
                 </div>
               </div>
-            </p>
+            </div>
           </div>
         </div>
       </section>
@@ -153,8 +158,6 @@ import { formatCurrency } from "~/utils/currencyFormat";
 const { t } = useI18n();
 
 
-const isMobile = useDevice().isMobile;
-
 const props = defineProps<{
   open: boolean;
   saving: boolean;
@@ -178,6 +181,8 @@ const emit = defineEmits<{
   ): void;
   (event: "save"): void;
 }>();
+
+const { isMobile } = deviceHelper();
 
 const formModel = computed({
   get: () => props.form,

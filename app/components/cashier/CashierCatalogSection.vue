@@ -5,9 +5,6 @@
   >
     <div
       class="flex flex-col gap-3 lg:flex-row lg:items-start  lg:justify-between p-2 transition-all duration-500 ease-in-out"
-      :class="
-        isMobile && isScrollDown ? '-translate-y-100 h-0 p-0 bg-white' : 'translate-y-0'
-      "
     >
       <div>
         <h2 class="text-lg font-semibold text-slate-900">

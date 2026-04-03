@@ -2,7 +2,6 @@ import { OrderStatus, PaymentStatus } from "~~/prisma/generated/enums";
 import { GetOrderSummaryListResponse } from "~/model/order";
 import { fetchCurrentUser, fetchOrders, updateOrder } from "~/utils/apiCalling";
 import { showFeedback } from "~/utils/feedback";
-import axios from "axios";
 
 const showError = (message: string) => {
     return showFeedback("error", message);
