@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen flex flex-col bg-slate-100 text-slate-900">
+  <div class="h-dvh flex flex-col bg-slate-100 text-slate-900">
     <AdminHeader />
 
     <div class="flex w-full h-full overflow-hidden">
@@ -19,7 +19,10 @@
               class="absolute inset-0 bg-black/30 z-10"
             ></div>
 
-            <div class="h-full overflow-y-auto relative z-0" :class="isMobile ? 'p-2' : 'p-4'">
+            <div
+              class="h-full overflow-y-auto relative z-0"
+              :class="isMobile ? 'p-2' : 'p-4'"
+            >
               <slot />
             </div>
           </div>
