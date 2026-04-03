@@ -358,5 +358,6 @@
   "Total Customers": "អតិថិជនសរុប",
   "Total Revenue": "ចំណូលសរុប",
   "Total Products": "ផលិតផលសរុប",
-  "Total Categories": "ប្រភេទសរុប"
+  "Total Categories": "ប្រភេទសរុប",
+  "Order_{cartCount}_items)": "ការបញ្ជាទិញ ({cartCount} មុខទំនិញ)"
 }

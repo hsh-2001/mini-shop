@@ -1,8 +1,8 @@
 <template>
   <div
-    class="border bg-white rounded-md p-2 border-slate-200 h-[90dvh] overflow-hidden flex flex-col relative"
+    class="border bg-white rounded-md p-2 border-slate-200 h-[80dvh] overflow-hidden flex flex-col relative"
   >
-    <div class="space-y-4 overflow-auto h-[calc(90dvh-8rem)]">
+    <div class="space-y-4 overflow-auto" :class="isMobile ? 'h-[calc(80dvh-8rem)]' : 'h-[calc(90dvh-8rem)]'">
       <div class="flex items-start justify-between gap-3">
         <div>
           <p
@@ -308,6 +308,7 @@ import type { CashierOrderForm } from "~/model/order";
 import { Plus, X } from "@lucide/vue";
 import { formatCurrency } from "~/utils/currencyFormat";
 
+
 interface CartLine {
   product: ProductItem;
   quantity: number;
@@ -368,4 +369,6 @@ const formModel = computed({
     emits("update:form", value);
   },
 });
+
+const { isMobile } = deviceHelper();
 </script>

@@ -283,5 +283,6 @@
   "Order Report": "Order Report",
   "Member Status": "Member Status",
   "Active": "Active",
-  "Inactive": "Inactive"
+  "Inactive": "Inactive",
+  "Order_{cartCount}_items)": "Order ({cartCount} items)"
 }

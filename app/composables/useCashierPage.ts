@@ -41,6 +41,8 @@ export const useCashierPage = () => {
     const form = ref<CashierOrderForm>(createDefaultForm(defaultCustomerName.value));
     const isLoading = ref(true);
     const isSubmitting = ref(false);
+    const showCart = ref(false);
+
 
     const filteredProducts = computed(() => {
         const keyword = search.value.trim().toLowerCase();
@@ -171,6 +173,7 @@ export const useCashierPage = () => {
             await showError(error instanceof Error ? error.message : t("Unable to create order."));
         } finally {
             isSubmitting.value = false;
+            showCart.value = false;
         }
     };
 
@@ -202,5 +205,6 @@ export const useCashierPage = () => {
         clearCart,
         submitOrder,
         addItemModifier,
+        showCart,
     };
 };
