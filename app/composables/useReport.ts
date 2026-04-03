@@ -15,8 +15,8 @@ export default function useReport() {
         isLoading.value = true;
         try {
             const param = {
-                startDate: filterForm.value.startDate.toISOString().split("T")[0],
-                endDate: filterForm.value.endDate.toISOString().split("T")[0],
+                startDate: filterForm.value.startDate,
+                endDate: filterForm.value.endDate,
                 paymentStatus: filterForm.value.paymentStatus,
             }
             const response = await callGetSalesReport(param);

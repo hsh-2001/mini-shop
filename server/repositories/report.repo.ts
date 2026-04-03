@@ -4,8 +4,8 @@ export const getSalesReport = async (param: ISaleReportRequest) => {
         where: {
             shopId: param.shopId,
             createdOn: {
-                gte: param.startDate ? new Date(param.startDate) : new Date(0),
-                lte: param.endDate ? new Date(param.endDate) : new Date(),
+                gte: param.startDate ? param.startDate : new Date(0),
+                lte: param.endDate ? param.endDate : new Date(),
             },
             paymentStatus: param.paymentStatus || undefined,
         },

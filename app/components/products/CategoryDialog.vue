@@ -2,7 +2,7 @@
   <el-dialog
     :model-value="open"
     :title="form.id ? $t('Update Category') : $t('Add Category')"
-    width="520px"
+    :width="isMobile ? '90%' : '500px'"
     destroy-on-close
     @update:model-value="emit('update:open', $event)"
     @closed="emit('closed')"
@@ -88,4 +88,6 @@ const updateField = <K extends keyof CategoryPayload>(
     [key]: value,
   });
 };
+
+const { isMobile } = deviceHelper();
 </script>

@@ -19,11 +19,11 @@
             <el-form-item :label="$t('Filter Date')">
               <template v-if="isMobile">
                 <div class="flex items-center flex-wrap gap-2">
-                  <el-date-picker v-model="filterForm.startDate" type="date" />
+                  <el-date-picker v-model="filterForm.startDate" type="datetime" />
                   <p>{{ $t("to") }}</p>
                   <el-date-picker
                     v-model="filterForm.endDate"
-                    type="date"
+                    type="datetime"
                     :disabled-date="
                       (date: Date) => {
                         return date <= filterForm.startDate;
