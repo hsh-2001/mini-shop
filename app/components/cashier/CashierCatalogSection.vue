@@ -63,6 +63,7 @@
       <div
         v-if="products.length"
         class="grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-2"
+        :class="{'p-2': !isMobile }"
       >
         <div
           v-for="product in products"

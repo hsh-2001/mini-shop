@@ -149,3 +149,8 @@ export const callGetSalesReport = async (query: any): Promise<BaseApiResponse<Sa
     });
     return getClientResponse(result.data);
 }
+
+export const callGetNotification = async (): Promise<BaseApiResponse<any>> => {
+    const result = await api.get("/shop/notification");
+    return getClientResponse(result.data);
+}

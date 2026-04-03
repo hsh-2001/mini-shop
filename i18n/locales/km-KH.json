@@ -359,5 +359,8 @@
   "Total Revenue": "ចំណូលសរុប",
   "Total Products": "ផលិតផលសរុប",
   "Total Categories": "ប្រភេទសរុប",
-  "Order_{cartCount}_items)": "ការបញ្ជាទិញ ({cartCount} មុខទំនិញ)"
+  "Order_{cartCount}_items)": "ការបញ្ជាទិញ ({cartCount} មុខទំនិញ)",
+  "Notifications": "ការជូនដំណឹង",
+  "Pending Customer Orders": "ការបញ្ជាទិញរង់ចាំរបស់អតិថិជន",
+  "Pending Customer Payments": "ការទូទាត់រង់ចាំរបស់អតិថិជន"
 }

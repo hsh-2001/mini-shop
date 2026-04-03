@@ -13,7 +13,37 @@
       </button>
       {{ headerLabel }}
     </div>
-    <div class="mr-2">
+    <div class="mr-2 flex items-center">
+      <el-tooltip
+        effect="light"
+        :content="$t('Notifications')"
+        placement="bottom"
+      >
+        <template #content>
+          <div class="font-medium mb-2 text-[14px]">
+            {{ $t("Notifications") }}
+          </div>
+          <div class="grid gap-2 text-[12px]">
+            <NuxtLink to="#" class="hover:text-blue-400">
+              {{ $t("Pending Customer Orders") }}:
+              {{ notifications.peddingOrder }}
+            </NuxtLink>
+            <NuxtLink to="#" class="hover:text-blue-400">
+              {{ $t("Pending Customer Payments") }}:
+              {{ notifications.peddingPayment }}
+            </NuxtLink>
+          </div>
+        </template>
+        <button class="mr-4 relative">
+          <span
+            class="absolute text-[10px] -top-1 -right-2 bg-red-400 text-white rounded-full px-1"
+            >{{
+              notifications.peddingOrder + notifications.peddingPayment
+            }}</span
+          >
+          <Bell class="h-6 w-6 text-primary/60" />
+        </button>
+      </el-tooltip>
       <template v-if="!isMobile">
         <ClientOnly>
           <el-select
@@ -46,7 +76,7 @@
 </template>
 
 <script setup lang="ts">
-import { Menu, ChevronLeft, LogOut, MenuIcon, X } from "@lucide/vue";
+import { Menu, ChevronLeft, LogOut, MenuIcon, X, Bell } from "@lucide/vue";
 const { selectedLanguage, logOut, languageOptions, currentUser } = useNavbar();
 const { t } = useI18n();
 
@@ -55,6 +85,12 @@ const headerLabel = computed(
   () => currentUser.shop?.name || t("Admin Dashboard"),
 );
 const { isMobile } = deviceHelper();
+
+const { getNotification, notifications } = useNotification();
+
+onMounted(() => {
+  getNotification();
+});
 </script>
 
 <style scoped></style>
