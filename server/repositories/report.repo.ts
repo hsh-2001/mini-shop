@@ -10,6 +10,14 @@ export const getSalesReport = async (param: ISaleReportRequest) => {
             paymentStatus: param.paymentStatus || undefined,
         },
         include: {
+            customer: {
+                select: {
+                    id: true,
+                    name: true,
+                    phone: true,
+                    email: true,
+                }
+            },
             orderItems: {
                 include: {
                     product: true,

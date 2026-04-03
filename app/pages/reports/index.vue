@@ -36,9 +36,9 @@
       >
         <el-table-column prop="id" label="ID" width="80" />
         <el-table-column
-          prop="customerId"
-          :label="$t('Customer ID')"
-          width="120"
+          prop="customer.name"
+          :label="$t('Customer')"
+          width="200px"
         />
         <el-table-column
           prop="getFinalAmount"

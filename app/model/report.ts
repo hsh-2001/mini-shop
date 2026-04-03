@@ -15,6 +15,7 @@ export interface IOrder {
     notes: string | null
     createdOn: string
     updatedOn: string
+    customer: ICustomer
     orderItems: IOrderItem[]
 }
 
@@ -38,7 +39,17 @@ export interface ISelectedModifier {
     quantity?: number
 }
 
-export interface IProduct {
+export interface ICustomer {
+    id: number
+    shopId: number
+    name: string
+    phone: string | null
+    email: string | null
+    loyaltyPoints: number
+    createdOn: string
+    updatedOn: string
+}
+interface IProduct {
     id: number
     shopId: number
     categoryId: number
@@ -55,7 +66,7 @@ export interface IProduct {
     isActive: boolean
     createdOn: string
     updatedOn: string
-    imageUrl: string
+    imageUrl: string | null
 }
 
 export class SaleReportResponse implements IOrder {
@@ -76,6 +87,7 @@ export class SaleReportResponse implements IOrder {
     createdOn: string;
     updatedOn: string;
     orderItems: IOrderItem[];
+    customer: ICustomer;
 
     constructor(orderData: IOrder) {
         this.id = orderData.id;
@@ -95,6 +107,7 @@ export class SaleReportResponse implements IOrder {
         this.createdOn = orderData.createdOn;
         this.updatedOn = orderData.updatedOn;
         this.orderItems = orderData.orderItems;
+        this.customer = orderData.customer;
     }
 
     get getFinalAmount() {

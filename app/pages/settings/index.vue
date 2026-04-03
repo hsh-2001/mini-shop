@@ -103,7 +103,8 @@
     v-model:visible="changePasswordVisible"
     v-model:model="changePasswordModel"
     :is-loading="isLoading"
-    @change-password="handleChangePassword"
+    :password-rules="passwordRules"
+    @change-password="onSubmitChange"
   />
 </template>
 
@@ -117,8 +118,9 @@ const {
   updateShopSetting,
   changePasswordVisible,
   changePasswordModel,
-  handleChangePassword,
   isLoading,
+  passwordRules,
+  onSubmitChange,
 } = useSetting();
 
 onMounted(() => {

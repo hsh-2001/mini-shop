@@ -1,3 +1,4 @@
+import type { FormRules, FormInstance } from 'element-plus';
 import { ShopResponse, type IUpdateShopRequest } from "~/model/setting";
 
 export default function useSetting() {
@@ -70,6 +71,21 @@ export default function useSetting() {
         confirmNewPassword: "",
     });
 
+    const ruleForRef = ref<FormInstance>();
+    const passwordRules = computed<FormRules>(() => ({
+        currentPassword: [
+            { required: true, message: t("Please enter current password"), trigger: "blur" },
+        ],
+        newPassword: [
+            { required: true, message: t("Please enter new password"), trigger: "blur" },
+            { min: 4, message: t("Password must be at least 4 characters"), trigger: "blur" },
+        ],
+        confirmNewPassword: [
+            { required: true, message: t("Please confirm new password"), trigger: "blur" },
+            { validator: (rule, value) => value === changePasswordModel.newPassword, message: t("New password and confirm new password do not match"), trigger: "blur" },
+        ],
+    }));
+
     const isLoading = ref(false);
     const handleChangePassword = async () => {
         isLoading.value = true;
@@ -97,6 +113,8 @@ export default function useSetting() {
         isLoading.value = false;
     }
 
+    const onSubmitChange = getSubmitForm(handleChangePassword);
+
     return {
         getShopSetting,
         shop,
@@ -107,5 +125,8 @@ export default function useSetting() {
         changePasswordModel,
         changePasswordVisible,
         isLoading,
+        ruleForRef,
+        passwordRules,
+        onSubmitChange,
     }
 };
