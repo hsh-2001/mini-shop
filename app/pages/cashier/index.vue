@@ -1,5 +1,5 @@
 <template>
-  <div class="h-[calc(100dvh-60px)] w-full overflow-hidden">
+  <div class="h-[calc(100dvh-60px)] w-full overflow-hidden relative">
     <div class="flex gap-2">
       <div class="w-full">
         <CashierCatalogSection
@@ -35,6 +35,7 @@
           :title="$t('Order_{cartCount}_items)', { cartCount })"
           top="10px"
           :width="isMobile ? '90%' : '50%'"
+          class="p-2!"
         >
           <CashierOrderSidebar
             :cart="cart"
@@ -51,21 +52,21 @@
         </el-dialog>
       </div>
     </div>
-  </div>
-  <button
-    v-if="isMobile && cartCount > 0"
-    class="fixed z-10 bottom-10 right-4 bg-primary text-white p-3 rounded-full"
-    :class="isMobile && cartCount > 0 ? 'animate-bounce' : ''"
-    @click="showCart = true"
-  >
-    <ShoppingBag class="w-6 h-6" />
-    <span
-      v-if="cartCount > 0"
-      class="absolute -top-1 -right-1 bg-red-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center"
+    <button
+      v-if="isMobile && cartCount > 0"
+      class="fixed z-10 bottom-10 right-4 bg-primary text-white p-3 rounded-full"
+      :class="isMobile && cartCount > 0 ? 'animate-bounce' : ''"
+      @click="showCart = true"
     >
-      {{ cartCount }}
-    </span>
-  </button>
+      <ShoppingBag class="w-6 h-6" />
+      <span
+        v-if="cartCount > 0"
+        class="absolute -top-1 -right-1 bg-red-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center"
+      >
+        {{ cartCount }}
+      </span>
+    </button>
+  </div>
 </template>
 
 <script setup lang="ts">

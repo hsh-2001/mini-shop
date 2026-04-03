@@ -1,9 +1,13 @@
 <template>
   <div
-    class="bg-white border border-gray-200 rounded-md h-[90dvh] overflow-auto flex flex-col"
+    class="bg-white rounded-md h-[90dvh] overflow-hidden flex flex-col"
+    :class="isMobile ? '' : 'border border-gray-200'"
   >
     <div
-      class="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between p-2"
+      class="flex flex-col gap-3 lg:flex-row lg:items-start  lg:justify-between p-2 transition-all duration-500 ease-in-out"
+      :class="
+        isMobile && isScrollDown ? '-translate-y-100 h-0 p-0 bg-white' : 'translate-y-0'
+      "
     >
       <div>
         <h2 class="text-lg font-semibold text-slate-900">
@@ -58,10 +62,10 @@
       </div>
     </div>
 
-    <div :loading="loading" class="h-[77dvh] overflow-auto p-2">
+    <div :loading="loading" class="h-full overflow-auto" ref="productListRef">
       <div
         v-if="products.length"
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-2"
+        class="grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 gap-2"
       >
         <div
           v-for="product in products"
@@ -161,4 +165,44 @@ const resetFilters = () => {
   emit("update:search", "");
   emit("update:selectedCategoryId", "all");
 };
+
+const { isMobile } = deviceHelper();
+
+const isScrollDown = ref(false);
+const productListRef = ref<HTMLDivElement | null>(null);
+
+const lastScrollTop = ref(0);
+const startScrollTop = ref(0);
+const handleScroll = () => {
+  const el = productListRef.value;
+  if (!el) return;
+  const scrollTop = el.scrollTop;
+  const isDown = scrollTop > lastScrollTop.value;
+  if (isDown !== lastScrollTop.value < startScrollTop.value) {
+    startScrollTop.value = lastScrollTop.value;
+  }
+
+  const distance = Math.abs(scrollTop - startScrollTop.value);
+
+  if (distance > 20) {
+    isScrollDown.value = isDown;
+    startScrollTop.value = scrollTop;
+  }
+
+  lastScrollTop.value = scrollTop;
+};
+
+onMounted(() => {
+  const el = productListRef.value;
+  if (!el) return;
+
+  el.addEventListener("scroll", handleScroll, { passive: true });
+});
+
+onBeforeUnmount(() => {
+  const el = productListRef.value;
+  if (!el) return;
+
+  el.removeEventListener("scroll", handleScroll);
+});
 </script>
