@@ -36,9 +36,9 @@
         <el-dialog
           v-model="showCart"
           :title="$t('Order_{cartCount}_items)', { cartCount })"
-          top="5vh"
-          width="100%"
-          class="max-w-none! rounded-t-2xl!"
+          top="20px"
+          width="90%"
+          class="max-w-none!"
           :lock-scroll="true"
         >
           <div
