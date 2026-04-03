@@ -127,7 +127,12 @@
             >
           </template>
         </el-table-column>
-        <el-table-column :label="$t('Action')" min-width="80" align="center" fixed="right">
+        <el-table-column
+          :label="$t('Action')"
+          min-width="80"
+          align="center"
+          fixed="right"
+        >
           <template #default="{ row }">
             <el-button type="primary" link @click="$emit('view', row)">
               <el-icon><View /></el-icon>
@@ -139,7 +144,7 @@
             <div
               class="flex h-14 w-14 items-center justify-center rounded-full bg-slate-100 text-slate-500"
             >
-              <el-icon :size="24"><Box /></el-icon>
+              <Eyes class="h-6 w-6" />
             </div>
             <div>
               <p class="text-base font-semibold text-slate-900">
@@ -165,7 +170,7 @@ import { Box, View } from "@element-plus/icons-vue";
 import type { OrderStatus, PaymentStatus } from "~~/prisma/generated/enums";
 import type { GetOrderSummaryListResponse } from "~/model/order";
 import { formatCurrency } from "~/utils/currencyFormat";
-import { Sheet } from "@lucide/vue";
+import { Eye, Sheet } from "@lucide/vue";
 const { t } = useI18n();
 
 const props = defineProps<{

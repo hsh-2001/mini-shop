@@ -11,14 +11,14 @@
       @export="exportCSV"
       @search="loadOrders"
     />
-    <OrderDetailDialog
-      :saving="isSaving"
-      :order="selectedOrder"
-      v-model:form="editForm"
-      v-model:open="isDialogOpen"
-      @save="saveOrder"
-    />
   </section>
+  <OrderDetailDialog
+    :saving="isSaving"
+    :order="selectedOrder"
+    v-model:form="editForm"
+    v-model:open="isDialogOpen"
+    @save="saveOrder"
+  />
 </template>
 
 <script setup lang="ts">

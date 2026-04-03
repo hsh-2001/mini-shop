@@ -58,12 +58,12 @@ export const useOrdersPage = () => {
 
     const openOrder = (order: GetOrderSummaryListResponse) => {
         selectedOrder.value = order;
+        isDialogOpen.value = true;
         editForm.value = {
             status: order.status,
             paymentStatus: order.paymentStatus,
             notes: order.notes ?? "",
         };
-        isDialogOpen.value = true;
     };
 
     const resetFilters = () => {
@@ -80,7 +80,7 @@ export const useOrdersPage = () => {
                 fetchCurrentUser(),
                 fetchOrders({
                     date: filterForm.date,
-                    status:filterForm.status.length ? filterForm.status.join(',') : undefined,
+                    status: filterForm.status.length ? filterForm.status.join(',') : undefined,
                 }),
             ]);
 
