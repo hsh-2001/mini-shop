@@ -3,9 +3,6 @@
     v-if="store.isMobileMenuOpen"
     class="h-full bg-white/95 backdrop-blur-md shadow-2xl p-4 overflow-y-auto relative"
   >
-    <div class="mb-2 flex items-center justify-between">
-      <h2 class="text-lg font-semibold tracking-tight">Menu</h2>
-    </div>
     <div class="space-y-2">
       <template v-for="item in filteredMenus" :key="item.name">
         <div>
@@ -25,7 +22,7 @@
                 class="w-5 h-5 opacity-80 group-hover:opacity-100"
               />
               <span class="text-sm font-medium">
-                {{ item.name }}
+                {{$t(item.name) }}
               </span>
             </div>
             <div
@@ -53,7 +50,7 @@
                     : 'text-gray-600 hover:bg-gray-100 hover:text-black',
                 ]"
               >
-                {{ child.name }}
+                {{$t(child.name) }}
 
                 <span
                   v-if="isActive(child.path)"
@@ -101,8 +98,7 @@ const openMenus = ref<string[]>([]);
 const filteredMenus = computed(() => {
   return menuItems
     .filter(
-      (item) =>
-        !item.allowRoles || item.allowRoles.includes(userRole.value),
+      (item) => !item.allowRoles || item.allowRoles.includes(userRole.value),
     )
     .map((item) => ({
       ...item,

@@ -352,5 +352,11 @@
   "Search": "ស្វែងរក",
   "Filter Date": "កាលបរិច្ឆេទ",
   "Tax": "ពន្ធ",
-  "Payment Method": "វិធីបង់ប្រាក់"
+  "Payment Method": "វិធីបង់ប្រាក់",
+  "Total Sales": "ការលក់សរុប",
+  "Total Orders": "ការបញ្ជាទិញសរុប",
+  "Total Customers": "អតិថិជនសរុប",
+  "Total Revenue": "ចំណូលសរុប",
+  "Total Products": "ផលិតផលសរុប",
+  "Total Categories": "ប្រភេទសរុប"
 }

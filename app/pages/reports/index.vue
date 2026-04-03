@@ -11,13 +11,34 @@
           </div>
         </div>
         <div class="bg-primary/10 p-2 rounded-md">
-          <el-form :model="filterForm" inline>
+          <el-form
+            :model="filterForm"
+            :inline="!isMobile"
+            class="flex flex-wrap justify-end gap-2"
+          >
             <el-form-item :label="$t('Filter Date')">
+              <template v-if="isMobile">
+                <div class="flex items-center flex-wrap gap-2">
+                  <el-date-picker v-model="filterForm.startDate" type="date" />
+                  <p>{{ $t("to") }}</p>
+                  <el-date-picker
+                    v-model="filterForm.endDate"
+                    type="date"
+                    :disabled-date="
+                      (date: Date) => {
+                        return date <= filterForm.startDate;
+                      }
+                    "
+                  />
+                </div>
+              </template>
               <DatePicker
+                v-else
                 v-model:startDate="filterForm.startDate"
                 v-model:endDate="filterForm.endDate"
                 is-shortcuts
                 type="datetimerange"
+                class="w-100!"
               />
             </el-form-item>
             <el-form-item>
@@ -77,6 +98,8 @@ const { getReport, salesReport, filterForm, isLoading } = useReport();
 onMounted(async () => {
   await getReport();
 });
+
+const { isMobile } = deviceHelper();
 </script>
 
 <style scoped>

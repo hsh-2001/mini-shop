@@ -6,8 +6,8 @@
       <icon class="text-primary h-10 w-10" />
     </div>
     <div class="space-y-2">
-      <h1 class="text-xl">{{ title }}</h1>
-      <p class="text-2xl font-bold">
+      <h1 class="text-xl">{{$t(title) }}</h1>
+      <p class="text-2xl font-bold text-end">
         {{ value }}
       </p>
     </div>
