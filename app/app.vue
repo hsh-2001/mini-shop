@@ -1,8 +1,5 @@
 <template>
-  <div
-    v-if="isFinished"
-    class="w-full min-h-screen bg-slate-100 text-slate-900"
-  >
+  <div v-if="isFinished" class="w-full h-dvh bg-slate-100 text-slate-900">
     <ClientOnly>
       <ElConfigProvider :locale="elementLocale">
         <NuxtLayout>
@@ -11,7 +8,7 @@
       </ElConfigProvider>
     </ClientOnly>
   </div>
-  <div v-else class="w-full min-h-screen flex items-center justify-center">
+  <div v-else class="w-full h-dvh flex items-center justify-center">
     <RefreshCcw class="animate-spin w-10 h-10 text-primary" />
   </div>
 </template>
