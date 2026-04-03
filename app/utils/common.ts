@@ -1,5 +1,3 @@
-import axios from "axios";
-
 export const handleUploadImage = async (file: File | null, path = "") => {
     if (!file) return;
     try {

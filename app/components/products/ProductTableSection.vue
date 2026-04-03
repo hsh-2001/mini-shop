@@ -103,18 +103,16 @@
         </el-table-column>
         <el-table-column
           :label="$t('Actions')"
-          width="170"
+          width="90"
           align="right"
           fixed="right"
         >
           <template #default="{ row }">
             <el-button type="primary" link @click="emit('edit', row)">
               <el-icon class="mr-1"><Edit /></el-icon>
-              {{ $t("Edit") }}
             </el-button>
             <el-button type="danger" link @click="emit('delete', row.id)">
-              <el-icon class="mr-1"><Delete /></el-icon>
-              {{ $t("Delete") }}
+              <el-icon><Delete /></el-icon>
             </el-button>
           </template>
         </el-table-column>

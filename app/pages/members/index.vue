@@ -71,6 +71,7 @@
   <el-dialog
     v-model="dialogVisible"
     destroy-on-close
+    :width="isMobile ? '90%' : '600px'"
     :title="isEditting ? $t('Update Member') : $t('Create Member')"
     @close="handleClose"
   >
@@ -142,6 +143,8 @@ const {
   handleClose,
   isLoading,
 } = useMember();
+
+const { isMobile } = deviceHelper();
 
 onMounted(() => {
   getMember();

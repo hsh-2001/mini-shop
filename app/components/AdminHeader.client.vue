@@ -14,31 +14,39 @@
       {{ headerLabel }}
     </div>
     <div class="mr-2">
-      <ClientOnly>
-        <el-select
-          size="small"
-          v-model="selectedLanguage"
-          :placeholder="$t('Select')"
-          style="width: 80px"
-        >
-          <el-option
-            v-for="item in languageOptions"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
-        </el-select>
-      </ClientOnly>
-      <el-button size="small" type="danger" class="ml-2" @click="logOut">
-        <LogOut class="h-4 w-4 mr-1" />
-        {{ $t("Logout") }}
-      </el-button>
+      <template v-if="!isMobile">
+        <ClientOnly>
+          <el-select
+            size="small"
+            v-model="selectedLanguage"
+            :placeholder="$t('Select')"
+            style="width: 80px"
+          >
+            <el-option
+              v-for="item in languageOptions"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+        </ClientOnly>
+        <el-button size="small" type="danger" class="ml-2" @click="logOut">
+          <LogOut class="h-4 w-4 mr-1" />
+          {{ $t("Logout") }}
+        </el-button>
+      </template>
+      <template v-else>
+        <button @click="store.toggleMobileMenu">
+          <X v-if="store.isMobileMenuOpen" class="h-6 w-6" />
+          <MenuIcon v-else class="h-6 w-6" />
+        </button>
+      </template>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Menu, ChevronLeft, LogOut } from "@lucide/vue";
+import { Menu, ChevronLeft, LogOut, MenuIcon, X } from "@lucide/vue";
 const { selectedLanguage, logOut, languageOptions, currentUser } = useNavbar();
 const { t } = useI18n();
 

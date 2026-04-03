@@ -3,7 +3,6 @@ import { UserRole } from "~~/prisma/generated/enums";
 
 export default function useAuth() {
     const store = useAppStore();
-    const { setCurrency } = store;
     const isAuth = ref(false);
     const isLoading = ref(false);
     const loginModel = ref<ILoginRequest>({

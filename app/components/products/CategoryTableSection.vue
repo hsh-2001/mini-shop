@@ -45,11 +45,10 @@
             {{ row.description || "-" }}
           </template>
         </el-table-column>
-        <el-table-column :label="$t('Actions')" width="120" align="right">
+        <el-table-column :label="$t('Actions')" width="80" align="center">
           <template #default="{ row }">
             <el-button type="primary" link @click="emit('edit', row)">
-              <el-icon class="mr-1"><Edit /></el-icon>
-              {{ $t("Edit") }}
+              <el-icon><Edit /></el-icon>
             </el-button>
           </template>
         </el-table-column>

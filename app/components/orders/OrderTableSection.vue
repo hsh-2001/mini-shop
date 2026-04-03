@@ -18,7 +18,7 @@
       </div>
       <ClientOnly>
         <div v-if="filterForm" class="w-full bg-primary/10 p-2 mt-2 rounded-md">
-          <el-form :model="form" class="w-full flex gap-2">
+          <el-form :model="form" class="w-full flex flex-wrap gap-2">
             <el-form-item :label="$t('Filter date')" class="w-64 mb-0!">
               <el-date-picker
                 v-model="form.date"
@@ -127,11 +127,10 @@
             >
           </template>
         </el-table-column>
-        <el-table-column :label="$t('Action')" min-width="120" fixed="right">
+        <el-table-column :label="$t('Action')" min-width="80" align="center" fixed="right">
           <template #default="{ row }">
             <el-button type="primary" link @click="$emit('view', row)">
-              <el-icon class="mr-1"><View /></el-icon>
-              {{ $t("Manage") }}
+              <el-icon><View /></el-icon>
             </el-button>
           </template>
         </el-table-column>

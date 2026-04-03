@@ -5,6 +5,7 @@ export const useAppStore = defineStore('app', {
     state: () => {
         return {
             isSidebarOpen: true,
+            isMobileMenuOpen: false,
             products: [] as ProductItem[],
             categories: [] as CategoryItem[],
             user: {} as any,
@@ -18,6 +19,9 @@ export const useAppStore = defineStore('app', {
     actions: {
         toggleSidebar() {
             this.isSidebarOpen = !this.isSidebarOpen
+        },
+        toggleMobileMenu() {
+            this.isMobileMenuOpen = !this.isMobileMenuOpen
         },
         setProducts(products: ProductItem[]) {
             this.products = products;
@@ -35,6 +39,7 @@ export const useAppStore = defineStore('app', {
 
     getters: {
         sidebarStatus: (state) => state.isSidebarOpen,
+        mobileMenuStatus: (state) => state.isMobileMenuOpen,
         allProducts: (state) => state.products,
         allCategories: (state) => state.categories,
         currentUser: (state) => state.user,

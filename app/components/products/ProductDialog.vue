@@ -2,7 +2,7 @@
   <el-dialog
     :model-value="open"
     :title="form.id ? $t('Update Product') : $t('Add Product')"
-    width="680px"
+    :width="isMobile ? '90%' : '680px'"
     destroy-on-close
     top="20px"
     @update:model-value="emit('update:open', $event)"
@@ -198,6 +198,8 @@ const onCloseDailog = () => {
   imageUrl.value = "";
   emit("closed");
 };
+
+const { isMobile } = deviceHelper();
 </script>
 
 <style>
