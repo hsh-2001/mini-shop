@@ -12,6 +12,7 @@ export default defineEventHandler(async (event) => {
             startDate: query.startDate,
             endDate: query.endDate,
             paymentStatus: query.paymentStatus,
+            orderStatus: query.orderStatus,
         });
         return success(data);
     } catch (error) {

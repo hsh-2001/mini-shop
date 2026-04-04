@@ -14,12 +14,15 @@
           <el-form
             :model="filterForm"
             :inline="!isMobile"
-            class="flex flex-wrap justify-end gap-2"
+            class="flex flex-wrap gap-2"
           >
             <el-form-item :label="$t('Filter Date')">
               <template v-if="isMobile">
                 <div class="flex items-center flex-wrap gap-2">
-                  <el-date-picker v-model="filterForm.startDate" type="datetime" />
+                  <el-date-picker
+                    v-model="filterForm.startDate"
+                    type="datetime"
+                  />
                   <p>{{ $t("to") }}</p>
                   <el-date-picker
                     v-model="filterForm.endDate"
@@ -41,6 +44,34 @@
                 class="w-100!"
               />
             </el-form-item>
+            <el-form-item :label="$t('Payment Status')" class="w-60">
+              <el-select
+                v-model="filterForm.paymentStatus"
+                clearable
+                class="w-full"
+              >
+                <el-option
+                  v-for="option in paymentStatusOptions"
+                  :key="option.value"
+                  :label="$t(option.label)"
+                  :value="option.value"
+                />
+              </el-select>
+            </el-form-item>
+            <el-form-item :label="$t('Order Status')" class="w-60">
+              <el-select
+                v-model="filterForm.orderStatus"
+                clearable
+                class="w-full"
+              >
+                <el-option
+                  v-for="option in orderStatusOptions"
+                  :key="option.value"
+                  :label="$t(option.label)"
+                  :value="option.value"
+                />
+              </el-select>
+            </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="getReport">{{
                 $t("Search")
@@ -56,11 +87,7 @@
         v-loading="isLoading"
       >
         <el-table-column prop="id" label="ID" width="80" />
-        <el-table-column
-          prop="customer.name"
-          :label="$t('Customer')"
-          width="200px"
-        />
+        <el-table-column prop="customer.name" :label="$t('Customer')" />
         <el-table-column
           prop="getFinalAmount"
           :label="$t('Total Amount')"
@@ -79,13 +106,36 @@
             </ul>
           </template>
         </el-table-column>
-        <el-table-column prop="type" :label="$t('Type')" width="100" />
-        <el-table-column prop="status" :label="$t('Status')" width="130" />
-        <el-table-column
-          prop="paymentMethod"
-          :label="$t('Payment Method')"
-          width="150"
-        />
+        <el-table-column prop="type" :label="$t('Type')" width="100">
+          <template #default="{ row }">
+            {{
+              $t(
+                customerTypeOptions.find((o) => o.value === row.type)?.label ||
+                  row.type,
+              )
+            }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="status" :label="$t('Status')" width="130">
+          <template #default="{ row }">
+            {{
+              $t(
+                orderStatusOptions.find((o) => o.value === row.status)?.label ||
+                  row.status,
+              )
+            }}
+          </template>
+        </el-table-column>
+        <el-table-column :label="$t('Payment Status')" width="150">
+          <template #default="{ row }">
+            {{
+              $t(
+                paymentStatusOptions.find((o) => o.value === row.paymentStatus)
+                  ?.label || row.paymentStatus,
+              )
+            }}
+          </template>
+        </el-table-column>
       </el-table>
     </el-card>
   </div>
@@ -93,6 +143,11 @@
 
 <script setup lang="ts">
 import DatePicker from "~/components/ui/DatePicker.vue";
+import {
+  customerTypeOptions,
+  orderStatusOptions,
+  paymentStatusOptions,
+} from "~/constants/common";
 
 const { getReport, salesReport, filterForm, isLoading } = useReport();
 onMounted(async () => {
@@ -105,5 +160,8 @@ const { isMobile } = deviceHelper();
 <style scoped>
 .el-form-item {
   margin-bottom: 0 !important;
+}
+.el-form--inline .el-form-item {
+  margin-right: 10px !important;
 }
 </style>

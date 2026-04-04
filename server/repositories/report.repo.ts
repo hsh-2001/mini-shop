@@ -7,7 +7,8 @@ export const getSalesReport = async (param: ISaleReportRequest) => {
                 gte: param.startDate ? param.startDate : new Date(0),
                 lte: param.endDate ? param.endDate : new Date(),
             },
-            paymentStatus: param.paymentStatus || undefined,
+            paymentStatus: param.paymentStatus ? param.paymentStatus : undefined,
+            status: param.orderStatus ? param.orderStatus : undefined,
         },
         include: {
             customer: {

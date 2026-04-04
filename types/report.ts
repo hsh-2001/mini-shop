@@ -1,7 +1,8 @@
-import { PaymentStatus } from '~~/prisma/generated/enums';
+import { OrderStatus, PaymentStatus } from '~~/prisma/generated/enums';
 export interface ISaleReportRequest {
     shopId: number;
     startDate: string;
     endDate: string;
     paymentStatus: PaymentStatus | "";
+    orderStatus: OrderStatus | "";
 }

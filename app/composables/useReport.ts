@@ -7,6 +7,7 @@ export default function useReport() {
         startDate: new Date(new Date().setHours(0, 0, 0, 0)),
         endDate: new Date(new Date().setHours(23, 59, 59, 999)),
         paymentStatus: "",
+        orderStatus: "",
     })
 
     const salesReport = ref<SaleReportResponse[]>([]);
@@ -14,12 +15,7 @@ export default function useReport() {
     const getReport = async () => {
         isLoading.value = true;
         try {
-            const param = {
-                startDate: filterForm.value.startDate,
-                endDate: filterForm.value.endDate,
-                paymentStatus: filterForm.value.paymentStatus,
-            }
-            const response = await callGetSalesReport(param);
+            const response = await callGetSalesReport(filterForm.value);
             if (response.isSuccess) {
                 console.log("Report data:", response.data);
                 salesReport.value = response.data?.map(item => new SaleReportResponse(item));

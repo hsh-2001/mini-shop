@@ -36,19 +36,13 @@
               />
             </el-form-item>
             <el-form-item :label="$t('Status')" class="w-50 mb-0!">
-              <el-select
-                v-model="form.status"
-                multiple
-                collapse-tags
-                clearable
-                :placeholder="$t('Select status')"
-              >
-                <el-option :label="$t('Pending')" value="PENDING" />
-                <el-option :label="$t('Confirmed')" value="CONFIRMED" />
-                <el-option :label="$t('Preparing')" value="PREPARING" />
-                <el-option :label="$t('Ready')" value="READY" />
-                <el-option :label="$t('Completed')" value="COMPLETED" />
-                <el-option :label="$t('Cancelled')" value="CANCELLED" />
+              <el-select v-model="form.status" multiple collapse-tags clearable>
+                <el-option
+                  v-for="option in orderStatusOptions"
+                  :key="option.value"
+                  :label="$t(option.label)"
+                  :value="option.value"
+                />
               </el-select>
             </el-form-item>
             <el-button
@@ -89,7 +83,12 @@
           <template #default="{ row }">
             <div>
               <p class="font-medium text-slate-900">
-                {{ formatLabel(row.type) }}
+                {{
+                  $t(
+                    customerTypeOptions.find((o) => o.value === row.type)
+                      ?.label || row.type,
+                  )
+                }}
               </p>
               <p class="text-xs text-slate-500">
                 {{ row.orderItems.length }} {{ $t("items") }}
@@ -105,7 +104,13 @@
               </p>
               <p class="text-xs text-slate-500">
                 {{ formatAlternateMoney(Number(row.finalAmount)) }} ·
-                {{ formatLabel(row.paymentMethod) }}
+                {{
+                  $t(
+                    paymentStatusOptions.find(
+                      (o) => o.value === row.paymentMethod,
+                    )?.label || row.paymentMethod,
+                  )
+                }}
               </p>
             </div>
           </template>
@@ -113,7 +118,10 @@
         <el-table-column :label="$t('Status')" min-width="140">
           <template #default="{ row }">
             <el-tag :type="statusTag(row.status)" effect="light" round>{{
-              formatLabel(row.status)
+              $t(
+                orderStatusOptions.find((o) => o.value === row.status)?.label ||
+                  row.status,
+              )
             }}</el-tag>
           </template>
         </el-table-column>
@@ -123,7 +131,13 @@
               :type="paymentTag(row.paymentStatus)"
               effect="light"
               round
-              >{{ formatLabel(row.paymentStatus) }}</el-tag
+              >{{
+                $t(
+                  paymentStatusOptions.find(
+                    (o) => o.value === row.paymentStatus,
+                  )?.label || row.paymentStatus,
+                )
+              }}</el-tag
             >
           </template>
         </el-table-column>
@@ -171,6 +185,11 @@ import type { OrderStatus, PaymentStatus } from "~~/prisma/generated/enums";
 import type { GetOrderSummaryListResponse } from "~/model/order";
 import { formatCurrency } from "~/utils/currencyFormat";
 import { Eye, Sheet } from "@lucide/vue";
+import {
+  customerTypeOptions,
+  orderStatusOptions,
+  paymentStatusOptions,
+} from "~/constants/common";
 const { t } = useI18n();
 
 const props = defineProps<{
@@ -226,63 +245,6 @@ const formatMoney = (amount: number) =>
   formatCurrency(amount, primaryCurrency.value);
 const formatAlternateMoney = (amount: number) =>
   formatCurrency(amount, secondaryCurrency.value);
-
-const formatLabel = (value: string) =>
-  t(
-    {
-      ALL: "All",
-      PENDING: "Pending",
-      CONFIRMED: "Confirmed",
-      PREPARING: "Preparing",
-      READY: "Ready",
-      COMPLETED: "Completed",
-      CANCELLED: "Cancelled",
-      UNPAID: "Unpaid",
-      PAID: "Paid",
-      PARTIALLY_PAID: "Partially paid",
-      REFUNDED: "Refunded",
-      TAKEAWAY: "Takeaway",
-      DELIVERY: "Delivery",
-      IN_STORE: "In store",
-      CASH: "Cash",
-      CARD: "Card",
-      MOBILE_MONEY: "Mobile money",
-      QR_CODE: "QR code",
-      OTHER: "Other",
-    }[value] ?? value,
-  );
-
-const value2 = ref("");
-
-const shortcuts = [
-  {
-    text: "Last week",
-    value: () => {
-      const end = new Date();
-      const start = new Date();
-      start.setDate(start.getDate() - 7);
-      return [start, end];
-    },
-  },
-  {
-    text: "Last month",
-    value: () => {
-      const end = new Date();
-      const start = new Date();
-      start.setMonth(start.getMonth() - 1);
-      return [start, end];
-    },
-  },
-  {
-    text: "Last 3 months",
-    value: () => {
-      const end = new Date();
-      const start = new Date();
-      start.setMonth(start.getMonth() - 3);
-      return [start, end];
-    },
-  },
-];
 </script>
 
 <style scoped></style>
