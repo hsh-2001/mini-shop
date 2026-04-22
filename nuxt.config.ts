@@ -77,5 +77,6 @@ export default defineNuxtConfig({
       cookieKey: 'i18n_redirected',
       alwaysRedirect: false
     }
-  }
+  },
+  ssr: false,
 })

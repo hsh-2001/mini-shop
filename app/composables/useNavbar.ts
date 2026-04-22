@@ -1,4 +1,5 @@
 import { menuItems } from "~/constants/menuItem";
+import { logoutClient } from "~/utils/authSession";
 import type { UserRole } from "~~/prisma/generated/enums";
 
 export default function useNavbar() {
@@ -31,9 +32,7 @@ export default function useNavbar() {
     });
 
     const logOut = async () => {
-        localStorage.clear();
-        useCookie('session_token').value = null;
-        await navigateTo('/login');
+        await logoutClient();
     }
 
     const filterMenuItems = computed(() => {

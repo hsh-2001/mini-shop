@@ -179,6 +179,8 @@ model Order {
   shop          Shop          @relation(fields: [shopId], references: [id], onDelete: Cascade)
   user          User          @relation(fields: [userId], references: [id])
 
+  @@index([shopId, status, paymentStatus, createdOn])
+  @@index([shopId, status, createdOn])
   @@map("orders")
 }
 
