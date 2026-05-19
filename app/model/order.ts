@@ -113,8 +113,9 @@ export interface IOrderSummary {
 }
 
 export interface OrderListQuery {
-    date?: string;
-    status?:  string;
+    dateFrom?: string;
+    dateTo?: string;
+    status?: string;
     paymentStatus?: PaymentStatus;
 }
 

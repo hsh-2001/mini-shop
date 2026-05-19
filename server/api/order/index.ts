@@ -1,3 +1,4 @@
+import type { PaymentStatus } from "~~/prisma/generated/enums";
 import orderService from "~~/server/services/order.service";
 import { getAuthenticatedUser, requireAuthenticatedUser } from "~~/server/services/auth.service";
 import { fail, success } from "~~/types/baseApi"
@@ -29,10 +30,12 @@ export default defineEventHandler(async (event) => {
         }
         if (isMethod(event, "GET")) {
             const user = await requireAuthenticatedUser(event);
-            const { status, date } = getQuery(event);
+            const { status, dateFrom, dateTo, paymentStatus } = getQuery(event);
             const orders = await orderService.findAll(user.shopId, {
                 status: status ? String(status).split(',') : undefined,
-                date: date ? String(date) : undefined,
+                dateFrom: dateFrom ? String(dateFrom) : undefined,
+                dateTo: dateTo ? String(dateTo) : undefined,
+                paymentStatus: paymentStatus ? String(paymentStatus) as PaymentStatus : undefined,
             });
             return success(orders);
         }

@@ -1,9 +1,11 @@
 export default function useNotification() {
-
     const notifications = ref({
-        peddingOrder: 0,
-        peddingPayment: 0,
+        pendingOrder: 0,
+        pendingPayment: 0,
     });
+
+    let intervalId: ReturnType<typeof setInterval> | null = null;
+
     const getNotification = async () => {
         try {
             const response = await callGetNotification();
@@ -11,16 +13,32 @@ export default function useNotification() {
                 notifications.value = response.data;
             }
         } catch (error) {
-            console.error('Fail calling api');
+            console.error('Failed to fetch notifications');
         }
-    }
+    };
 
-    setInterval(() => {
-        getNotification();
-    }, 3000);
+    const startPolling = () => {
+        stopPolling();
+        intervalId = setInterval(() => {
+            getNotification();
+        }, 30000);
+    };
+
+    const stopPolling = () => {
+        if (intervalId !== null) {
+            clearInterval(intervalId);
+            intervalId = null;
+        }
+    };
+
+    onUnmounted(() => {
+        stopPolling();
+    });
 
     return {
         getNotification,
         notifications,
-    }
+        startPolling,
+        stopPolling,
+    };
 }

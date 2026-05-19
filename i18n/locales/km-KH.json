@@ -362,5 +362,15 @@
   "Order_{cartCount}_items)": "ការបញ្ជាទិញ ({cartCount} មុខទំនិញ)",
   "Notifications": "ការជូនដំណឹង",
   "Pending Customer Orders": "ការបញ្ជាទិញរង់ចាំរបស់អតិថិជន",
-  "Pending Customer Payments": "ការទូទាត់រង់ចាំរបស់អតិថិជន"
+  "Pending Customer Payments": "ការទូទាត់រង់ចាំរបស់អតិថិជន",
+  "Pending Orders": "ការបញ្ជាទិញរង់ចាំ",
+  "Unpaid Payments": "ការទូទាត់មិនទាន់បង់",
+  "Awaiting confirmation or preparation": "រង់ចាំការបញ្ជាក់ ឬការរៀបចំ",
+  "Orders not yet paid": "ការបញ្ជាទិញមិនទាន់បង់ប្រាក់",
+  "View All Orders": "មើលការបញ្ជាទិញទាំងអស់",
+  "Date Filter": "តម្រងកាលបរិច្ឆេទ",
+  "All Time": "មិនកំណត់កាលបរិច្ឆេទ",
+  "Custom Period": "ជ្រើសរើសរយៈពេល",
+  "Start date": "កាលបរិច្ឆេទចាប់ផ្តើម",
+  "End date": "កាលបរិច្ឆេទបញ្ចប់"
 }

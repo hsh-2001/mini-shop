@@ -1,20 +1,21 @@
 export const orderNotification = async (shopId: number) => {
-    const peddingOrder = await prisma.order.count({
+    const pendingOrder = await prisma.order.count({
         where: {
             status: "PENDING",
             shopId: shopId,
-        }
+        },
     });
 
-    const peddingPayment = await prisma.order.count({
+    const pendingPayment = await prisma.order.count({
         where: {
             paymentStatus: "UNPAID",
+            status: { not: "CANCELLED" },
             shopId: shopId,
-        }
-    })
+        },
+    });
 
     return {
-        peddingOrder,
-        peddingPayment,
+        pendingOrder,
+        pendingPayment,
     };
 };

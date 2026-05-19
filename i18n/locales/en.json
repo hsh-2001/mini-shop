@@ -284,5 +284,17 @@
   "Member Status": "Member Status",
   "Active": "Active",
   "Inactive": "Inactive",
-  "Order_{cartCount}_items)": "Order ({cartCount} items)"
+  "Order_{cartCount}_items)": "Order ({cartCount} items)",
+  "Pending Customer Orders": "Pending Customer Orders",
+  "Pending Customer Payments": "Pending Customer Payments",
+  "Pending Orders": "Pending Orders",
+  "Unpaid Payments": "Unpaid Payments",
+  "Awaiting confirmation or preparation": "Awaiting confirmation or preparation",
+  "Orders not yet paid": "Orders not yet paid",
+  "View All Orders": "View All Orders",
+  "Date Filter": "Date Filter",
+  "All Time": "All Time",
+  "Custom Period": "Custom Period",
+  "Start date": "Start date",
+  "End date": "End date"
 }

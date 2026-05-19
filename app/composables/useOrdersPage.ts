@@ -13,6 +13,7 @@ const showSuccess = (message: string) => {
 
 export const useOrdersPage = () => {
     const { t } = useI18n();
+    const route = useRoute();
     const orders = ref<GetOrderSummaryListResponse[]>([]);
     const isLoading = ref(true);
     const isSaving = ref(false);
@@ -24,10 +25,14 @@ export const useOrdersPage = () => {
     const selectedOrder = ref<GetOrderSummaryListResponse | null>(null);
     const isDialogOpen = ref(false);
     const filterForm = reactive<{
-        date: string;
+        dateFilterMode: 'ALL' | 'PERIOD';
+        dateFrom: string;
+        dateTo: string;
         status: OrderStatus[];
     }>({
-        date: new Date().toISOString().slice(0, 16),
+        dateFilterMode: 'ALL',
+        dateFrom: '',
+        dateTo: '',
         status: [],
     });
     const shopIdentity = ref<{
@@ -69,17 +74,38 @@ export const useOrdersPage = () => {
         searchKeyword.value = "";
         statusFilter.value = "ALL";
         paymentStatusFilter.value = "ALL";
+        filterForm.dateFilterMode = 'ALL';
+        filterForm.dateFrom = '';
+        filterForm.dateTo = '';
+        filterForm.status = [];
         currentPage.value = 1;
     };
 
     const loadOrders = async () => {
         isLoading.value = true;
         try {
+            const notif = route.query.notif as string | undefined;
+
+            let paymentStatusParam: PaymentStatus | undefined;
+            let statusParam: string | undefined;
+
+            if (notif === "pending") {
+                statusParam = OrderStatus.PENDING;
+                filterForm.status = [OrderStatus.PENDING];
+            } else if (notif === "unpaid") {
+                paymentStatusParam = PaymentStatus.UNPAID;
+                filterForm.status = [];
+            } else {
+                filterForm.status = [];
+            }
+
             const [user, response] = await Promise.all([
                 fetchCurrentUser(),
                 fetchOrders({
-                    date: filterForm.date,
-                    status: filterForm.status.length ? filterForm.status.join(',') : undefined,
+                    dateFrom: filterForm.dateFilterMode === 'PERIOD' && filterForm.dateFrom ? filterForm.dateFrom : undefined,
+                    dateTo: filterForm.dateFilterMode === 'PERIOD' && filterForm.dateTo ? filterForm.dateTo : undefined,
+                    status: statusParam ?? (filterForm.status.length ? filterForm.status.join(',') : undefined),
+                    paymentStatus: paymentStatusParam,
                 }),
             ]);
 
@@ -139,6 +165,10 @@ export const useOrdersPage = () => {
     });
     watch(searchKeyword, () => {
         currentPage.value = 1;
+    });
+
+    watch(() => route.query.notif, () => {
+        loadOrders();
     });
 
     onMounted(loadOrders);

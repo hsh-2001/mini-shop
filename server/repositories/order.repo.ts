@@ -21,7 +21,8 @@ export interface CreateGuestOrderInput {
 
 export interface OrderListQuery {
     status?: string[] | undefined;
-    date?: string | undefined;
+    dateFrom?: string | undefined;
+    dateTo?: string | undefined;
     paymentStatus?: PaymentStatus;
 }
 
@@ -252,10 +253,10 @@ const findAll = async (shopId: number, query?: OrderListQuery) => {
             shopId,
             ...(query?.status && !query.status.includes("ALL") ? { status: { in: query.status.filter((s) => s !== "ALL") as OrderStatus[] } } : {}),
             ...(query?.paymentStatus ? { paymentStatus: query.paymentStatus } : {}),
-            ...(query?.date ? {
+            ...(query?.dateFrom || query?.dateTo ? {
                 createdOn: {
-                    gte: new Date(new Date(query.date).setHours(0, 0, 0, 0)),
-                    lt: new Date(new Date(query.date).setHours(24, 0, 0, 0)),
+                    ...(query.dateFrom ? { gte: new Date(new Date(query.dateFrom).setHours(0, 0, 0, 0)) } : {}),
+                    ...(query.dateTo ? { lte: new Date(new Date(query.dateTo).setHours(23, 59, 59, 999)) } : {}),
                 },
             } : {}),
         },

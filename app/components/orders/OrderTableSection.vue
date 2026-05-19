@@ -18,15 +18,23 @@
       </div>
       <ClientOnly>
         <div v-if="filterForm" class="w-full bg-primary/10 p-2 mt-2 rounded-md">
-          <el-form :model="form" class="w-full flex flex-wrap gap-2">
-            <el-form-item :label="$t('Filter date')" class="w-64 mb-0!">
+          <el-form :model="form" class="w-full flex flex-wrap gap-2 items-end">
+            <el-form-item :label="$t('Date Filter')" class="mb-0!">
+              <el-radio-group v-model="form.dateFilterMode" size="default">
+                <el-radio-button value="ALL">{{ $t('All Time') }}</el-radio-button>
+                <el-radio-button value="PERIOD">{{ $t('Custom Period') }}</el-radio-button>
+              </el-radio-group>
+            </el-form-item>
+            <el-form-item v-if="form.dateFilterMode === 'PERIOD'" class="w-80 mb-0!">
               <el-date-picker
-                v-model="form.date"
-                type="date"
-                :placeholder="$t('Select date')"
+                v-model="dateRange"
+                type="daterange"
+                range-separator="—"
+                :start-placeholder="$t('Start date')"
+                :end-placeholder="$t('End date')"
                 :format="'YYYY-MM-DD'"
                 :value-format="'YYYY-MM-DD'"
-                class="w-50!"
+                class="w-full!"
                 :disabled-date="
                   (date: Date) => {
                     const today = new Date();
@@ -48,7 +56,7 @@
             <el-button
               type="primary"
               @click="$emit('search')"
-              class="self-end mb-0!"
+              class="mb-0!"
             >
               {{ $t("Search") }}
             </el-button>
@@ -199,7 +207,9 @@ const props = defineProps<{
   pageSize: number;
   isDownloading: boolean;
   filterForm: {
-    date: string | Date;
+    dateFilterMode: 'ALL' | 'PERIOD';
+    dateFrom: string;
+    dateTo: string;
     status: OrderStatus[];
   };
 }>();
@@ -209,13 +219,42 @@ const emit = defineEmits<{
   (event: "update:pageSize", value: number): void;
   (event: "view", value: GetOrderSummaryListResponse): void;
   (event: "export"): void;
-  (event: "update:filterForm", value: { date: string | Date }): void;
+  (event: "update:filterForm", value: { dateFilterMode: 'ALL' | 'PERIOD'; dateFrom: string; dateTo: string }): void;
   (event: "search"): void;
 }>();
 
 const form = computed({
   get: () => props.filterForm,
-  set: (value) => emit("update:filterForm", value ?? { date: null }),
+  set: (value) => emit("update:filterForm", value ?? { dateFilterMode: 'ALL', dateFrom: '', dateTo: '' }),
+});
+
+const dateRange = ref<[string, string] | null>(
+  props.filterForm.dateFrom && props.filterForm.dateTo
+    ? [props.filterForm.dateFrom, props.filterForm.dateTo]
+    : null,
+);
+
+watch(
+  () => [props.filterForm.dateFrom, props.filterForm.dateTo],
+  ([from, to]) => {
+    dateRange.value = from && to ? [from, to] : null;
+  },
+);
+
+watch(dateRange, (val) => {
+  if (val && val.length === 2) {
+    emit("update:filterForm", {
+      ...props.filterForm,
+      dateFrom: val[0],
+      dateTo: val[1],
+    });
+  } else {
+    emit("update:filterForm", {
+      ...props.filterForm,
+      dateFrom: '',
+      dateTo: '',
+    });
+  }
 });
 
 const statusTag = (status: OrderStatus) => {
